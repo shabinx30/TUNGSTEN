@@ -15,11 +15,11 @@ const publicPath = path.join(__dirname, "public");
 app.use(express.static(publicPath));
 
 //user route
-const userRoute = require("../TUNGSTEN/routes/userRoute");
+const userRoute = require("./routes/userRoute");
 app.use("/", userRoute);
 
 //admin route
-const adminRoute = require("../TUNGSTEN/routes/adminRoute");
+const adminRoute = require("./routes/adminRoute");
 app.use("/admin", adminRoute);
 
 
@@ -27,7 +27,7 @@ app.set('views','./views/users')
 app.set('view engine','ejs')
 
 //page not found error
-app.get("*", (req, res) => {
+app.get("*", (_, res) => {
   res.render('404page')
 });
 
