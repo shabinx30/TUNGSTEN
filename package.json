@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev" : "nodemon index.js"
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -31,5 +31,8 @@
     "passport-google-oauth2": "^0.2.0",
     "path": "^0.12.7",
     "razorpay": "^2.9.4"
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
