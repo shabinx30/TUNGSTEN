@@ -1,0 +1,59 @@
+<%- include('../layouts/adminHeader.ejs') %>
+<style>
+    body{
+        overflow: hidden;
+        background-color: black;
+        animation: .5s ease 3s 1 whiteBg;
+    }
+
+    @keyframes whiteBg{
+        0%{
+            background-color: black;
+        }
+        100%{
+            background-color: white;
+        }
+    }
+
+    .text{
+        color: white; 
+        transform: scale(1);
+        margin-top: 25%; 
+        text-align: center; 
+        font-family: 'Courier New', Courier, monospace;
+        animation: .5s ease 3s 1 zoomIn;
+    }
+
+    @keyframes zoomIn{
+        0% {
+            opacity: 1;
+            transform: scale(1)
+        }
+        17.5%{
+            transform: scale(.75);
+        }
+        100% {
+            opacity: 0;
+            transform: scale(50)
+        }
+    }
+
+</style>
+<div>
+    <h2 class="text" id="last">404 page not found<span style="color: red;"> !!</span></h2>
+</div>
+<script>
+    let current = window.location.href
+    let last = document.getElementById('last')
+    setTimeout(()=>{
+        // if(current.includes('/admin')){
+        //     window.location.href = "/admin"
+        // }else{
+        //     window.location.href = "/"
+        // }
+        last.style.transform = 'scale(50)'
+        document.body.style.backgroundColor = 'white';
+        history.back()
+    },3500)
+</script>
+<%- include('../layouts/adminFooter.ejs') %>

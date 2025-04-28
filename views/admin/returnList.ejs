@@ -1,0 +1,320 @@
+<%-include('../layouts/adminHeader.ejs')%>
+<%-include('../layouts/adminSidebar.ejs')%>
+
+<style>
+  .purple-header-box {
+    background-color: #936dd1; /* Purple color */
+    color: #ffffff; /* White text color */
+    padding: 15px; /* Adjust padding as needed */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    margin-bottom: 20px; /* Optional: Add space below the box */
+    text-align: center;
+  }
+  .search-bar {
+    margin-bottom: 10px; /* Adjust spacing between search bar and heading */
+  }
+  .purple-button {
+    background-color: #936dd1;
+    color: white; /* text color */
+    border: 1px solid #00000000; /* black border */
+    border-radius: 10px; /* slight curve */
+    padding: 10px 20px; /* adjust padding as needed */
+    font-size: 16px; /* adjust font size as needed */
+    cursor: pointer; /* cursor style */
+    /* You can add additional styling as needed */
+  }
+  .search-btn {
+    width: 100px; /* Adjust the width of the button as needed */
+    height: 40px; /* Adjust the height of the button as needed */
+    border: 2px solid #000; /* Black border */
+    border-radius: 2px; /* Make it round */
+    background-color: #936dd1; /* Black background */
+    color: #050404; /* White text color */
+    font-size: 14px; /* Adjust font size */
+    padding: 0; /* Remove padding */
+  }
+
+  .search-btn::after {
+    display: inline-block;
+    margin-left: 0.3rem; /* Adjust spacing between button and text */
+  }
+  .search-bar {
+    width: calc(100% - 80px); /* Adjust the width of the search bar */
+    margin-right: 10px; /* Adjust spacing between search bar and button */
+  }
+  .custom-table-header {
+    background-color: grey;
+    color: black;
+    width: 100%;
+  }
+  .red-button {
+    color: #9f0000;
+    background-color: #ff9797;
+    border-radius: 10px;
+  }
+  .red-button:hover {
+    color: #9f0000;
+    background-color: #ff6969;
+  }
+  .green-button {
+    color: #009f18;
+    background-color: #a2ff97;
+    border-radius: 10px;
+  }
+  .green-button:hover {
+    color: #009f18;
+    background-color: #68ff58;
+  }
+  .delete-button {
+    color: #ff0000;
+    background-color: #525252;
+    border-radius: 10px;
+  }
+  .delete-button:hover {
+    color: #ff0000;
+    background-color: #000;
+  }
+  .edit-button {
+    color: blue;
+    background-color: #a1a1ff;
+    border-radius: 10px;
+  }
+  .edit-button:hover {
+    color: blue;
+    background-color: #7b7bff;
+  }
+</style>
+
+<div class="page-wrapper">
+  <!-- ============================================================== -->
+  <!-- Container fluid  -->
+  <!-- ============================================================== -->
+  <div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="" style="width: 100%">
+              <!-- Added div with custom class -->
+              <h2 class="card-title text-center mb-5">RETURN HISTORY</h2>
+              <p class="text-center">Showing <strong style="color: #000;"><%= returnData.length %></strong> of <strong style="color: #000;"><%= returnData.length %></strong></p>
+            </div>
+            <% if (locals.success) { %>
+            <div
+              class="alert text-center"
+              role="alert"
+              style="color: green; background: white"
+            >
+              <%= locals.success %>
+            </div>
+            <% } %>
+
+            <div class="table-responsive" style="border-radius: 20px">
+              <table class="table">
+                <thead>
+                  <tr style="width: 100%; background-color: #936dd1; color: #000">
+                    <th scope="col">NO.</th>
+                    <th scope="col">Order Id</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Order Date</th>
+                    <th scope="col">Return Date</th>
+                    <th scope="col">Payment method</th>
+                    <th scope="col">More Options</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if (returnData.length > 0) { %>
+                    <% let index = page*5 %>
+                    <% returnData.forEach((value) => { %>
+                      <tr>
+                        <td><%= ++index %></td>
+                        <td><%= value.orderId %></td>
+                        <td><%= value.userName %></td>
+                        <td><%= value.purchasedDate %></td>
+                        <td><%= value.returnedDate %></td>
+                        <td><%= value.paymentMethod %></td>
+                        <td>
+                          <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-<%= index %>">
+                            <span class="btn ml-3 edit-button">View</span>
+                          </a>
+                        </td>
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal-<%= index %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content p-4" style="border-radius: 20px;">
+                              <div class="modal-header">
+                                <h2 class="modal-title" id="exampleModalLongTitle" style="color: #000;">Return Details</h2>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body pl-3 pr-3">
+                                <p class="mb-3"><strong style="color: black;">Order Id: </strong><%= value.orderId %> </p>
+                                  <div class="row">
+                                    <img class="mb-2" src="/productImages/<%= value.orderedProducts.productId.images[0] %>" alt="no image" style="width: 50px; height: 50px; border-radius: 5px; border: 1px solid black;">
+                                    <div class="d-block ml-3">
+                                      <p><strong style="color: black;">Name: </strong><%= value.orderedProducts.productId.name %> <br>
+                                        <strong style="color: black;">Price: </strong><%= value.orderedProducts.productId.price %> <br>
+                                        <strong style="color: black;">Quantity: </strong><%= value.orderedProducts.quantity %> <strong class="ml-4" style="color: #000;">Status:</strong>
+                                        <select class="btn" id="<%= value.orderedProducts._id %>" style="background-color: #7b7bff; border-radius: 10px; color: #000;" onchange="ProductStatus(event,'<%= value.orderedProducts._id %>')">
+                                          <% if (value.orderedProducts.status == 'placed') { %>
+                                            <option value="placed" hidden>Placed</option>
+                                            <option value="shipped">Shipped</option>
+                                            <option value="delivered">Delivered</option>
+                                            <option value="cancelled">Cancelled</option>
+                                          <% } else if (value.orderedProducts.status == 'shipped') { %>
+                                            <option value="shipped" hidden>Shipped</option>
+                                            <option value="placed">Placed</option>
+                                            <option value="delivered">Delivered</option>
+                                            <option value="cancelled">Cancelled</option>
+                                          <% } else if (value.orderedProducts.status == 'delivered') { %>
+                                            <option value="delivered" hidden>Delivered</option>
+                                            <!-- <option value="placed">Placed</option>
+                                            <option value="shipped">Shipped</option>
+                                            <option value="cancelled">Cancelled</option> -->
+                                          <% } else if (value.orderedProducts.status == 'cancelled') { %>
+                                            <option value="cancelled" hidden>Cancelled</option>
+                                            <option value="placed">Placed</option>
+                                            <option value="shipped">Shipped</option>
+                                            <option value="delivered">Delivered</option>
+                                          <% }else if(value.orderedProducts.status == 'pending') {%>
+                                            <option value="pending" hidden>Pending</option>
+                                            <option value="placed">Placed</option>
+                                            <option value="shipped">Shipped</option>
+                                            <option value="delivered">Delivered</option>
+                                          <% } %>
+                                        </select>                                        
+                                      </p>
+                                    </div>
+                                  </div>
+                                <h3 class="mt-3" style="color: #000;">Address</h3>
+                                <p><strong style="color: #000;">First name: </strong><%= value.shipAddress.first_name %> <strong style="color: #000;">Last name: </strong><%= value.shipAddress.last_name %> <br>
+                                  <strong style="color: #000;">Country: </strong><%= value.shipAddress.contry %> <strong style="color: #000;">Street name: </strong><%= value.shipAddress.street_name %> <br>
+                                  <strong style="color: #000;">Town: </strong><%= value.shipAddress.town %> <strong style="color: #000;">State: </strong><%= value.shipAddress.state %> <br>
+                                  <strong style="color: #000;">Postcode: </strong><%= value.shipAddress.postcode %> <strong style="color: #000;">Phone number: </strong><%= value.shipAddress.phone_number %> <br>
+                                  <strong style="color: #000;">Email: </strong><%= value.shipAddress.email %> 
+                                </p>
+                                <p class="mt-4"><strong style="color: #000;">Order Date: </strong><%= value.purchasedDate %></p>
+                                <p ><strong style="color: #000;">Return Date: </strong><%= value.returnedDate %></p>
+                              </div>
+                              <div class="modal-footer mx-auto">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" style="border-radius: 10px;">
+                                  <span>Close</span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </tr>
+                    <% }) %>
+                  <% } else { %>
+                    <tr>
+                      <td colspan="6">No orders found</td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+
+              <div class="d-flex mt-3" style="justify-content: center; align-items: center;">
+                <!-- back button in pagination -->
+                <% if(page>0){ %>
+                    <div class="mr-3" onclick="window.location.href='?page=<%= page-1 %>'" style="border: 1px solid #d4d4d4; width: 80px; height: 30px; background-color: #ffffff; border-radius: 7.5px; cursor: pointer;">
+                        <p style="padding-left: 7px;">Previous</p>
+                    </div>
+                    <p class="mr-3" style="cursor: default;">...</p>
+                <% } %>
+
+                <!-- number in pagination -->
+                <div  onclick="window.location.href='?page=<%= page %>'" style="border: 1px solid #b0b0b0; width: 25px; height: 30px; background-color: #c7c7c7; border-radius: 7.5px; cursor: default;">
+                    <p style="padding-left: 7px;"><%= page+1 %></p>
+                </div>
+                
+                <!-- next button in pagination -->
+                <% if(page>=0&&page<(orderCount/10)-1){ %>
+                    <p class="ml-3" style="cursor: default;">...</p>
+                    <div class="ml-3" onclick="window.location.href='?page=<%= page+1 %>'" style="border: 1px solid #d4d4d4; width: 50px; height: 30px; background-color: #ffffff; border-radius: 7.5px; cursor: pointer;">
+                        <p style="padding-left: 8px;">Next</p>
+                    </div>
+                <% } %>
+
+            </div>
+            
+              <% if (locals.errmsg) { %>
+                <div class="alert text-center" role="alert" style="color: blueviolet; background: white">
+                  <%= locals.errmsg %>
+                </div>
+              <% } %>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+  </div>
+</div>
+
+<script>
+  function confirmAction(categoryId) {
+    let categoryBtn = document.getElementById(`status-button-${categoryId}`);
+    console.log(categoryBtn);
+
+    fetch(`/admin/categoryStatus?categoryId=${categoryId}`, {
+      method: "GET",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Response is working:", data.is_listed);
+
+        if (data.is_listed == false) {
+          console.log("heyyyyy");
+          categoryBtn.innerText = "Unlist";
+          categoryBtn.className = "btn ml-3 red-button";
+          categoryBtn.style.backgroundColor = "#ff9797";
+          categoryBtn.style.color = "#9f0000";
+        } else {
+          console.log("haaaaaiiiiiii");
+          categoryBtn.innerText = "List";
+          categoryBtn.className = "btn ml-3 green-button";
+          categoryBtn.style.backgroundColor = "#a2ff97";
+          categoryBtn.style.color = "#009f18";
+        }
+      })
+      .catch((error) => {
+        console.error("There was a problem with the fetch operation:", error);
+      });
+  }
+</script>
+
+
+<!-- //.............status................ -->
+<script>
+  function ProductStatus(event,productId){
+    console.log(event.target.value);
+    axios.post('/admin/productStatus', {
+      status: event.target.value,
+      productId,
+      returned: true
+    })
+    .then(response => {
+      window.location.reload()
+    })
+    .catch(error => {
+      console.error('Error posting data:', error);
+    });
+  }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<%-include('../layouts/adminFooter.ejs')%>

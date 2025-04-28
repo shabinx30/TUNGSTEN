@@ -1,0 +1,258 @@
+<%- include('../layouts/adminHeader.ejs') %>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;	
+        font-family: Raleway, sans-serif;
+    }
+
+    body {
+        background: #E9E7FF;
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+
+    .screen {		
+        background: white;		
+        position: relative;	
+        height: 480px;
+        width: 400px;
+        border-radius: 20px;
+    }
+
+    .screen__content {
+        z-index: 1;
+        position: relative;	
+        height: 100%;
+    }
+
+    .screen__background {		
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 0;
+        -webkit-clip-path: inset(0 0 0 0);
+        clip-path: inset(0 0 0 0);	
+    }
+
+    .screen__background__shape {
+        transform: rotate(45deg);
+        position: absolute;
+    }
+
+    .screen__background__shape1 {
+        height: 520px;
+        width: 520px;
+        background: #FFF;	
+        top: -50px;
+        right: 120px;	
+        border-radius: 0 72px 0 0;
+    }
+
+    .screen__background__shape2 {
+        height: 220px;
+        width: 220px;
+        background: #6C63AC;	
+        top: -172px;
+        right: 0;	
+        border-radius: 32px;
+    }
+
+    .screen__background__shape3 {
+        height: 540px;
+        width: 190px;
+        background: linear-gradient(270deg, #5D54A4, #6A679E);
+        top: -24px;
+        right: 0;	
+        border-radius: 32px;
+    }
+
+    .screen__background__shape4 {
+        height: 400px;
+        width: 200px;
+        background: #7E7BB9;	
+        top: 420px;
+        right: 50px;	
+        border-radius: 60px;
+    }
+
+    .admin_login {
+        width: 320px;
+        padding: 30px;
+        padding-top: 100px;
+    }
+
+    .admin_login__field {
+        padding: 20px 0px;	
+        position: relative;	
+    }
+
+    .admin_login__icon {
+        position: absolute;
+        top: 30px;
+        color: #7875B5;
+    }
+
+    .admin_login__input {
+        border: none;
+        border-bottom: 2px solid #D1D1D4;
+        background: none;
+        padding: 10px;
+        padding-left: 24px;
+        font-weight: 700;
+        width: 75%;
+        transition: .2s;
+    }
+
+    .admin_login__input:active,
+    .admin_login__input:focus,
+    .admin_login__input:hover {
+        outline: none;
+        border-bottom-color: #6A679E;
+    }
+
+    .admin_login__submit {
+        background: #a68bff;
+        font-size: 18px;
+        margin-top: 50px;
+        padding: 16px 20px;
+        border-radius: 20px;
+        border:#a68bff;
+        text-transform: uppercase;
+        font-weight: 700;
+        display: flex;
+        width: 100%;
+        color: #000000;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .admin_login__submit:active,
+    .admin_login__submit:focus,
+    .admin_login__submit:hover {
+        border-color: #6A679E;
+        outline: none;
+    }
+
+    
+
+    .admin_login-signup {	
+        position: absolute;
+        padding: 50px;
+        height: 140px;
+        width: 160px;
+        text-align: center;
+        bottom: 0px;
+        right: 0px;
+        color: #fff;
+    }
+
+    /* incorrect password */
+
+    @keyframes slideInFromLeft {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5%);
+    }
+    50% {
+        transform: translateX(5%);
+    }
+    75% {
+        transform: translateX(-5%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+  }
+  
+  .smo {  
+    /* This section calls the slideInFromLeft animation we defined above */
+    animation: .25s ease 0s 2 slideInFromLeft;
+    border-radius: 5px;
+    color: #db0000;
+    background-color: #ffbebe;
+  }
+
+
+</style>
+
+<div class="container">
+	<div class="screen">
+		<div class="screen__content">
+			<form id="form" class="admin_login" method="post" action="/admin">
+                <h2 style="color: #000000;">Admin Login</h2>
+                <div class="admin_login__field">
+					<i class="admin_login__icon fas fa-user"></i>
+					<input type="email" name="email" id="email" class="admin_login__input" placeholder="Email">
+				</div>
+				<div class="admin_login__field">
+					<i class="admin_login__icon fas fa-lock"></i>
+					<input type="password" name="password" id="password_input" class="admin_login__input" placeholder="Password">
+				</div>
+                <% if(locals.message){ %>
+                    <div id="error" class="smo text-center">
+                        <%= message %>
+                    </div>
+                <% } %>
+				<button class="button admin_login__submit">
+					<span class="button__text">Log In</span>
+				</button>				
+			</form>
+		</div>
+		<div class="screen__background">
+		</div>		
+	</div>
+</div>
+<%- include('../layouts/adminFooter.ejs') %>
+
+<script>
+    form.addEventListener('submit', function(event) {
+    let emailInput = document.getElementById('email').value.trim();
+    let passwordInput = document.getElementById('password_input').value.trim();
+
+
+    let emailError = document.getElementById('error');
+    if (emailInput === '') {
+        emailError.textContent = 'Please enter an email address.';
+        event.preventDefault(); // Prevent form submission if validation fails
+        return;
+    } else {
+        emailError.textContent = '';
+    }
+
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailInput)) {
+        emailError.textContent = 'Please enter a valid email address.';
+        event.preventDefault(); // Prevent form submission if validation fails
+        return;
+    } else {
+        emailError.textContent = '';
+    }
+
+    let passwordError = document.getElementById('error');
+    if (passwordInput === '') {
+        passwordError.textContent = 'Please enter a password.';
+        event.preventDefault(); // Prevent form submission if validation fails
+        return;
+    } else if (passwordInput.length < 4) {
+        passwordError.textContent = 'Password must be at least 8 characters long.';
+        event.preventDefault(); // Prevent form submission if validation fails
+        return;
+    } else {
+        passwordError.textContent = '';
+    }
+
+});
+</script>

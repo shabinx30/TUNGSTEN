@@ -1,0 +1,702 @@
+<%- include('../layouts/header.ejs') %>
+<div id="preLoader" class="centerImage" style="width: 100%; height: 100vh; padding-top: 35vh; background-color: #000000;">
+    <img class="img-fluid" style="width: 20%; display: block; margin-left: auto;margin-right: auto;" src="animation/preloading_animation.gif">
+</div>
+
+
+<script>
+    let loader = document.getElementById("preLoader")
+    window.addEventListener("load", function () {
+        let nav = document.getElementById('head_nav')
+        loader.style.display = "none";
+        nav.className = "header smol"
+    })
+</script>
+
+
+    <div class="page-wrapper">
+        <header class="header" id="head_nav">
+            <div class="header-bottom sticky-header">
+                <style>
+
+
+                    /* for logout */
+              @keyframes slideInFromLeft1 {
+                  0% {
+                    transform: translateY(-100%);
+                    opacity: 0;
+                  }
+                  100% {
+                      transform: translateY(0);
+                      opacity: 1;
+                  }
+                }
+                
+                .smol {  
+                  /* This section calls the slideInFromLeft animation we defined above */
+                  animation: .3s ease 0s 1 slideInFromLeft1;
+                }
+              </style>
+            <div class="container">
+                <div class="header-left">
+                    <button class="mobile-menu-toggler">
+                        <span class="sr-only">Toggle mobile menu</span>
+                        <i class="icon-bars"></i>
+                    </button>
+                    
+                    <a href="/home" class="logo">
+                        <!-- <img src="assets/images/demos/demo-8/logo.png" alt="Molla Logo" width="82" height="20"> -->
+                        <h3 style="margin-top: auto; margin-bottom: auto;">TUNGSTEN</h3>
+                    </a>
+                </div>
+                <div class="header-center mx-auto">
+                    <nav class="main-nav">
+                        <ul class="menu sf-arrows">
+                            <li class="megamenu-container">
+                                <a href="/home" >Home</a>
+
+                            </li>
+                            <li class="active">
+                                <a >Shop</a>
+
+                            </li>
+                            <!-- <li>
+                                <a href="/category">Category</a>
+
+                            </li> -->
+                            <li>
+                                <a href="/about" >About Us</a>
+
+                            </li>
+                            <li>
+                                <a href="/contact" >Contact Us</a>
+
+                            </li>
+                            <li>
+                                <a href="/blog" >Blog</a>
+
+                            </li>
+                        </ul><!-- End .menu -->
+                    </nav><!-- End .main-nav -->
+                </div><!-- End .header-left -->
+
+                <div class="header-right">
+                    <div class="header-search">
+                        <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                        <form action="/searchProducts" method="get">
+                            <div class="header-search-wrapper">
+                                <label for="q" class="sr-only">Search</label>
+                                <input type="search" class="form-control" name="searchString" id="q" placeholder="Search in..." required>
+                            </div><!-- End .header-search-wrapper -->
+                            <input type="hidden" value="<%= categorySelected %>" name="categorySelected">
+                            <input type="hidden" value="<%= sortSelected %>" name="sortSelected">
+                        </form>
+                    </div><!-- End .header-search -->                    
+
+                    <a href="/wishlist" class="wishlist-link">
+                        <i class="icon-heart-o"></i>
+                        <span class="wishlist-count" id="wishCount"><%= wishlistCount %></span>
+                    </a>
+
+                    <div class="dropdown cart-dropdown">
+                        <a href="/cart" class="dropdown-toggle" >
+                            <i class="icon-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount"><%= cartCount %></span>
+                        </a>
+
+                        <!-- dropdown -->
+
+                    </div><!-- End .cart-dropdown -->
+                    <div class="dropdown cart-dropdown">
+                        <a href="/userDashboard" class="dropdown-toggle" >
+                            <i class="fa-regular fa-user" style="font-size: x-large;"></i>
+                        </a>
+
+                        <!-- dropdown -->
+
+                    </div>
+                </div><!-- End .header-right -->
+            </div><!-- End .container -->
+        </div><!-- End .header-bottom -->
+    </header><!-- End .header -->
+
+    <main class="main">
+        
+        <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item"><a >Shop</a></li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <div class="page-content">
+            <div class="container">
+                <div class="toolbox">
+                    <div class="toolbox-left">
+                        <a href="#" class="sidebar-toggler"><i class="icon-bars"></i>Filters</a>
+                    </div><!-- End .toolbox-left -->
+
+                    <div class="toolbox-center">
+                        <div class="toolbox-info">
+                            Showing <span><%= products.length %> of <%= productCount %></span> Products
+                        </div><!-- End .toolbox-info -->
+                    </div><!-- End .toolbox-center -->
+
+                    <div class="toolbox-right" >
+                        <div class="toolbox-sort" >
+                            <!-- <label for="sortby">Sort by:</label> -->
+                            <!-- <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" style="border-radius: 10px;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  sort:
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <a class="dropdown-item" href="/shop"><p>none</p></a>
+                                  <a class="dropdown-item" href="/shop?type=1"><p>Price: low-high</p></a>
+                                  <a class="dropdown-item" href="/shop?type=-1"><p>Price: high-low</p></a>
+                                  <a class="dropdown-item" href="/shop?type=a"><p>Name: aA-zZ</p></a>
+                                  <a class="dropdown-item" href="/shop?type=z"><p>Name: zZ-aA</p></a>
+                                </div>
+                            </div> -->
+                        </div><!-- End .toolbox-sort -->
+                    </div><!-- End .toolbox-right -->
+                </div><!-- End .toolbox -->
+
+                <div class="products">
+
+                    <div class="row">
+
+                        <% if(products.length>0) { %>
+                            <% products.forEach(product => {  %>
+                        <div class="col-6 col-md-4 col-lg-4 col-xl-3" >
+                            <div class="product" style="border-radius: 10px; border: 1px solid #d4d4d4;">
+
+                                <% let quantity = 0 %>
+                                <% Object.values(product.quantity).forEach(function(q) { %>
+                                    <% if(q!=0) {%>
+                                        <% quantity++ %>
+                                    <% } %>
+                                <% }); %>
+
+                                <figure class="product-media">
+                                    <% if(quantity==0){ %>
+                                        <span class="product-label label-sale" style="border-radius: 7px;">Out of stock</span>
+                                    <% }else if(product.offer>0){ %>
+                                        <span class="product-label label-new" style="border-radius: 7px;"><%= product.offer %>% off</span>
+                                    <% } %>
+
+                                    <a href="/product?productDetails=<%= product._id %>">
+                                        <% if(quantity == 0) {%>
+                                            <img src="/productImages/<%= product.images[0] %>" alt="Product image" class="product-image" style="filter: saturate(0); object-fit: cover;max-height:280px;">
+                                        <% }else{ %>
+                                            <img src="/productImages/<%= product.images[0] %>" alt="Product image" class="product-image" style="object-fit: cover;max-height:280px;">
+                                        <% } %>
+                                    </a>
+
+                                    <div class="product-action-vertical" onclick="addToWishlist('<%= product._id %>')" style="cursor: pointer;">
+                                        <a class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                    </div><!-- End .product-action -->
+
+                                    <div class="product-action action-icon-top">
+                                        <a  onclick="addToCart('<%= product._id %>')" class="btn-product btn-cart" style="cursor: pointer;"><span>add to cart</span></a>
+                                        <!-- <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a> -->
+                                        <!-- <a href="#" class="btn-product btn-compare" title="Compare"><span>compare</span></a> -->
+                                    </div><!-- End .product-action -->
+                                </figure><!-- End .product-media -->
+
+                                <div class="product-body">
+                                    <div class="product-cat">
+                                        <a href="#"><%= product.categoryName.name %></a>
+                                    </div><!-- End .product-cat -->
+                                    <h3 class="product-title"><a href="/product"><%= product.name %></a></h3><!-- End .product-title -->
+
+                                    <div class="product-price">
+                                        <% if(product.offer>0) {%>
+                                            <span class="new-price">₹<%= product.finalPrice %></span>
+                                            <span class="old-price">₹<%= product.price %></span>
+                                        <%}else{%>
+                                            ₹<%= product.price %>
+                                        <%}%>
+                                    </div>
+
+                                    <!-- <div class="ratings-container"> -->
+                                        <!-- <div class="ratings"> -->
+                                            <!-- <div class="ratings-val" style="width: 0%;"></div>End .ratings-val -->
+                                        <!-- </div>End .ratings -->
+                                        <!-- <span class="ratings-text">( 0 Reviews )</span>
+                                    </div>End .rating-container -->
+
+                                    <!-- <div class="product-nav product-nav-dots">
+                                        <a href="#" style="background: #cc9966;"><span class="sr-only">Color name</span></a>
+                                        <a href="#" class="active" style="background: #ebebeb;"><span class="sr-only">Color name</span></a>
+                                    </div>End .product-nav -->
+                                </div><!-- End .product-body -->
+                            </div><!-- End .product -->
+                        </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
+
+
+                        <% }); %>
+
+                        <% }else{ %>
+                            <p>No products avilable</p>
+                        <% }%>
+                    </div><!-- End .row -->
+
+
+                    <div class="d-flex mt-3" style="justify-content: center; align-items: center;">
+                        <!-- back button in pagination -->
+                        <% if(page>0){ %>
+                            <div class="mr-3" onclick="pagination('<%= page-1 %>')" style="border: 1px solid #d4d4d4; width: 70px; height: 30px; background-color: #ffffff; border-radius: 7.5px; cursor: pointer;">
+                                <p style="padding-left: 7px;">Previous</p>
+                            </div>
+                            <p class="mr-3" style="cursor: default;">...</p>
+                        <% } %>
+
+                        <!-- number in pagination -->
+                        <div  onclick="pagination('<%= page %>')" style="border: 1px solid #b0b0b0; width: 25px; height: 30px; background-color: #c7c7c7; border-radius: 7.5px; cursor: default;">
+                            <p style="padding-left: 7px;"><%= page+1 %></p>
+                        </div>
+                        
+                        <!-- next button in pagination -->
+                        <% if(page>=0&&page<(productCount/4)-1){ %>
+                            <p class="ml-3" style="cursor: default;">...</p>
+                            <div class="ml-3" onclick="pagination('<%= page+1 %>')" style="border: 1px solid #d4d4d4; width: 50px; height: 30px; background-color: #ffffff; border-radius: 7.5px; cursor: pointer;">
+                                <p style="padding-left: 7px;">Next</p>
+                            </div>
+                        <% } %>
+
+                    </div>
+                    <!-- <div class="load-more-container text-center">
+                        <a href="#" class="btn btn-outline-darker btn-load-more" style="border-radius: 10px;">More Products <i class="icon-refresh"></i></a>
+                    </div>End .load-more-container -->
+                </div><!-- End .products -->
+
+                <div class="sidebar-filter-overlay" id="FilterOverlay"></div><!-- End .sidebar-filter-overlay -->
+<aside class="sidebar-shop sidebar-filter">
+    <div class="sidebar-filter-wrapper">
+        <form id="filterForm" action="/filterProducts" method="get">
+            <input type="hidden" value="<%= searchString %>" name="searchString" id="searchString">
+            <div class="widget widget-clean">
+                <label><i class="icon-close" onclick="closeFilter()" style="cursor: pointer;"></i>Filters</label>
+                <script>
+                    function closeFilter() {
+                        document.getElementById('FilterOverlay').click();
+                    }
+                    function clearAll(){
+                        setTimeout(()=>{
+                            document.getElementById('cat-1').click()
+                        },100)
+                        setTimeout(()=>{
+                            document.getElementById('sort-1').click()
+                        },200)
+                    }
+                </script>
+                <a onclick="clearAll()" class="sidebar-filter-clear" style="cursor: pointer;color: #ff8f67;">Clean All</a>
+            </div><!-- End .widget -->
+            <div class="widget widget-collapsible">
+                <h3 class="widget-title">
+                    <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1">
+                        Category
+                    </a>
+                </h3><!-- End .widget-title -->
+
+
+                <div class="collapse show" id="widget-1">
+                    <div class="widget-body">
+                        <div class="filter-items filter-items-count">
+                            <div class="filter-item">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="cat-1" name="categorySelected" value="All" <%= categorySelected=='All' ? 'checked' : '' %> >
+                                    <label class="custom-control-label" for="cat-1">All</label>
+                                </div><!-- End .custom-radio -->
+                                <!-- <span class="item-count">3</span> -->
+                            </div><!-- End .filter-item -->
+                            
+                            <% if(categoryData.length > 0){ %>
+                                <% categoryData.forEach((val)=>{ %>
+                                    <div class="filter-item">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" class="custom-control-input" id="cat-<%= val._id %>" name="categorySelected" value="<%= val._id %>" <%= categorySelected == val._id ? 'checked' : '' %> >
+                                            <label class="custom-control-label" for="cat-<%= val._id %>"><%= val.name %></label>
+                                        </div><!-- End .custom-radio -->
+                                        <!-- <span class="item-count">0</span> -->
+                                    </div><!-- End .filter-item -->
+                                <% }) %> 
+                            <% } else { %>
+                                <p>No Categories found.</p>
+                            <% } %>                            
+                            
+                        </div><!-- End .filter-items -->
+                    </div><!-- End .widget-body -->
+                </div><!-- End .collapse -->
+
+
+                <h3 class="widget-title">
+                    <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-2">
+                        Sort
+                    </a>
+                </h3><!-- End .widget-title -->
+
+                <div class="collapse show" id="widget-2">
+                    <div class="widget-body">
+                        <div class="filter-items filter-items-count">
+                            <div class="filter-item">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="sort-1" name="sortSelected" value="All" <%= sortSelected=='All' ? 'checked' : '' %> >
+                                    <label class="custom-control-label" for="sort-1">None</label>
+                                </div><!-- End .custom-radio -->
+                                <!-- <span class="item-count">3</span> -->
+                            </div><!-- End .filter-item -->
+                                                        
+                            <div class="filter-item">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="sort-2" name="sortSelected" value="low-to-high" <%= sortSelected === 'low-to-high' ? 'checked' : '' %> >
+                                    <label class="custom-control-label" for="sort-2">Low to High</label>
+                                </div><!-- End .custom-radio -->
+                                <!-- <span class="item-count">3</span> -->
+                            </div><!-- End .filter-item -->
+                            
+                            <div class="filter-item">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="sort-3" name="sortSelected" value="high-to-low" <%= sortSelected === 'high-to-low' ? 'checked' : '' %> >
+                                    <label class="custom-control-label" for="sort-3">High to Low</label>
+                                </div><!-- End .custom-radio -->
+                                <!-- <span class="item-count">3</span> -->
+                            </div><!-- End .filter-item -->                            
+
+                        </div><!-- End .filter-items -->
+                    </div><!-- End .widget-body -->
+                </div><!-- End .collapse -->
+            </div><!-- End .widget -->
+
+            <div class="d-flex" style="justify-content: center; align-items: center;">
+                <button class="btn btn-secondary" style="border-radius: 10px;" type="submit">Apply filter</button>
+            </div>
+
+        </form>
+    </div><!-- End .sidebar-filter-wrapper -->
+</aside><!-- End .sidebar-filter -->
+            </div><!-- End .container -->
+        </div><!-- End .page-content -->
+    </main><!-- End .main -->
+
+    <footer class="footer footer-2">
+        <div class="footer-middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="widget widget-about">
+                            <h3 class="footer-logo" width="82" height="25">TUNGSTEN</h3>
+                            <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. </p>
+                            
+                            <div class="widget-about-info">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <span class="widget-about-title">Got Question? Call us 24/7</span>
+                                        <a href="tel:123456789">+0123 456 789</a>
+                                    </div><!-- End .col-sm-6 -->
+                                    <div class="col-sm-6 col-md-8">
+                                        <span class="widget-about-title">Payment Method</span>
+                                        <figure class="footer-payments">
+                                            <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                                        </figure><!-- End .footer-payments -->
+                                    </div><!-- End .col-sm-6 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .widget-about-info -->
+                        </div><!-- End .widget about-widget -->
+                    </div><!-- End .col-sm-12 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">Information</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="about.html">About Molla</a></li>
+                                <li><a href="#">How to shop on Molla</a></li>
+                                <li><a href="faq.html">FAQ</a></li>
+                                <li><a href="contact.html">Contact us</a></li>
+                                <li><a href="login.html">Log in</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-4 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="#">Payment Methods</a></li>
+                                <li><a href="#">Money-back guarantee!</a></li>
+                                <li><a href="#">Returns</a></li>
+                                <li><a href="#">Shipping</a></li>
+                                <li><a href="#">Terms and conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-4 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="#">Sign In</a></li>
+                                <li><a href="cart.html">View Cart</a></li>
+                                <li><a href="#">My Wishlist</a></li>
+                                <li><a href="#">Track My Order</a></li>
+                                <li><a href="#">Help</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-64 col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-middle -->
+    
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="footer-copyright">Copyright © 2019 TUNGSTEN Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+                <ul class="footer-menu">
+                    <li><a href="#">Terms Of Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul><!-- End .footer-menu -->
+    
+                <div class="social-icons social-icons-color">
+                    <span class="social-label">Social Media</span>
+                    <a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                    <a href="#" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                    <a href="#" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                    <a href="#" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+                    <a href="#" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                </div><!-- End .soial-icons -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-bottom -->
+    </footer><!-- End .footer -->
+</div><!-- End .page-wrapper -->
+<button id="scroll-top" title="Back to Top" style="border-radius: 40%; background: #eea287;"><i class="icon-arrow-up"></i></button>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+<%- include('../layouts/mobileView.ejs') %>
+
+<!-- Sign in / Register Modal -->
+<div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="icon-close"></i></span>
+                </button>
+
+                <div class="form-box">
+                    <div class="form-tab">
+                        <ul class="nav nav-pills nav-fill" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="tab-content-5">
+                            <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <label for="singin-email">Username or email address *</label>
+                                        <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="singin-password">Password *</label>
+                                        <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>LOG IN</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="signin-remember">
+                                            <label class="custom-control-label" for="signin-remember">Remember Me</label>
+                                        </div><!-- End .custom-checkbox -->
+
+                                        <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <label for="register-email">Your email address *</label>
+                                        <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-password">Password *</label>
+                                        <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>SIGN UP</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="register-policy" required>
+                                            <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
+                                        </div><!-- End .custom-checkbox -->
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login  btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .modal-body -->
+        </div><!-- End .modal-content -->
+    </div><!-- End .modal-dialog -->
+</div><!-- End .modal -->
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- add to cart fucntionality -->
+
+
+<script>
+    function pagination(page){
+        const categorySelected = document.querySelector('input[name="categorySelected"]:checked').value
+        const sortSelected = document.querySelector('input[name="sortSelected"]:checked').value
+        const searchString = document.getElementById('searchString').value
+
+        window.location.href = `filterProducts?searchString=${searchString}&categorySelected=${categorySelected}&sortSelected=${sortSelected}&page=${page}`
+        
+    }
+</script>
+
+
+<script>
+    function addToCart(productId){
+        
+        const quantity = 1
+        fetch('/addCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productId, quantity,size : 'medium' })
+        })
+        .then(response => response.json())
+        .then(data=>{
+            if(data.success){
+                let cartCount = document.getElementById('cartCount')
+                cartCount.textContent = parseInt(cartCount.textContent)+1
+                
+                Swal.fire({
+                    icon : 'success',
+                    title : 'Success',
+                    text : 'Product added successfully',
+                    showConfirmButton  :false,
+                    timer : 1500
+                })
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: "Can't add to cart!",
+                    text: data.error || 'Product is already existing.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+    }
+</script>
+<script>
+    function addToWishlist(productId) {
+        console.log(productId);
+        axios.post('/addToWishlist', {
+            productId: productId
+        })
+        .then(response => {
+            if (response.data.success) {
+                let wishCount = document.getElementById('wishCount')
+                wishCount.textContent = parseInt(wishCount.textContent)+1
+
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Added to wishlist successfully!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: response.data.error || 'Product already existing...',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'An error occurred',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        });
+    }
+</script>
+
+<!-- <script>
+    function sort(Element){
+        if(Element.value=='none'){
+            window.location.reload()
+        }else if(Element.value=='low-high'){
+
+        }else if(Element.value=='high-low'){
+
+        }
+    }
+</script> -->
+
+<%- include('../layouts/footer.ejs') %>

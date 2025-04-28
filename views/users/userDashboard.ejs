@@ -1,0 +1,1272 @@
+<%- include('../layouts/header.ejs') %>
+<div id="preLoader" class="centerImage" style="width: 100%; height: 100vh; padding-top: 35vh; background-color: #000000;">
+    <img class="img-fluid" style="width: 20%; display: block; margin-left: auto;margin-right: auto;" src="animation/preloading_animation.gif">
+</div>
+<script>
+    let loader = document.getElementById("preLoader")
+    window.addEventListener("load", function () {
+        let nav = document.getElementById('head_nav')
+        loader.style.display = "none";
+        nav.className = "header smol"
+    })
+</script>
+
+
+    <div class="page-wrapper">
+        <header class="header" id="head_nav">
+            <div class="header-bottom sticky-header">
+                <style>
+                    
+                    /* for logout */
+              @keyframes slideInFromLeft1 {
+                  0% {
+                    transform: translateY(-100%);
+                    opacity: 0;
+                  }
+                  100% {
+                      transform: translateY(0);
+                      opacity: 1;
+                  }
+                }
+                
+                .smol {  
+                  /* This section calls the slideInFromLeft animation we defined above */
+                  animation: .3s ease 0s 1 slideInFromLeft1;
+                }
+                .single_anu {
+                    display: flex;
+                    gap: 10px; /* Space between the input fields */
+                }
+              </style>
+            <div class="container">
+                <div class="header-left">
+                    <button class="mobile-menu-toggler">
+                        <span class="sr-only">Toggle mobile menu</span>
+                        <i class="icon-bars"></i>
+                    </button>
+                    
+                    <a class="logo" href="/home">
+                        <h3 style="margin-top: auto; margin-bottom: auto;">TUNGSTEN</h3>
+                    </a>
+                </div>
+                <div class="header-center mx-auto" >
+                    <nav class="main-nav ">
+                        <ul class="menu sf-arrows">
+                            <li class="megamenu-container">
+                                <a href="/home">Home</a>
+
+                            </li>
+                            <li>
+                                <a href="/shop">Shop</a>
+
+                            </li>
+                            <!-- <li>
+                                <a href="/category">Category</a>
+
+                            </li> -->
+                            <li>
+                                <a href="/about" >About Us</a>
+
+                            </li>
+                            <li>
+                                <a href="/contact" >Contact Us</a>
+
+                            </li>
+                            <li>
+                                <a href="/blog" >Blog</a>
+
+                            </li>
+                        </ul><!-- End .menu -->
+                    </nav><!-- End .main-nav -->
+                </div><!-- End .header-left -->
+
+                <div class="header-right">
+                    <div class="header-search">
+                        <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                        <form action="/searchProducts" method="get">
+                            <div class="header-search-wrapper">
+                                <label for="q" class="sr-only">Search</label>
+                                <input type="search" class="form-control" name="search" id="q" placeholder="Search in..." required>
+                            </div><!-- End .header-search-wrapper -->
+                        </form>
+                    </div><!-- End .header-search -->
+
+                    <a href="/wishlist" class="wishlist-link">
+                        <i class="icon-heart-o"></i>
+                        <span class="wishlist-count"><%= wishlistCount %></span>
+                    </a>
+
+                    <div class="dropdown cart-dropdown">
+                        <a href="/cart" class="dropdown-toggle" >
+                            <i class="icon-shopping-cart"></i>
+                            <span class="cart-count"><%= cartCount %></span>
+                        </a>
+
+                        <!-- dropdown -->
+
+                    
+                </div><!-- End .header-right -->
+            </div><!-- End .container -->
+        </div><!-- End .header-bottom -->
+    </header><!-- End .header -->
+    <main class="main">
+        <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+            <div class="container">
+                <h1 class="page-title">My Account</h1>
+            </div><!-- End .container -->
+        </div><!-- End .page-header -->
+        <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">My Account</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+        
+        <div class="page-content">
+            <div class="dashboard">
+                <div class="container">
+                    <div class="row">
+                        <aside class="col-md-4 col-lg-3">
+                            <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true"><strong>Dashboard</strong></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false"><strong>Orders</strong></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="tab-downloads-link" data-toggle="tab" href="#tab-downloads" role="tab" aria-controls="tab-downloads" aria-selected="false"><strong>Wallet</strong></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false"><strong>Addresses</strong></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="signOut()" style="cursor: pointer;"><strong style="color: #ff7979;">Sign Out</strong></a>
+                                    <script>
+                                        function signOut(){
+                                            Swal.fire({
+                                                title: 'Are you sure?',
+                                                text: "Are you sure to logout?",
+                                                icon: 'question',
+                                                showCancelButton: true,
+                                                confirmButtonColor: '#ff7979',
+                                                cancelButtonColor: '#1ca0ff',
+                                                confirmButtonText: 'Yes,i am!',
+                                                cancelButtonText: 'No!'
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    window.location.href = '/logout'
+                                                }
+                                            })
+                                        }
+                                    </script>
+                                </li>
+                            </ul>
+                        </aside><!-- End .col-lg-3 -->
+
+                        <div class="col-md-8 col-lg-9">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
+                                    <h5 style="color: black;">Hello, <%= user.name %></h5>
+                                    <p><b>Email : </b><%= user.email %></p>
+                                    <% if(user.phone_number){ %>
+                                        <p><b>Phone no : </b><%= user.phone_number %></p>
+                                    <% } %>
+                                    <% if(!user.picture){ %>
+                                        <a href="/changePassword" style="display: block;" class="forgot-link">Change Your Password?</a>
+                                        <a href="/editProfile" class="btn btn-outline-primary-2 mt-3" style="border-radius: 10px;"><span>Edit Profile</span><i class="icon-long-arrow-right"></i></a>
+                                    <% } %>
+                                </div><!-- .End .tab-pane -->
+
+                                <div class="tab-pane fade " id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
+                                    <p id="orderOp" hidden><%= locals.orderOp %></p>
+                                    <% if(orders.length>0){ %>  
+                                        <% orders.forEach((order,index)=>{ %>
+                                            <div class="mb-3 p-4 shadow-lg " style="border: 1px solid #ff8f67; border-radius: 10px;">
+                                            <% order.orderedProducts.forEach((product,index)=>{ %>
+                                                <div class="d-flex w-100 <%=product.status=='cancelled'?'product-media':''%>" style="margin-bottom: 10px; border: 1px solid #c2c2c2; padding: 1em; border-radius: 10px;">
+                                                    <% if(product.status!='cancelled'){ %>
+                                                        <img class="text-left" src="/productImages/<%= product.productId.images[0] %>" alt="image" style="width: 50px; height: 50px;">
+                                                    <%}else{%>
+                                                        <img class="text-left" src="/productImages/<%= product.productId.images[0] %>" alt="image" style="width: 50px; height: 50px; filter: saturate(0);">
+                                                    <%}%>
+                                                    <p class="pl-3 mx-auto" id="order_name_<%= product.productId._id %>" style="margin-top: auto; margin-bottom: auto;"><%=product.productId.name%></p>
+                                                    <% if(product.status!='cancelled'){ %>
+                                                        <p class="text-right mr-3" style="color: #ff8f67; margin-top: auto; margin-bottom: auto;"><strong style="color: #000000;">Status:</strong> <%= product.status %></p>
+                                                    <%}else{%>
+                                                        <p class="text-right mr-3" style="color: red; margin-top: auto; margin-bottom: auto;"><strong style="color: #000000;">Status:</strong> <%= product.status %></p>
+                                                    <%}%>
+                                                    <% if(product.status!='cancelled' && product.status!='delivered' && product.status!='pending'){ %>
+                                                        <div class="mt-1 mr-3" style="height: 50%; width: 10%;">
+                                                            <button onclick="remove('<%= product.productId.name %>','<%= product._id %>')" style="width: 5em; font-size: small; border-radius: 10px; border: 1px solid #eea287; background-color: white;">Cancell</button>
+                                                        </div>
+                                                    <% } %>
+                                                    <% if(product.status=='delivered'){ %>
+                                                        <div class="mt-1 mr-3" style="height: 50%; width: 10%;">
+                                                            <button style="width: 5em; font-size: small; border-radius: 10px; border: 1px solid #eea287; background-color: white;" data-toggle="modal" data-target="#returnModal<%= product._id %>">Return</button>
+                                                        </div>
+                                                    <% } %>
+                                                    <script>
+                                                        document.addEventListener('DOMContentLoaded', () => {
+                                                            const nameElement = document.getElementById('order_name_<%= product.productId._id %>');
+                                                            let name = nameElement.innerHTML;
+                                                            if (name.length > 15) {
+                                                                nameElement.innerHTML = name.slice(0, 15) + '...';
+                                                            }
+                                                        });
+                                                    </script>
+                                                </div>
+
+                                                <!-- return -->
+                                                <div class="modal fade" id="returnModal<%= product._id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content p-4" style="border-radius: 20px;">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="exampleModalLongTitle">Return</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body pl-3 pr-3">
+                                                                <form id="returnForm" action="/returnProduct" method="post">
+                                                                    <p class="text-danger" aria-live="polite" id="forgot_error"><%= locals.forgot %></p>
+                                                                    <div class="form-group p-4">
+                                                                        
+                                                                        <label for="wallet_amount">Enter the reason for returning <strong style="color: black;"><%= product.productId.name %></strong>*</label>
+                                                                        <input type="text" name="_id" value="<%= product._id %>" hidden>
+                                                                        <input type="text" name="productId" value="<%= product.productId._id %>" hidden>
+                                                                        <input type="text" class="form-control" id="return_reason" name="reason" style="border-radius: 10px;" autocomplete="off">
+                                                                        <span id="return_reason_error" class="error-message" style="color: red; font-size: smaller;"></span>
+                                            
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer mx-auto">
+                                                                    <button type="button" class="btn btn-outline-primary-2" id="wallet_withdraw_close" data-dismiss="modal" style="border-radius: 10px; height: 2.9em;">
+                                                                        <span>Close</span>
+                                                                    </button>
+                                                                    <button type="submit" style="border-radius: 10px;" class="btn btn-primary">Submit</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <%})%>
+                                            
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="mb-0"><strong style="color: #000000;">Ordered Date: </strong><%= order.purchasedDate %></p>
+                                                <div class="ms-auto d-flex">
+                                                    <% if(order.paymentStatus==true){ %>
+                                                        <button onclick="window.location.href='/Invoice?Id=<%= order._id %>'" style="width: 5em; font-size: small; border-radius: 10px; border: 1px solid #eea287; background-color: #000000;color: #ffd900; margin-right: 1em;">Invoice</button>
+                                                    <% }else if(order.paymentStatus==false&&order.paymentMethod != 'cash'){ %>
+                                                        <button onclick="retryOrder('<%= order.orderId %>','<%= order.subTotal %>')" style="width: 5em; font-size: small; border-radius: 10px; border: 1px solid #eea287; background-color: #ff8585;color: #b50000; margin-right: 1em;">Retry</button>
+                                                    <% } %>
+                                                    <button class="btn btn-primary ms-2" style="border-radius: 10px;" data-toggle="modal" data-target="#modal-<%= index %>">View</button>
+                                                </div>
+                                            </div>                                                                                        
+
+                                            <!-- view details  -->
+                                            <div class="modal fade" id="modal-<%= index %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                  <div class="modal-content p-4" style="border-radius: 20px;">
+                                                    <div class="modal-header">
+                                                      <h3 class="modal-title" id="exampleModalLongTitle" style="color: #000;">Order Details</h3>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                    </div>
+                                                    <div class="modal-body pl-3 pr-3">
+                                                      <p class="mb-3"><strong style="color: black;">Order Id: </strong><%= order.orderId %> </p>
+                                                      <% order.orderedProducts.forEach(product => { %>
+                                                        <div class="row">
+                                                          <img class="mb-2" src="/productImages/<%= product.productId.images[0] %>" alt="no image" style="width: 50px; height: 50px; border-radius: 5px; border: 1px solid black;">
+                                                          <div class="d-block ml-3">
+                                                            <p><strong style="color: black;">Name: </strong><%= product.productId.name %> <br>
+                                                              <strong style="color: black;">Price: </strong><%= product.productId.price %>
+                                                              <div class="d-flex">
+
+                                                                <strong style="color: black;">Quantity: </strong><%= product.quantity %> 
+                                                                <strong class="ml-4" style="color: #000;">Status: </strong>
+                                                                <% if(product.status=='cancelled'){ %>
+                                                                    <p style="color: #e70000;"><%= product.status %></p>
+                                                                <% }else{ %>
+                                                                    <p style="color: #eea287;"><%= product.status %></p>
+                                                                <% } %>
+
+                                                              </div>
+                                                            </p>
+                                                          </div>
+                                                        </div>
+                                                      <% }) %>
+                                                      <h4 class="mt-3" style="color: #000;">Address</h4>
+                                                      <p><strong style="color: #000;">First name: </strong><%= order.shipAddress[0].first_name %> <strong style="color: #000;">Last name: </strong><%= order.shipAddress[0].last_name %> <br>
+                                                        <strong style="color: #000;">Country: </strong><%= order.shipAddress[0].contry %> <strong style="color: #000;">Street name: </strong><%= order.shipAddress[0].street_name %> <br>
+                                                        <strong style="color: #000;">Town: </strong><%= order.shipAddress[0].town %> <strong style="color: #000;">State: </strong><%= order.shipAddress[0].state %> <br>
+                                                        <strong style="color: #000;">Postcode: </strong><%= order.shipAddress[0].postcode %> <strong style="color: #000;">Phone number: </strong><%= order.shipAddress[0].phone_number %> <br>
+                                                        <strong style="color: #000;">Email: </strong><%= order.shipAddress[0].email %> 
+                                                      </p>
+                                                      <p class="mt-4"><strong style="color: #000;">Order Date: </strong><%= order.purchasedDate %></p>
+                                                      <p ><strong style="color: #000;">Payment Status: </strong><%= order.paymentStatus? 'Paid': 'Pending' %></p>
+                                                    </div>
+                                                    <div class="modal-footer mx-auto">
+                                                      <button type="button" class="btn btn-primary" data-dismiss="modal" style="border-radius: 10px;">
+                                                        <span>Close</span>
+                                                      </button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                            </div>
+                                        <%})%>
+                                    <%}else{%>
+                                        <p>No order has been made yet.</p>
+                                    <%}%>
+                                    <a href="/shop" class="btn btn-outline-primary-2" style="border-radius: 10px;"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
+                                    
+                                </div><!-- .End .tab-pane -->
+
+                                <div class="tab-pane fade" id="tab-downloads" role="tabpanel" aria-labelledby="tab-downloads-link">
+
+                                    <% if(wallet) { %>
+                                        <div class="col-lg-6" >
+                                            <div class="card card-dashboard shadow-lg" style="border-radius: 20px; border: 1px solid #eea287;">
+                                                <div class="card-body">
+                                                    <div class="d-flex ">
+                                                        <strong style="color: #000000; font-size: medium;">Balance: ₹</strong><p style="color: #00b530; font-size: medium;" id="wallet_balance"><%= wallet.balance %></p>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <a href="/addWallet" class="btn btn-outline-primary-2 mx-auto" style="border-radius: 10px;" data-toggle="modal" data-target="#WalletWithDraw">
+                                                            <span>Withdraw</span>
+                                                            <i class="icon-long-arrow-right"></i>
+                                                        </a>
+                                                        <a href="/addWallet" class="btn btn-outline-primary-2 mx-auto" style="border-radius: 10px;" data-toggle="modal" data-target="#WalletHistory">
+                                                            <span>View history</span>
+                                                        </a>
+                                                    </div>
+                                                </div><!-- End .card-body -->
+                                            </div><!-- End .card-dashboard -->
+                                        </div><!-- End .col-lg-6 -->
+                                    <% } else { %>
+                                        <p>No Wallet data available yet.</p>
+                                    <% } %>
+                                    <a href="/addWallet" class="btn btn-outline-primary-2 ml-3" style="border-radius: 10px;" data-toggle="modal" data-target="#WalletDeposit">
+                                        <span>Add amount</span>
+                                        <i class="icon-long-arrow-right"></i>
+                                    </a>
+
+                                    <!-- deposit -->
+                                    <div class="modal fade" id="WalletDeposit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content p-4" style="border-radius: 20px;">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="exampleModalLongTitle">Deposit Money</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body pl-3 pr-3">
+                                                    <form id="walletForm" action="/returnProduct" method="post">
+                                                        <p class="text-danger" aria-live="polite" id="forgot_error"><%= locals.forgot %></p>
+                                                        <div class="form-group p-4">
+                                                            <label for="wallet_amount">Enter amount *</label>
+                                                            <input type="text" class="form-control" id="wallet_amount" name="amount" style="border-radius: 10px;" autocomplete="off">
+                                                            <span id="wallet_amount_error" class="error-message" style="color: red; font-size: smaller;"></span>
+                                
+                                                            <label for="paymentMethod" class="mt-3">Select payment method *</label>
+                                                            <select class="p-2" style="border-radius: 10px;" name="paymentMethod" id="paymentMethod">
+                                                                <option value="Google pay">Google pay</option>
+                                                                <option value="Phone pay">Phone pay</option>
+                                                                <option value="Paytm">Paytm</option>
+                                                            </select>
+                                                            <span id="paymentMethod_error" class="error-message" style="color: red; font-size: smaller;"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer mx-auto">
+                                                        <button type="button" class="btn btn-outline-primary-2" id="wallet_close" data-dismiss="modal" style="border-radius: 10px; height: 2.9em;">
+                                                            <span>Close</span>
+                                                        </button>
+                                                        <button type="submit" style="border-radius: 10px;" class="btn btn-primary">Deposit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- withdraw -->
+                                    <div class="modal fade" id="WalletWithDraw" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content p-4" style="border-radius: 20px;">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="exampleModalLongTitle">Withdraw Money</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body pl-3 pr-3">
+                                                    <form id="walletWithdrawForm" action="" method="post">
+                                                        <p class="text-danger" aria-live="polite" id="forgot_error"><%= locals.forgot %></p>
+                                                        <div class="form-group p-4">
+                                                            <label for="wallet_amount">Enter amount *</label>
+                                                            <input type="text" class="form-control" id="wallet_withdraw_amount" name="amount" style="border-radius: 10px;" autocomplete="off">
+                                                            <span id="wallet_amount_withdraw_error" class="error-message" style="color: red; font-size: smaller;"></span>
+                                
+                                                            <label for="paymentMethod" class="mt-3">Select payment method *</label>
+                                                            <select class="p-2" style="border-radius: 10px;" name="paymentMethod" id="paymentMethod_withdraw">
+                                                                <option value="Google pay">Google pay</option>
+                                                                <option value="Phone pay">Phone pay</option>
+                                                                <option value="Paytm">Paytm</option>
+                                                            </select>
+                                                            <span id="paymentMethod_error" class="error-message" style="color: red; font-size: smaller;"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer mx-auto">
+                                                        <button type="button" class="btn btn-outline-primary-2" id="wallet_withdraw_close" data-dismiss="modal" style="border-radius: 10px; height: 2.9em;">
+                                                            <span>Close</span>
+                                                        </button>
+                                                        <button type="submit" style="border-radius: 10px;" class="btn btn-primary">Withdraw</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- history -->
+                                    <div class="modal fade" id="WalletHistory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content p-4" style="border-radius: 20px;">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="exampleModalLongTitle">Withdraw Money</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body pl-3 pr-3">
+                                                    
+                                                    <p class="text-danger" aria-live="polite" id="forgot_error"><%= locals.forgot %></p>
+                                                    <div class="form-group p-4">
+                                                        <div style="max-height: 300px; overflow-y: auto;">
+                                                            <table class="table">
+                                                                <thead>
+                                                                  <tr>
+                                                                    <th scope="col">No.</th>
+                                                                    <th scope="col">Amount</th>
+                                                                    <th scope="col">Date</th>
+                                                                    <th scope="col">payment Method</th>
+                                                                    <th scope="col">status</th>
+                                                                  </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <% if(transactionHistory && transactionHistory.length > 0) { %>
+                                                                        <% let history = transactionHistory.reverse() %>
+                                                                        <% history.forEach((val, index) => { %>
+                                                                            <tr>
+                                                                                <td><%= ++index %></td>
+                                                                                <td>₹<%= val.amount %></td>
+                                                                                <td><%= val.date %></td>
+                                                                                <td><%= val.paymentMethod%></td>
+                                                                                <% if(val.status=='debit') {%>
+                                                                                    <td class="text-danger"><%= val.status %></td>
+                                                                                <% }else{ %>
+                                                                                    <td class="text-success"><%= val.status %></td>
+                                                                                <% } %>
+                                                                            </tr>
+                                                                        <% }) %>
+                                                                    <% } else { %>  
+                                                                        <tr>
+                                                                            <td colspan="4"><p>No history</p></td>
+                                                                        </tr>
+                                                                    <% } %>  
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer mx-auto">
+                                                    <button type="button" class="btn btn-outline-primary-2" id="wallet_withdraw_close" data-dismiss="modal" style="border-radius: 10px; height: 2.9em;">
+                                                        <span>Close</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+
+                                </div><!-- .End .tab-pane -->                                
+
+                                <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+                                    
+                                    <% if(addresses.length>0){ %>
+                                        <p>The following addresses will be used on the checkout page by default.</p>
+                                        <div class="row">
+                                        <% addresses.forEach(address=>{ %>
+                                                <div class="col-lg-6" >
+                                                    <div class="card card-dashboard shadow-lg" style="border-radius: 20px; border: 1px solid #eea287;">
+                                                        <button class="btn-remove" style="margin-left: 90%; margin-top: 2%;" onclick="removeAddress('<%= address.address_type %>','<%= address._id%>')" id="remove_button<%= address._id%>"><i class="icon-close"></i></button>
+                                                        <div class="card-body">
+                                                            <h3 class="card-title"><%= address.address_type %></h3><!-- End .card-title -->
+
+                                                            <p><%= address.first_name %> <%=address.last_name%><br>
+                                                            <%= address.contry %> <br>
+                                                            <%= address.street_name %> <br>
+                                                            <%= address.town %> <%= address.state %> <br>
+                                                            <%= address.postcode %> <%= address.phone_number %> <br>
+                                                            <%= address.email %></p>
+                                                            <a href="/editAddress?addressId=<%= address._id %>">Edit <i class="icon-edit"></i></a></p>
+                                                        </div><!-- End .card-body -->
+                                                    </div><!-- End .card-dashboard -->
+                                                </div><!-- End .col-lg-6 -->
+                                        <% }) %>
+                                        </div><!-- End .row -->
+                                    <% }else{ %>
+                                        <p>No address added</p>
+                                    <% } %>
+                                    
+                                    <!-- Button trigger modal -->
+                                    <a class="btn btn-outline-primary-2" id="addAddress" style="border-radius: 10px; cursor: pointer;" data-toggle="modal" data-target="#exampleModalCenter"><span>Add address</span><i class="icon-long-arrow-right"></i></a>
+  
+                                    <!-- Modal -->
+                                    <div class="modal fade"  id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered"  role="document">
+                                        <div class="modal-content p-4" style="border-radius: 20px;">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="exampleModalLongTitle">Address</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>  
+                                            <div class="modal-body pl-3 pr-3">
+                                                <form id="form" action="/addAddress" method="post">
+                                                    <p class="text-danger" id="addressmsg" ><%= locals.addressmsg %></p>
+                                                    <p class="text-danger" id="addressop" hidden><%= locals.addressop %></p>
+                                                    <div class="form-group">
+                                                        <label for="register-email-2">Enter Address type *</label>
+                                                         <input type="text" class="form-control" id="address_type" name="address_type" style="border-radius: 10px;" maxlength="21" placeholder="Eg :- Work address">
+                                                         <span id="address_type_error" class="error-message" style="color: red; font-size: smaller;"></span>
+                                                     </div><!-- End .form-group -->
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label>First Name *</label>
+                                                            <input type="text" id="first_name" class="form-control" name="first_name" style="border-radius: 10px;">
+                                                            <span id="first_name_error" class="error-message" style="color: red; font-size: smaller; "></span>
+                                                        </div><!-- End .col-sm-6 -->
+            
+                                                        <div class="col-sm-6">
+                                                            <label>Last Name *</label>
+                                                            <input type="text" id="last_name" class="form-control" name="last_name" style="border-radius: 10px;">
+                                                            <span id="last_name_error" class="error-message" style="color: red; font-size: smaller; "></span>
+                                                        </div><!-- End .col-sm-6 -->
+                                                    </div><!-- End .row -->
+            
+                                                    <label>Country *</label>
+                                                    <input type="text" id="contry" class="form-control" name="contry" style="border-radius: 10px;">
+                                                    <span id="contry_error" class="error-message" style="color: red; font-size: smaller; "></span>
+            
+                                                    <label>Street address *</label>
+                                                    <input type="text" id="street_name" class="form-control" name="street_name" style="border-radius: 10px;" placeholder="House number and Street name">
+                                                    <span id="street_name_error" class="error-message" style="color: red; font-size: smaller; "></span>
+            
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label>Town / City *</label>
+                                                            <input type="text" id="town" class="form-control" name="town" style="border-radius: 10px;">
+                                                            <span id="town_error" class="error-message" style="color: red; font-size: smaller; "></span>
+                                                        </div><!-- End .col-sm-6 -->
+            
+                                                        <div class="col-sm-6">
+                                                            <label>State *</label>
+                                                            <input type="text" id="state" class="form-control" name="state" style="border-radius: 10px;">
+                                                            <span id="state_error" class="error-message" style="color: red; font-size: smaller; "></span>
+                                                        </div><!-- End .col-sm-6 -->
+                                                    </div><!-- End .row -->
+            
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label>Postcode / ZIP *</label>
+                                                            <input type="text" id="postcode" class="form-control" name="postcode" style="border-radius: 10px;">
+                                                            <span id="postcode_error" class="error-message" style="color: red; font-size: smaller; "></span>
+                                                        </div><!-- End .col-sm-6 -->
+            
+                                                        <div class="col-sm-6">
+                                                            <label>Phone *</label>
+                                                            <input type="text" id="phone_number" class="form-control" name="phone_number" style="border-radius: 10px;">
+                                                            <span id="phone_number_error" class="error-message" style="color: red; font-size: smaller; "></span>
+                                                        </div><!-- End .col-sm-6 -->
+                                                    </div><!-- End .row -->
+            
+                                                    <label>Email address *</label>
+                                                    <input type="text" id="email" class="form-control" name="email" style="border-radius: 10px;">
+                                                    <span id="emailError" class="error-message" style="color: red; font-size: smaller; "></span>
+                                            </div>  
+                                                    <div class="modal-footer mx-auto">
+                                                        <button type="button" class="btn btn-outline-primary-2" data-dismiss="modal" style="border-radius: 10px; height: 2.9em;">
+                                                            <span>Close</span>
+                                                        </button>
+                                                        <button type="submit" style="border-radius: 10px;" class="btn btn-primary">Add</button>
+                                                    </div>
+                                                </form>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div><!-- .End .tab-pane -->
+
+                            </div>
+                        </div><!-- End .col-lg-9 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .dashboard -->
+        </div><!-- End .page-content -->
+    </main><!-- End .main -->
+
+    <footer class="footer footer-2">
+        <div class="footer-middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="widget widget-about">
+                            <h3 class="footer-logo" width="82" height="25">TUNGSTEN</h3>
+                            <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. </p>
+                            
+                            <div class="widget-about-info">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <span class="widget-about-title">Got Question? Call us 24/7</span>
+                                        <a href="tel:123456789">+0123 456 789</a>
+                                    </div><!-- End .col-sm-6 -->
+                                    <div class="col-sm-6 col-md-8">
+                                        <span class="widget-about-title">Payment Method</span>
+                                        <figure class="footer-payments">
+                                            <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                                        </figure><!-- End .footer-payments -->
+                                    </div><!-- End .col-sm-6 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .widget-about-info -->
+                        </div><!-- End .widget about-widget -->
+                    </div><!-- End .col-sm-12 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">Information</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="about.html">About Molla</a></li>
+                                <li><a href="#">How to shop on Molla</a></li>
+                                <li><a href="faq.html">FAQ</a></li>
+                                <li><a href="contact.html">Contact us</a></li>
+                                <li><a href="login.html">Log in</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-4 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="#">Payment Methods</a></li>
+                                <li><a href="#">Money-back guarantee!</a></li>
+                                <li><a href="#">Returns</a></li>
+                                <li><a href="#">Shipping</a></li>
+                                <li><a href="#">Terms and conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-4 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="#">Sign In</a></li>
+                                <li><a href="cart.html">View Cart</a></li>
+                                <li><a href="#">My Wishlist</a></li>
+                                <li><a href="#">Track My Order</a></li>
+                                <li><a href="#">Help</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-64 col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-middle -->
+    
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="footer-copyright">Copyright © 2019 TUNGSTEN Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+                <ul class="footer-menu">
+                    <li><a href="#">Terms Of Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul><!-- End .footer-menu -->
+    
+                <div class="social-icons social-icons-color">
+                    <span class="social-label">Social Media</span>
+                    <a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                    <a href="#" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                    <a href="#" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                    <a href="#" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+                    <a href="#" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                </div><!-- End .soial-icons -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-bottom -->
+    </footer><!-- End .footer -->
+</div><!-- End .page-wrapper -->
+<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+<%- include('../layouts/mobileView.ejs') %>
+
+<!-- Sign in / Register Modal -->
+<div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="icon-close"></i></span>
+                </button>
+
+                <div class="form-box">
+                    <div class="form-tab">
+                        <ul class="nav nav-pills nav-fill" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="tab-content-5">
+                            <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <label for="singin-email">Username or email address *</label>
+                                        <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="singin-password">Password *</label>
+                                        <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>LOG IN</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="signin-remember">
+                                            <label class="custom-control-label" for="signin-remember">Remember Me</label>
+                                        </div><!-- End .custom-checkbox -->
+
+                                        <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <label for="register-email">Your email address *</label>
+                                        <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-password">Password *</label>
+                                        <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>SIGN UP</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="register-policy" required>
+                                            <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
+                                        </div><!-- End .custom-checkbox -->
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login  btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .modal-body -->
+        </div><!-- End .modal-content -->
+    </div><!-- End .modal-dialog -->
+</div><!-- End .modal -->
+<%- include('../layouts/footer.ejs') %>
+
+<script>
+    function retryOrder(orderId,amount){
+        const options = {
+                        key: "rzp_test_NlKpT8z0NsaS7K", 
+                        amount: parseInt(amount)*100, 
+                        currency: "INR",
+                        name: "Tungsten",
+                        description: "Test Transaction",
+                        image: "https://example.com/your_logo",
+                        order_id: null, 
+                        handler: function (response) {
+                            // alert('payment success')
+                            axios.post('/verifyPayment',{
+                                orderId: parseInt(orderId)
+                            })
+                            .then(response=>{
+                                console.log('payment verification response',response.data.status);
+                                if(response.data.status==true){
+                                    window.location.href = response.data.redirect
+                                }else{
+                                    alert('payment failed')
+                                }
+                            })
+                            .catch(error=>{
+                                console.log(error);
+                                alert('There was a problem while payment')
+                            })
+                        },
+                        prefill: {
+                            name: "Customer Name",
+                            email: "customer@example.com",
+                            contact: "1234567890"
+                        },
+                        notes: {
+                            address: "Customer Address"
+                        },
+                        theme: {
+                            color: "#eea287"
+                        }
+                    };
+
+                    var rzp1 = new Razorpay(options);
+                    rzp1.on('payment.failed', function (response){
+                        console.error('Payment failed:', response.error);
+                        alert('Payment failed. Please try again.');
+                    });
+                    rzp1.open();
+    }
+</script>
+
+<script>
+    form.addEventListener('submit', function(event) {
+        let address_type = document.getElementById('address_type').value.trim();
+        let first_name = document.getElementById('first_name').value.trim();
+        let last_name = document.getElementById('last_name').value.trim();
+        let contry = document.getElementById('contry').value.trim();
+        let street_name = document.getElementById('street_name').value.trim();
+        let town = document.getElementById('town').value.trim();
+        let state = document.getElementById('state').value.trim();
+        let postcode = document.getElementById('postcode').value.trim();
+        let emailInput = document.getElementById('email').value.trim();
+        let phoneInput = document.getElementById('phone_number').value.trim();
+
+    
+        let address_type_error = document.getElementById('address_type_error');
+        if (address_type === '') {
+            address_type_error.textContent = 'Please enter a address type.';
+            event.preventDefault(); 
+            return;
+        } else {
+            address_type_error.textContent = '';
+        }
+
+        let first_name_error = document.getElementById('first_name_error');
+        if (first_name === '') {
+            first_name_error.textContent = 'Please enter your first name.';
+            event.preventDefault(); 
+            return;
+        } else {
+            first_name_error.textContent = '';
+        }
+
+        let last_name_error = document.getElementById('last_name_error');
+        if (last_name === '') {
+            last_name_error.textContent = 'Please enter your first name.';
+            event.preventDefault(); 
+            return;
+        } else {
+            last_name_error.textContent = '';
+        }
+
+        let contry_error = document.getElementById('contry_error');
+        if (contry === '') {
+            contry_error.textContent = 'Please enter your contry name.';
+            event.preventDefault(); 
+            return;
+        } else {
+            contry_error.textContent = '';
+        }
+
+        let street_name_error = document.getElementById('street_name_error');
+        if (street_name === '') {
+            street_name_error.textContent = 'Please enter your street name.';
+            event.preventDefault(); 
+            return;
+        } else {
+            street_name_error.textContent = '';
+        }
+
+        let town_error = document.getElementById('town_error');
+        if (town === '') {
+            town_error.textContent = 'Please enter the town name.';
+            event.preventDefault(); 
+            return;
+        } else {
+            town_error.textContent = '';
+        }
+
+        let state_error = document.getElementById('state_error');
+        if (state === '') {
+            state_error.textContent = 'Please enter the state name.';
+            event.preventDefault(); 
+            return;
+        } else {
+            state_error.textContent = '';
+        }
+
+        let postcode_error = document.getElementById('postcode_error');
+        if (postcode === '') {
+            postcode_error.textContent = 'Please enter the postcode.';
+            event.preventDefault(); 
+            return;
+        } else {
+            postcode_error.textContent = '';
+        }
+
+        let emailError = document.getElementById('emailError');
+        if (emailInput === '') {
+            emailError.textContent = 'Please enter an email address.';
+            event.preventDefault(); // Prevent form submission if validation fails
+            return;
+        } else {
+            emailError.textContent = '';
+        }
+
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailInput)) {
+            emailError.textContent = 'Please enter a valid email address.';
+            event.preventDefault(); // Prevent form submission if validation fails
+            return;
+        } else {
+            emailError.textContent = '';
+        }
+
+        let phoneError = document.getElementById('phone_number_error');
+        if (phoneInput === '') {
+            phoneError.textContent = 'Please enter a phone number.';
+            event.preventDefault(); // Prevent form submission if validation fails
+            return;
+        } else if (!/^\d{10}$/.test(phoneInput)) { // Ensure exactly 10 digits
+            phoneError.textContent = 'Please enter a valid 10-digit phone number.';
+            event.preventDefault(); // Prevent form submission if validation fails
+            return;
+        } else {
+            phoneError.textContent = '';
+        }
+    
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const addressmsg = document.getElementById('addressmsg');
+    if (addressmsg.textContent) {
+        console.log('adderror');
+        setTimeout(() => {
+            const address_link = document.getElementById('tab-address-link');
+            const addAddress = document.getElementById('addAddress');
+            address_link.click();
+            addAddress.click();
+        }, 500);
+    }
+
+    const addressop = document.getElementById('addressop');
+    if (addressop.textContent) {
+        console.log('adderror');
+        setTimeout(() => {
+            const address_link = document.getElementById('tab-address-link');
+            address_link.click();
+        }, 500);
+    }
+
+    const orderOp = document.getElementById('orderOp');
+    if (orderOp.textContent) {
+        console.log('orderOp');
+        setTimeout(() => {
+            const orderLink = document.getElementById('tab-orders-link');
+            orderLink.click();
+        }, 500);
+    }
+});
+</script>
+<!--  Ask for confirmation for deleting  using SweetAlert -->
+<script>
+	
+	function remove(productName ,productId){
+        console.log(productName,productId);
+    Swal.fire({
+        title: "Are you sure?",
+        text: `You Sure you want to cancell ${productName} from your order ? `,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Cancell it!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`/removeFromOrders?productId=${productId}`, { method: 'PUT' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            title: "Product cancelled",
+                            text: "Product cancelled Successfully",
+                            icon: "success"
+                        }).then(() => {
+                            window.location.reload();
+                        });
+                        $('#main-id').load('/cart #main-id');
+                    } else {
+                        Swal.fire({
+                            title: "Error",
+                            text: "An error occurred while deleting the cart.",
+                            icon: "error"
+                        }).then(() => {
+                            window.location.reload();
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        title: "Error",
+                        text: "An error occurred while processing your request."+error,
+                        icon: "error"
+                    });
+                });
+        }
+    });
+}
+
+    function removeAddress(addressName, addressId){
+        console.log(addressName,addressId)
+        Swal.fire({
+        title: "Are you sure?",
+        text: `You Sure you want to delete ${addressName} ? `,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Delete it!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`/removeAddress?addressId=${addressId}`, { method: 'PUT' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            title: "Address Deleted",
+                            text: "Address deleted Successfully",
+                            icon: "success"
+                        }).then(() => {
+                            window.location.href = '/userDashboard?op=1'
+                        });
+                        $('#main-id').load('/cart #main-id');
+                    } else {
+                        Swal.fire({
+                            title: "Error",
+                            text: "An error occurred while deleting the address.",
+                            icon: "error"
+                        }).then(() => {
+                            // window.location.reload();
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        title: "Error",
+                        text: "An error occurred while processing your request."+error,
+                        icon: "error"
+                    });
+                });
+        }
+    });
+    }
+</script>
+
+<!-- adding money to the wallet -->
+<script>
+    walletForm.addEventListener('submit', function(event) {
+
+        event.preventDefault(); 
+
+        let wallet_balance = document.getElementById('wallet_balance');
+        let wallet_close = document.getElementById('wallet_close');
+        let amount = document.getElementById('wallet_amount');
+        let paymentMethod = document.getElementById('paymentMethod').value;
+
+        console.log(amount.value, paymentMethod);
+
+        let amount_error = document.getElementById('wallet_amount_error');
+        let current_balance = parseFloat(wallet_balance.textContent);
+        let deposit_amount = parseFloat(amount.value);
+        
+        if (amount.value === '') {
+            amount_error.textContent = 'Please enter an amount.';
+            return;
+        } else if (deposit_amount <= 0) {
+            amount_error.textContent = 'Amount must be greater than 0.';
+            return;
+        } else if (deposit_amount > 50000) {
+            amount_error.textContent = 'Amount must be less than or equal to 50,000.';
+            return;
+        } else if (current_balance + deposit_amount > 50000) {
+            amount_error.textContent = 'Deposit would exceed wallet balance limit of 50,000.';
+            return;
+        } else {
+            amount_error.textContent = '';
+        }
+
+        axios.post('/addToWallet', {
+            amount: deposit_amount,
+            paymentMethod
+        })
+        .then((response) => {
+            if (response) {
+                console.log(response.data.reload);
+                if (response.data.reload) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: 'Deposit was successful.',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                    window.location.reload()
+                }
+                wallet_balance.textContent = current_balance + parseFloat(response.data.amount);
+                wallet_close.click();
+                amount.value = '';
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Deposit was successful.',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    });
+</script>
+
+<!-- withdrawal from the wallet -->
+<script>
+    walletWithdrawForm.addEventListener('submit', function(event) {
+
+        event.preventDefault(); 
+
+        let wallet_balance = document.getElementById('wallet_balance');
+        let wallet_close = document.getElementById('wallet_withdraw_close');
+        let amount = document.getElementById('wallet_withdraw_amount');
+        let paymentMethod = document.getElementById('paymentMethod_withdraw').value;
+
+        console.log(amount.value, paymentMethod);
+
+        let amount_error = document.getElementById('wallet_amount_withdraw_error');
+        if (amount.value === '') {
+            amount_error.textContent = 'Please enter an amount.';
+            return;
+        } else if (parseFloat(amount.value) <= 0) {
+            amount_error.textContent = 'Amount must be greater than 0.';
+            return;
+        } else if (parseFloat(amount.value) > parseFloat(wallet_balance.textContent)) {
+            amount_error.textContent = 'Amount exceeds wallet balance.';
+            return;
+        } else {
+            amount_error.textContent = '';
+        }
+
+        axios.post('/withdrawFromWallet', {
+            amount: amount.value,
+            paymentMethod
+        })
+        .then((response) => {
+            if (response) {
+                wallet_close.click();
+                amount.value = '';
+
+                // Show success message
+                if (response.data.success == true) {
+                    wallet_balance.textContent = parseFloat(wallet_balance.textContent) - parseFloat(response.data.amount);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: 'Withdrawal was successful.',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: response.data.error || 'There is a problem!',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                }
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+
+            // Show error message
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'There was an error processing your request.',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        });
+    });
+</script>

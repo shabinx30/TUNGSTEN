@@ -1,0 +1,974 @@
+<%- include('../layouts/header.ejs') %>
+<div id="preLoader" class="centerImage" style="width: 100%; height: 100%; padding-top: 35vh; background-color: #000000; position: absolute; z-index: 1001;">
+    <img class="img-fluid" style="width: 20%; display: block; margin-left: auto;margin-right: auto;" src="animation/preloading_animation.gif">
+</div>
+
+
+<script>
+    let loader = document.getElementById("preLoader")
+    window.addEventListener("load", function () {
+        let nav = document.getElementById('head_nav')
+        let introContent = document.getElementById('intro_subtitle_1')
+        let introTitle = document.getElementById('intro_title')
+        let introSubtitle = document.getElementById('intro_subtitle_2')
+        //..........loading..............
+        document.body.style.overflow = "auto"
+        loader.style.display = "none";
+        //..............nav..............
+        nav.className = "header smol";
+        //.............offer.............
+        introContent.className = 'intro-subtitle content'
+        introTitle.className = 'intro-title title'
+        introSubtitle.className = 'intro-subtitle subtitle'
+    })
+</script>
+    
+
+    <div class="page-wrapper">
+        <header class="header" id="head_nav">
+            <div class="header-bottom sticky-header">
+                <style>
+                    body{
+                        overflow: hidden;
+                    }
+                    .profile{
+                        width: 35px;
+                        border:2px solid black;
+                        border-radius: 20px;
+                        transition: 0.2s;
+                    }
+                    .profile:hover{
+                        transform: scale(1.05);
+                        border: 2px solid #eea287;
+                    }
+
+                    /* for logout */
+                @keyframes slideInFromLeft1 {
+                  0% {
+                    transform: translateY(-100%);
+                    opacity: 0;
+                  }
+                  100% {
+                      transform: translateY(0);
+                      opacity: 1;
+                  }
+                }
+                
+                .smol {
+                  animation: .3s ease 0s 1 slideInFromLeft1;
+                }
+
+                @keyframes textAnimation{
+                    0% {
+                        transform: translateX(-50%);
+                    }
+                    100% {
+                        transform: translateX(0%);
+                    }
+                }
+                .content{
+                    animation: .3s ease 0s 1 textAnimation;
+                }
+                .title{
+                    animation: .6s ease 0s 1 textAnimation;
+                }
+                .subtitle{
+                    animation: .8s ease 0s 1 textAnimation;
+                }
+              </style>
+                <div class="container">
+                    <div class="header-left">
+                        <button class="mobile-menu-toggler">
+                            <span class="sr-only">Toggle mobile menu</span>
+                            <i class="icon-bars"></i>
+                        </button>
+                        
+                        <a class="logo" style="cursor: pointer;">
+                            <h3 style="margin-top: auto; margin-bottom: auto;">TUNGSTEN</h3>
+                        </a>
+                    </div>
+                    <div class="header-center mx-auto">
+                        <nav class="main-nav">
+                            <ul class="menu sf-arrows">
+                                <li class="megamenu-container active">
+                                    <a style="cursor: pointer;">Home</a>
+
+                                </li>
+                                <li>
+                                    <a href="/shop">Shop</a>
+
+                                </li>
+                                <!-- <li>
+                                    <a href="/category">Category</a>
+
+                                </li> -->
+                                <li>
+                                    <a href="/about" >About Us</a>
+
+                                </li>
+                                <li>
+                                    <a href="/contact" >Contact Us</a>
+
+                                </li>
+                                <li>
+                                    <a href="/blog" >Blog</a>
+
+                                </li>
+                            </ul><!-- End .menu -->
+                        </nav><!-- End .main-nav -->
+                    </div><!-- End .header-left -->
+
+                    <div class="header-right">
+                        <div class="header-search">
+                            <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                            <form action="#" method="get">
+                                <div class="header-search-wrapper">
+                                    <label for="q" class="sr-only">Search</label>
+                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                                </div><!-- End .header-search-wrapper -->
+                            </form>
+                        </div><!-- End .header-search -->
+
+                        <a href="/wishlist" class="wishlist-link">
+                            <i class="icon-heart-o"></i>
+                            <span class="wishlist-count"><%= wishlist.length %></span>
+                        </a>
+
+                        <div class="dropdown cart-dropdown">
+                            <a href="/cart" class="dropdown-toggle" >
+                                <i class="icon-shopping-cart"></i>
+                                <span class="cart-count" id="cartCount"><%= products.length %></span>
+                            </a>
+    
+                            <!-- dropdown -->
+    
+                        </div><!-- End .cart-dropdown -->
+                        <div class="dropdown cart-dropdown" onclick="window.location.href='/userDashboard'" style="cursor: pointer;">
+                            <a class="dropdown-toggle" >
+                                <% if(picture){ %>
+                                    <img class="profile" src="<%=picture%>" alt="not get">
+                                <%}else{%>
+                                    <i class="fa-regular fa-user" style="font-size: x-large;"></i>
+                                <%}%>
+                            </a>
+                            <p class="ml-2" id="profile"><b><% if(name) { %>
+                                <%if(name.length<=6){ %>
+                                    <%=name%>
+                                    <%}%>
+                            <% }else { %> 
+                                Login
+                            <% } %>
+                            </b></p>
+                            <!-- dropdown -->
+    
+                        </div>
+                    </div><!-- End .header-right -->
+                </div><!-- End .container -->
+            </div><!-- End .header-bottom -->
+        </header><!-- End .header -->
+<main class="main">
+    <div class="intro-slider-container">
+        <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light mb-0" data-toggle="owl" id="test-1" data-owl-options='{
+                "dots": true,
+                "nav": false, 
+                "responsive": {
+                    "1200": {
+                        "nav": true,
+                        "dots": false
+                    }
+                }
+            }'>
+            <div class="intro-slide" style="background-image: url(assets/images/demos/demo-8/slider/slide-1.jpg);">
+                <div class="container intro-content text-left" style="padding-right: 10px;">
+                    <h3 class="intro-subtitle" id="intro_subtitle_1" >Limited time only *</h3><!-- End .h3 intro-subtitle -->
+                    <h1 class="intro-title" id="intro_title" >Summer<br><strong>sale</strong></h1><!-- End .intro-title -->
+                    <h3 class="intro-subtitle" id="intro_subtitle_2" >Up to 50% off</h3><!-- End .h3 intro-subtitle -->
+
+                    <a href="/shop" class="btn" style="border-radius: 15px;">
+                        <span>SHOP NOW</span>
+                        <i class="icon-long-arrow-right"></i>
+                    </a>
+                </div><!-- End .intro-content -->
+                <img class="position-right" src="assets/images/demos/demo-8/slider/img-1.png" style="height: 100%; ">
+            </div><!-- End .intro-slide -->
+
+            <div class="intro-slide" style="background-image: url(assets/images/demos/demo-8/slider/slide-2.jpg);">
+                <div class="container intro-content text-right" >
+                    <h3 class="intro-subtitle" >PREMIUM QUALITY</h3><!-- End .h3 intro-subtitle -->
+                    <h1 class="intro-title">coats <span class="highlight">&</span><br>jackets</h1><!-- End .intro-title -->
+
+                    <a href="/shop" class="btn" style="border-radius: 15px;">
+                        <span>SHOP NOW</span>
+                        <i class="icon-long-arrow-right"></i>
+                    </a>
+                </div><!-- End .intro-content -->
+                <img class="position-left" src="assets/images/demos/demo-8/slider/img-2.png">
+            </div><!-- End .intro-slide -->
+        </div><!-- End .intro-slider owl-carousel owl-simple -->
+
+        <span class="slider-loader"></span><!-- End .slider-loader -->
+    </div><!-- End .intro-slider-container -->
+
+    <div class="pt-2 pb-2">
+        <div class="container brands">
+            <div class="banner-group">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="banner banner-overlay" style="border-radius: 20px;">
+                            <a href="#">
+                                <img src="assets/images/demos/demo-8/banners/banner-1.jpg" style="border-radius: 20px;" alt="Banner">
+                            </a>
+
+                            <div class="banner-content">
+                                <h4 class="banner-subtitle"><a href="#">Final reduction</a></h4><!-- End .banner-subtitle -->
+                                <h3 class="banner-title"><a href="#"><strong>Sandals & <br>Flip Flops</strong> <br>up to 60% off</a></h3><!-- End .banner-title -->
+                                <a href="#" class="btn btn-outline-white banner-link" style="border-radius: 10px;">Shop Now <i class="icon-long-arrow-right"></i></a>
+                            </div><!-- End .banner-content -->
+                        </div><!-- End .banner -->
+                    </div><!-- End .col-lg-4 -->
+
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="banner banner-overlay">
+                            <a href="#">
+                                <img src="assets/images/demos/demo-8/banners/banner-2.jpg" alt="Banner">
+                            </a>
+
+                            <div class="banner-content">
+                                <h4 class="banner-subtitle"><a href="#">Limited time only.</a></h4><!-- End .banner-subtitle -->
+                                <h3 class="banner-title"><a href="#"><strong>Trainers & <br>Sportwear</strong> <br>40 -70% off</a></h3><!-- End .banner-title -->
+                                <a href="/category" class="btn btn-outline-white banner-link" style="border-radius: 10px;">Shop Now <i class="icon-long-arrow-right"></i></a>
+                            </div><!-- End .banner-content -->
+                        </div><!-- End .banner -->
+                    </div><!-- End .col-lg-4 -->
+
+                    <div class="col-sm-6 col-lg-4 d-none d-lg-block">
+                        <div class="banner banner-overlay">
+                            <a href="#">
+                                <img src="assets/images/demos/demo-8/banners/banner-3.jpg" alt="Banner">
+                            </a>
+
+                            <div class="banner-content">
+                                <h4 class="banner-subtitle"><a href="#">This week we love...</a></h4><!-- End .banner-subtitle -->
+                                <h3 class="banner-title"><a href="#"><strong>Women's <br>Accessories </strong> <br>from $6.99</a></h3><!-- End .banner-title -->
+                                <a href="#" class="btn btn-outline-white banner-link" style="border-radius: 10px;">Shop Now <i class="icon-long-arrow-right"></i></a>
+                            </div><!-- End .banner-content -->
+                        </div><!-- End .banner -->
+                    </div><!-- End .col-lg-4 -->
+                </div><!-- End .row -->
+            </div><!-- End .banner-group -->
+
+            <div class="owl-carousel mt-3 mb-3 owl-simple" data-toggle="owl" 
+                data-owl-options='{
+                    "nav": false, 
+                    "dots": false,
+                    "margin": 30,
+                    "loop": false,
+                    "responsive": {
+                        "0": {
+                            "items":2
+                        },
+                        "420": {
+                            "items":3
+                        },
+                        "600": {
+                            "items":4
+                        },
+                        "900": {
+                            "items":5
+                        },
+                        "1024": {
+                            "items":6
+                        }
+                    }
+                }'>
+                <a href="#" class="brand">
+                    <img src="assets/images/brands/1.png" alt="Brand Name">
+                </a>
+
+                <a href="#" class="brand">
+                    <img src="assets/images/brands/2.png" alt="Brand Name">
+                </a>
+
+                <a href="#" class="brand">
+                    <img src="assets/images/brands/3.png" alt="Brand Name">
+                </a>
+
+                <a href="#" class="brand">
+                    <img src="assets/images/brands/4.png" alt="Brand Name">
+                </a>
+
+                <a href="#" class="brand">
+                    <img src="assets/images/brands/5.png" alt="Brand Name">
+                </a>
+
+                <a href="#" class="brand">
+                    <img src="assets/images/brands/6.png" alt="Brand Name">
+                </a>
+
+                <a href="#" class="brand">
+                    <img src="assets/images/brands/7.png" alt="Brand Name">
+                </a>
+            </div><!-- End .owl-carousel -->
+        </div><!-- End .container -->
+    </div><!-- End .bg-lighter -->
+
+    <div class="mb-3"></div><!-- End .mb-6 -->
+
+    
+
+    <div class="mb-3 mb-xl-2"></div><!-- End .mb-3 -->
+
+    <div class="trending">
+        <a href="#">
+            <img src="assets/images/demos/demo-8/banners/banner-4.jpg" alt="Banner">
+        </a>
+        <div class="banner banner-big d-md-block">
+            <div class="banner-content text-center">
+                <h4 class="banner-subtitle text-white">Trending</h4><!-- End .banner-subtitle -->
+                <h3 class="banner-title text-white">New League</h3><!-- End .banner-title -->
+                <p class="d-none d-lg-block text-white">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.<br>Donec odio. Quisque volutpat mattis eros. </p> 
+
+                <a href="category.html" class="btn btn-primary-white" style="border-radius: 20px;"><span>Shop Now</span><i class="icon-long-arrow-right"></i></a>
+            </div><!-- End .banner-content -->
+        </div><!-- End .banner -->
+    </div>
+    <div class="container new-arrivals">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="banner banner-overlay">
+                    <a href="#">
+                        <img src="assets/images/demos/demo-8/banners/banner-5.jpg" alt="Banner">
+                    </a>
+
+                    <div class="banner-content">
+                        <h4 class="banner-subtitle d-none d-lg-block"><a href="#">New Arrivals</a></h4><!-- End .banner-subtitle -->
+                        <h3 class="banner-title"><a href="#">Women’s</a></h3><!-- End .banner-title -->
+                        <a href="#" class="btn btn-outline-white banner-link" style="border-radius: 10px;">Shop Now <i class="icon-long-arrow-right"></i></a>
+                    </div><!-- End .banner-content -->
+                </div><!-- End .banner -->
+            </div><!-- End .col-md-6 -->
+
+            <div class="col-md-6">
+                <div class="banner banner-overlay">
+                    <a href="#">
+                        <img src="assets/images/demos/demo-8/banners/banner-6.jpg" alt="Banner">
+                    </a>
+
+                    <div class="banner-content">
+                        <h4 class="banner-subtitle d-none d-lg-block"><a href="#">New Arrivals</a></h4><!-- End .banner-subtitle -->
+                        <h3 class="banner-title "><a href="#">Men’s</a></h3><!-- End .banner-title -->
+                        <a href="#" class="btn btn-outline-white banner-link" style="border-radius: 10px;">Shop Now <i class="icon-long-arrow-right"></i></a>
+                    </div><!-- End .banner-content -->
+                </div><!-- End .banner -->
+            </div><!-- End .col-md-6 -->
+        </div><!-- End .row -->
+    </div><!-- End .container -->
+
+    <div class="mb-5"></div><!-- End .mb-5 -->
+
+    <div class="container recent-arrivals">
+        <div class="heading heading-flex align-items-center mb-3">
+            <h2 class="title title-lg">Recent Arrivals</h2><!-- End .title -->
+            <ul class="nav nav-pills nav-border-anim justify-content-center" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="recent-all-link" data-toggle="tab" href="#recent-all-tab" role="tab" aria-controls="recent-all-tab" aria-selected="true">All</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="recent-women-link" data-toggle="tab" href="#recent-women-tab" role="tab" aria-controls="recent-women-tab" aria-selected="false">Women</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="recent-men-link" data-toggle="tab" href="#recent-men-tab" role="tab" aria-controls="recent-men-tab" aria-selected="false">Men</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="recent-shoes-link" data-toggle="tab" href="#recent-shoes-tab" role="tab" aria-controls="recent-shoes-tab" aria-selected="false">Shoes & Boots</a>
+                </li>
+            </ul>
+        </div><!-- End .heading -->
+
+        <div class="tab-content">
+            <div class="tab-pane p-0 fade show active" id="recent-all-tab" role="tabpanel" aria-labelledby="recent-all-link">
+                <div class="products">
+                    <div class="row justify-content-center">
+                        <%let count=1%>
+                        <% productData.forEach(product=>{ %>
+                            <%if(count<=8){%>
+                                <% count++ %>
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="product product-2 text-center">
+                                    <figure class="product-media">
+                                        <% let quantity = 0 %>
+                                            <% Object.values(product.quantity).forEach(function(q) { %>
+                                                <% if(q!=0) {%>
+                                                    <% quantity++ %>
+                                                <% } %>
+                                            <% }); %>
+
+                                            <% if(quantity==0){ %>
+                                                <span class="product-label label-sale" style="border-radius: 7px;">Out of stock</span>
+                                            <% }else if(product.offer>0){ %>
+                                                <span class="product-label label-new" style="border-radius: 7px;"><%= product.offer %>% off</span>
+                                            <% } %>
+        
+                                            <a href="/product?productDetails=<%= product._id %>">
+                                                <% if(quantity == 0) {%>
+                                                    <img src="/productImages/<%= product.images[0] %>" alt="Product image" class="product-image" style="filter: saturate(0); object-fit: cover;max-height:280px;">
+                                                    <img src="/productImages/<%= product.images[1]?product.images[1]:product.images[0] %>" alt="Product image" class="product-image-hover" style="filter: saturate(0); object-fit: cover;max-height:280px;">
+                                                <% }else{ %>
+                                                    <img src="/productImages/<%= product.images[0] %>" alt="Product image" class="product-image" style="object-fit: cover;max-height:280px;">
+                                                    <img src="/productImages/<%= product.images[1]?product.images[1]:product.images[0] %>" alt="Product image" class="product-image-hover" style="object-fit: cover;max-height:280px;">
+                                                <% } %>
+                                            </a>
+    
+                                        <div class="product-action-vertical" onclick="addToWishlist('<%= product._id %>')">
+                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                        </div><!-- End .product-action-vertical -->
+    
+                                        <div class="product-action" onclick="addToCart('<%= product._id %>')">
+                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                        </div><!-- End .product-action -->
+                                    </figure><!-- End .product-media -->
+    
+                                    <div class="product-body">
+                                        <div class="product-cat">
+                                            <a href="#"><%= product.categoryName.name %></a>
+                                        </div><!-- End .product-cat -->
+                                        <h3 class="product-title"><a href="product.html"><%= product.name %></a></h3><!-- End .product-title -->
+                                        <div class="product-price">
+                                            <% if(product.offer>0) {%>
+                                                <span class="new-price">₹<%= product.finalPrice %></span>
+                                                <span class="old-price">₹<%= product.price %></span>
+                                            <%}else{%>
+                                                ₹<%= product.price %>
+                                            <%}%>
+                                        </div><!-- End .product-price -->
+                                    </div><!-- End .product-body -->
+                                </div><!-- End .product -->
+                            </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
+                            <%}%>
+                        <%})%>
+                    </div><!-- End .row -->
+                </div><!-- End .products -->
+            </div><!-- .End .tab-pane -->
+            <div class="tab-pane p-0 fade" id="recent-women-tab" role="tabpanel" aria-labelledby="recent-women-link">
+                <div class="products">
+                    <div class="row justify-content-center">
+                        <% productData.forEach(product=>{ %>
+                        <% if(product.categoryName.name=='WOMEN') {%>
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="product product-2 text-center">
+                                    <figure class="product-media">
+                                        <% let quantity = 0 %>
+                                            <% Object.values(product.quantity).forEach(function(q) { %>
+                                                <% if(q!=0) {%>
+                                                    <% quantity++ %>
+                                                <% } %>
+                                            <% }); %>
+
+                                            <% if(quantity==0){ %>
+                                                <span class="product-label label-sale" style="border-radius: 7px;">Out of stock</span>
+                                            <% }else if(product.offer>0){ %>
+                                                <span class="product-label label-new" style="border-radius: 7px;"><%= product.offer %>% off</span>
+                                            <% } %>
+        
+                                            <a href="/product?productDetails=<%= product._id %>">
+                                                <% if(quantity == 0) {%>
+                                                    <img src="/productImages/<%= product.images[0] %>" alt="Product image" class="product-image" style="filter: saturate(0); object-fit: cover;max-height:280px;">
+                                                    <img src="/productImages/<%= product.images[1]?product.images[1]:product.images[0] %>" alt="Product image" class="product-image-hover" style="filter: saturate(0); object-fit: cover;max-height:280px;">
+                                                <% }else{ %>
+                                                    <img src="/productImages/<%= product.images[0] %>" alt="Product image" class="product-image" style="object-fit: cover;max-height:280px;">
+                                                    <img src="/productImages/<%= product.images[1]?product.images[1]:product.images[0] %>" alt="Product image" class="product-image-hover" style="object-fit: cover;max-height:280px;">
+                                                <% } %>
+                                            </a>
+    
+                                        <div class="product-action-vertical">
+                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                        </div><!-- End .product-action-vertical -->
+    
+                                        <div class="product-action">
+                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                        </div><!-- End .product-action -->
+                                    </figure><!-- End .product-media -->
+    
+                                    <div class="product-body">
+                                        <div class="product-cat">
+                                            <a href="#"><%= product.categoryName.name %></a>
+                                        </div><!-- End .product-cat -->
+                                        <h3 class="product-title"><a href="product.html"><%= product.name %></a></h3><!-- End .product-title -->
+                                        <div class="product-price">
+                                            <span class="new-price">Now $<%= product.price %></span>
+                                            <span class="old-price">Was $<%= product.price+10 %></span>
+                                        </div><!-- End .product-price -->
+                                    </div><!-- End .product-body -->
+                                </div><!-- End .product -->
+                            </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
+                        <%}%>
+                        <% }) %>
+                    </div><!-- End .row -->
+                </div><!-- End .products -->
+            </div><!-- .End .tab-pane -->
+            <div class="tab-pane p-0 fade" id="recent-men-tab" role="tabpanel" aria-labelledby="recent-men-link">
+                <div class="products">
+                    <div class="row justify-content-center">
+                        <% productData.forEach(product=>{ %>
+                            <% if(product.categoryName.name=='MENS') {%>
+                                <div class="col-6 col-md-4 col-lg-3">
+                                    <div class="product product-2 text-center">
+                                        <figure class="product-media">
+                                            <% let quantity = 0 %>
+                                            <% Object.values(product.quantity).forEach(function(q) { %>
+                                                <% if(q!=0) {%>
+                                                    <% quantity++ %>
+                                                <% } %>
+                                            <% }); %>
+
+                                            <% if(quantity==0){ %>
+                                                <span class="product-label label-sale" style="border-radius: 7px;">Out of stock</span>
+                                            <% }else if(product.offer>0){ %>
+                                                <span class="product-label label-new" style="border-radius: 7px;"><%= product.offer %>% off</span>
+                                            <% } %>
+        
+                                            <a href="/product?productDetails=<%= product._id %>">
+                                                <% if(quantity == 0) {%>
+                                                    <img src="/productImages/<%= product.images[0] %>" alt="Product image" class="product-image" style="filter: saturate(0); object-fit: cover;max-height:280px;">
+                                                    <img src="/productImages/<%= product.images[1]?product.images[1]:product.images[0] %>" alt="Product image" class="product-image-hover" style="filter: saturate(0); object-fit: cover;max-height:280px;">
+                                                <% }else{ %>
+                                                    <img src="/productImages/<%= product.images[0] %>" alt="Product image" class="product-image" style="object-fit: cover;max-height:280px;">
+                                                    <img src="/productImages/<%= product.images[1]?product.images[1]:product.images[0] %>" alt="Product image" class="product-image-hover" style="object-fit: cover;max-height:280px;">
+                                                <% } %>
+                                            </a>
+        
+                                            <div class="product-action-vertical">
+                                                <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                            </div><!-- End .product-action-vertical -->
+        
+                                            <div class="product-action">
+                                                <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                            </div><!-- End .product-action -->
+                                        </figure><!-- End .product-media -->
+        
+                                        <div class="product-body">
+                                            <div class="product-cat">
+                                                <a href="#"><%= product.categoryName.name %></a>
+                                            </div><!-- End .product-cat -->
+                                            <h3 class="product-title"><a href="product.html"><%= product.name %></a></h3><!-- End .product-title -->
+                                            <div class="product-price">
+                                                <span class="new-price">Now $<%= product.price %></span>
+                                                <span class="old-price">Was $<%= product.price+10 %></span>
+                                            </div><!-- End .product-price -->
+                                        </div><!-- End .product-body -->
+                                    </div><!-- End .product -->
+                                </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
+                            <%}%>
+                            <% }) %>
+                    </div><!-- End .row -->
+                </div><!-- End .products -->
+            </div><!-- .End .tab-pane -->
+            <div class="tab-pane p-0 fade" id="recent-shoes-tab" role="tabpanel" aria-labelledby="recent-shoes-link">
+                <div class="products">
+                    <div class="row justify-content-center">
+                        <% productData.forEach(product=>{ %>
+                            <% if(product.categoryName.name=='SHOES') {%>
+                                <div class="col-6 col-md-4 col-lg-3">
+                                    <div class="product product-2 text-center">
+                                        <figure class="product-media">
+
+                                            <% let quantity = 0 %>
+                                            <% Object.values(product.quantity).forEach(function(q) { %>
+                                                <% if(q!=0) {%>
+                                                    <% quantity++ %>
+                                                <% } %>
+                                            <% }); %>
+
+                                            <% if(quantity==0){ %>
+                                                <span class="product-label label-sale" style="border-radius: 7px;">Out of stock</span>
+                                            <% }else if(product.offer>0){ %>
+                                                <span class="product-label label-new" style="border-radius: 7px;"><%= product.offer %>% off</span>
+                                            <% } %>
+        
+                                            <a href="/product?productDetails=<%= product._id %>">
+                                                <% if(quantity == 0) {%>
+                                                    <img src="/productImages/<%= product.images[0] %>" alt="Product image" class="product-image" style="filter: saturate(0); object-fit: cover;max-height:280px;">
+                                                <% }else{ %>
+                                                    <img src="/productImages/<%= product.images[0] %>" alt="Product image" class="product-image" style="object-fit: cover;max-height:280px;">
+                                                <% } %>
+                                            </a>
+        
+                                            <div class="product-action-vertical">
+                                                <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                            </div><!-- End .product-action-vertical -->
+        
+                                            <div class="product-action">
+                                                <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                            </div><!-- End .product-action -->
+                                        </figure><!-- End .product-media -->
+        
+                                        <div class="product-body">
+                                            <div class="product-cat">
+                                                <a href="#"><%= product.categoryName.name %></a>
+                                            </div><!-- End .product-cat -->
+                                            <h3 class="product-title"><a href="product.html"><%= product.name %></a></h3><!-- End .product-title -->
+                                            <div class="product-price">
+                                                <% if(product.offer>0) {%>
+                                                    <span class="new-price">₹<%= product.finalPrice %></span>
+                                                    <span class="old-price">₹<%= product.price %></span>
+                                                <%}else{%>
+                                                    ₹<%= product.price %>
+                                                <%}%>
+                                            </div><!-- End .product-price -->
+                                        </div><!-- End .product-body -->
+                                    </div><!-- End .product -->
+                                </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
+                            <%}%>
+                            <% }) %>
+
+                    </div><!-- End .row -->
+                </div><!-- End .products -->
+            </div><!-- .End .tab-pane -->
+        </div><!-- End .tab-content -->
+
+        <div class="more-container text-center mt-3 mb-3">
+            <a href="/shop" class="btn btn-outline-dark-3 btn-more" style="border-radius: 20px;"><span>View More</span><i class="icon-long-arrow-right"></i></a>
+        </div><!-- End .more-container -->
+    </div><!-- End .container -->
+
+    <div class="mb-7"></div><!-- End .mb-5 -->
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-sm-6" >
+                <div class="icon-box icon-box-card text-center" style="border-radius: 20px;">
+                    <span class="icon-box-icon">
+                        <i class="icon-rocket"></i>
+                    </span>
+                    <div class="icon-box-content">
+                        <h3 class="icon-box-title">Payment & Delivery</h3><!-- End .icon-box-title -->
+                        <p>Free shipping for orders over $50</p>
+                    </div><!-- End .icon-box-content -->
+                </div><!-- End .icon-box -->
+            </div><!-- End .col-lg-4 col-sm-6 -->
+
+            <div class="col-lg-4 col-sm-6">
+                <div class="icon-box icon-box-card text-center" style="border-radius: 20px;">
+                    <span class="icon-box-icon">
+                        <i class="icon-rotate-left"></i>
+                    </span>
+                    <div class="icon-box-content">
+                        <h3 class="icon-box-title">Return & Refund</h3><!-- End .icon-box-title -->
+                        <p>Free 100% money back guarantee</p>
+                    </div><!-- End .icon-box-content -->
+                </div><!-- End .icon-box -->
+            </div><!-- End .col-lg-4 col-sm-6 -->
+
+            <div class="col-lg-4 col-sm-6">
+                <div class="icon-box icon-box-card text-center" style="border-radius: 20px;">
+                    <span class="icon-box-icon">
+                        <i class="icon-life-ring"></i>
+                    </span>
+                    <div class="icon-box-content">
+                        <h3 class="icon-box-title">Quality Support</h3><!-- End .icon-box-title -->
+                        <p>Alway online feedback 24/7</p>
+                    </div><!-- End .icon-box-content -->
+                </div><!-- End .icon-box -->
+            </div><!-- End .col-lg-4 col-sm-6 -->
+        </div><!-- End .row -->
+    </div><!-- End .container -->
+        
+    
+</main><!-- End .main -->
+
+<footer class="footer footer-2">
+    <div class="footer-middle">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="widget widget-about">
+                        <h3 class="footer-logo" width="82" height="25">TUNGSTEN</h3>
+                        <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. </p>
+                        
+                        <div class="widget-about-info">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-4">
+                                    <span class="widget-about-title">Got Question? Call us 24/7</span>
+                                    <a href="tel:123456789">+0123 456 789</a>
+                                </div><!-- End .col-sm-6 -->
+                                <div class="col-sm-6 col-md-8">
+                                    <span class="widget-about-title">Payment Method</span>
+                                    <figure class="footer-payments">
+                                        <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                                    </figure><!-- End .footer-payments -->
+                                </div><!-- End .col-sm-6 -->
+                            </div><!-- End .row -->
+                        </div><!-- End .widget-about-info -->
+                    </div><!-- End .widget about-widget -->
+                </div><!-- End .col-sm-12 col-lg-3 -->
+
+                <div class="col-sm-4 col-lg-2">
+                    <div class="widget">
+                        <h4 class="widget-title">Information</h4><!-- End .widget-title -->
+
+                        <ul class="widget-list">
+                            <li><a href="about.html">About Molla</a></li>
+                            <li><a href="#">How to shop on Molla</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="contact.html">Contact us</a></li>
+                            <li><a href="login.html">Log in</a></li>
+                        </ul><!-- End .widget-list -->
+                    </div><!-- End .widget -->
+                </div><!-- End .col-sm-4 col-lg-3 -->
+
+                <div class="col-sm-4 col-lg-2">
+                    <div class="widget">
+                        <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+
+                        <ul class="widget-list">
+                            <li><a href="#">Payment Methods</a></li>
+                            <li><a href="#">Money-back guarantee!</a></li>
+                            <li><a href="#">Returns</a></li>
+                            <li><a href="#">Shipping</a></li>
+                            <li><a href="#">Terms and conditions</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul><!-- End .widget-list -->
+                    </div><!-- End .widget -->
+                </div><!-- End .col-sm-4 col-lg-3 -->
+
+                <div class="col-sm-4 col-lg-2">
+                    <div class="widget">
+                        <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+
+                        <ul class="widget-list">
+                            <li><a href="#">Sign In</a></li>
+                            <li><a href="cart.html">View Cart</a></li>
+                            <li><a href="#">My Wishlist</a></li>
+                            <li><a href="#">Track My Order</a></li>
+                            <li><a href="#">Help</a></li>
+                        </ul><!-- End .widget-list -->
+                    </div><!-- End .widget -->
+                </div><!-- End .col-sm-64 col-lg-3 -->
+            </div><!-- End .row -->
+        </div><!-- End .container -->
+    </div><!-- End .footer-middle -->
+
+    <div class="footer-bottom">
+        <div class="container">
+            <p class="footer-copyright">Copyright © 2019 TUNGSTEN Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+            <ul class="footer-menu">
+                <li><a href="#">Terms Of Use</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul><!-- End .footer-menu -->
+
+            <div class="social-icons social-icons-color">
+                <span class="social-label">Social Media</span>
+                <a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                <a href="#" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                <a href="#" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                <a href="#" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+                <a href="#" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+            </div><!-- End .soial-icons -->
+        </div><!-- End .container -->
+    </div><!-- End .footer-bottom -->
+</footer><!-- End .footer -->
+</div><!-- End .page-wrapper -->
+<button id="scroll-top" title="Back to Top" style="border-radius: 40%; background: #ff8f67;"><i class="icon-arrow-up" style="color: #000000;"></i></button>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+<%- include('../layouts/mobileView.ejs') %>
+
+<!-- Sign in / Register Modal -->
+<div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="icon-close"></i></span>
+            </button>
+
+            <div class="form-box">
+                <div class="form-tab">
+                    <ul class="nav nav-pills nav-fill nav-border-anim" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="tab-content-5">
+                        <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                            <form action="#">
+                                <div class="form-group">
+                                    <label for="singin-email">Username or email address *</label>
+                                    <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                </div><!-- End .form-group -->
+
+                                <div class="form-group">
+                                    <label for="singin-password">Password *</label>
+                                    <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                </div><!-- End .form-group -->
+
+                                <div class="form-footer">
+                                    <button type="submit" class="btn btn-outline-primary-2">
+                                        <span>LOG IN</span>
+                                        <i class="icon-long-arrow-right"></i>
+                                    </button>
+
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="signin-remember">
+                                        <label class="custom-control-label" for="signin-remember">Remember Me</label>
+                                    </div><!-- End .custom-checkbox -->
+
+                                    <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                </div><!-- End .form-footer -->
+                            </form>
+                            <div class="form-choice">
+                                <p class="text-center">or sign in with</p>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <a href="#" class="btn btn-login btn-g">
+                                            <i class="icon-google-plus-g"></i>
+                                            Login With Google
+                                        </a>
+                                    </div><!-- End .col-6 -->
+                                    <div class="col-sm-6">
+                                        <a href="#" class="btn btn-login btn-f">
+                                            <i class="icon-facebook-f"></i>
+                                            Login With Facebook
+                                        </a>
+                                    </div><!-- End .col-6 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .form-choice -->
+                        </div><!-- .End .tab-pane -->
+                        <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                            <form action="#">
+                                <div class="form-group">
+                                    <label for="register-email">Your email address *</label>
+                                    <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                </div><!-- End .form-group -->
+
+                                <div class="form-group">
+                                    <label for="register-password">Password *</label>
+                                    <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                </div><!-- End .form-group -->
+
+                                <div class="form-footer">
+                                    <button type="submit" class="btn btn-outline-primary-2">
+                                        <span>SIGN UP</span>
+                                        <i class="icon-long-arrow-right"></i>
+                                    </button>
+
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="register-policy" required>
+                                        <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
+                                    </div><!-- End .custom-checkbox -->
+                                </div><!-- End .form-footer -->
+                            </form>
+                            <div class="form-choice">
+                                <p class="text-center">or sign in with</p>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <a href="#" class="btn btn-login btn-g">
+                                            <i class="icon-google-plus-g"></i>
+                                            Login With Google
+                                        </a>
+                                    </div><!-- End .col-6 -->
+                                    <div class="col-sm-6">
+                                        <a href="#" class="btn btn-login  btn-f">
+                                            <i class="icon-facebook-f"></i>
+                                            Login With Facebook
+                                        </a>
+                                    </div><!-- End .col-6 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .form-choice -->
+                        </div><!-- .End .tab-pane -->
+                    </div><!-- End .tab-content -->
+                </div><!-- End .form-tab -->
+            </div><!-- End .form-box -->
+        </div><!-- End .modal-body -->
+    </div><!-- End .modal-content -->
+</div><!-- End .modal-dialog -->
+</div><!-- End .modal -->
+<%- include('../layouts/footer.ejs') %>
+
+<script>
+    window.onload = function (){
+        setInterval(()=>{
+            document.querySelector('.owl-theme.owl-nav-inside .owl-nav .owl-next').click()
+        },3000)
+    }
+</script>
+
+<script>
+    function addToCart(productId){
+        const quantity = 1
+        fetch('/addCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productId, quantity,size : 'medium' })
+        })
+        .then(response => response.json())
+        .then(data=>{
+            if(data.success){
+
+                let cartCount = document.getElementById('cartCount')
+                cartCount.textContent = parseInt(cartCount.textContent)+1
+
+                Swal.fire({
+                    icon : 'success',
+                    title : 'Success',
+                    text : 'Product added successfully',
+                    showConfirmButton  :false,
+                    timer : 1500
+                })
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: "Can't add to cart!",
+                    text: data.error || 'Product is already existing.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+    }
+</script>
+<script>
+    function addToWishlist(productId) {
+        console.log(productId);
+        axios.post('/addToWishlist', {
+            productId: productId
+        })
+        .then(response => {
+            if (response.data.success) {
+                console.log('success');
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Added to wishlist successfully!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: response.data.error || 'Product already existing...',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'An error occurred',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        });
+    }
+</script>

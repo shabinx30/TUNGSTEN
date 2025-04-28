@@ -1,0 +1,586 @@
+<%- include('../layouts/header.ejs') %>
+<div id="preLoader" class="centerImage" style="width: 100%; height: 100vh; padding-top: 35vh; background-color: #000000;">
+    <img class="img-fluid" style="width: 20%; display: block; margin-left: auto;margin-right: auto;" src="animation/preloading_animation.gif">
+</div>
+
+
+<script>
+    let loader = document.getElementById("preLoader")
+    window.addEventListener("load", function () {
+        let nav = document.getElementById('head_nav')
+        loader.style.display = "none";
+        nav.className = "header smol"
+    })
+</script>
+
+
+    <div class="page-wrapper">
+        <header class="header" id="head_nav">
+            <div class="header-bottom sticky-header">
+                <style>
+
+
+                    /* for logout */
+              @keyframes slideInFromLeft1 {
+                  0% {
+                    transform: translateY(-100%);
+                    opacity: 0;
+                  }
+                  100% {
+                      transform: translateY(0);
+                      opacity: 1;
+                  }
+                }
+                
+                .smol {  
+                  /* This section calls the slideInFromLeft animation we defined above */
+                  animation: .3s ease 0s 1 slideInFromLeft1;
+                }
+              </style>
+            <div class="container">
+                <div class="header-left">
+                    <button class="mobile-menu-toggler">
+                        <span class="sr-only">Toggle mobile menu</span>
+                        <i class="icon-bars"></i>
+                    </button>
+                    
+                    <a href="/home" class="logo">
+                        <!-- <img src="assets/images/demos/demo-8/logo.png" alt="Molla Logo" width="82" height="20"> -->
+                        <h3 style="margin-top: auto; margin-bottom: auto;">TUNGSTEN</h3>
+                    </a>
+                </div>
+                <div class="header-center mx-auto">
+                    <nav class="main-nav">
+                        <ul class="menu sf-arrows">
+                            <li class="megamenu-container">
+                                <a href="/home" >Home</a>
+
+                            </li>
+                            <li >
+                                <a href="/shop">Shop</a>
+
+                            </li>
+                            <li class="active">
+                                <a ">Category</a>
+
+                            </li>
+                            <li>
+                                <a href="/about" >About Us</a>
+
+                            </li>
+                            <li>
+                                <a href="/contact" >Contact Us</a>
+
+                            </li>
+                            <li>
+                                <a href="/blog" >Blog</a>
+
+                            </li>
+                        </ul><!-- End .menu -->
+                    </nav><!-- End .main-nav -->
+                </div><!-- End .header-left -->
+
+                <div class="header-right">
+                    <div class="header-search">
+                        <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                        <form action="#" method="get">
+                            <div class="header-search-wrapper">
+                                <label for="q" class="sr-only">Search</label>
+                                <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                            </div><!-- End .header-search-wrapper -->
+                        </form>
+                    </div><!-- End .header-search -->
+
+                    <a href="/wishlist" class="wishlist-link">
+                        <i class="icon-heart-o"></i>
+                        <span class="wishlist-count">3</span>
+                    </a>
+
+                    <div class="dropdown cart-dropdown">
+                        <a href="/cart" class="dropdown-toggle" >
+                            <i class="icon-shopping-cart"></i>
+                            <span class="cart-count">2</span>
+                        </a>
+
+                        <!-- dropdown -->
+
+                    </div><!-- End .cart-dropdown -->
+                    <div class="dropdown cart-dropdown">
+                        <a href="/userDashboard" class="dropdown-toggle" >
+                            <i class="fa-regular fa-user" style="font-size: x-large;"></i>
+                        </a>
+
+                        <!-- dropdown -->
+
+                    </div>
+                </div><!-- End .header-right -->
+            </div><!-- End .container -->
+        </div><!-- End .header-bottom -->
+    </header><!-- End .header -->
+
+    <main class="main">
+        <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+            <div class="container">
+                <h1 class="page-title">Product Category<span>Shop</span></h1>
+            </div><!-- End .container -->
+        </div><!-- End .page-header -->
+        <nav aria-label="breadcrumb" class="breadcrumb-nav breadcrumb-with-filter">
+            <div class="container">
+                <a href="#" class="sidebar-toggler"><i class="icon-bars"></i>Filters</a>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item"><a >Product Category</a></li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <div class="page-content">
+            <div class="categories-page">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="banner banner-cat banner-badge">
+                                <a href="/shop">
+                                    <img src="assets/images/category/boxed/banner-1.jpg" alt="Banner">
+                                </a>
+
+                                <a class="banner-link" href="#">
+                                    <h3 class="banner-title">Dresses</h3><!-- End .banner-title -->
+                                    <h4 class="banner-subtitle">3 Products</h4><!-- End .banner-subtitle -->
+                                    <span class="banner-link-text">Shop Now</span>
+                                </a><!-- End .banner-link -->
+                            </div><!-- End .banner -->
+
+                            <div class="banner banner-cat banner-badge">
+                                <a href="/shop">
+                                    <img src="assets/images/category/boxed/banner-2.jpg" alt="Banner">
+                                </a>
+
+                                <a class="banner-link" href="#">
+                                    <h3 class="banner-title">Jackets</h3><!-- End .banner-title -->
+                                    <h4 class="banner-subtitle">2 Products</h4><!-- End .banner-subtitle -->
+                                    <span class="banner-link-text">Shop Now</span>
+                                </a><!-- End .banner-link -->
+                            </div><!-- End .banner -->
+                        </div><!-- End .col-md-6 -->
+
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="banner banner-cat banner-badge">
+                                        <a href="/shop">
+                                            <img src="assets/images/category/boxed/banner-3.jpg" alt="Banner">
+                                        </a>
+
+                                        <a class="banner-link" href="#">
+                                            <h3 class="banner-title">T-shirts</h3><!-- End .banner-title -->
+                                            <h4 class="banner-subtitle">0 Products</h4><!-- End .banner-subtitle -->
+                                            <span class="banner-link-text">Shop Now</span>
+                                        </a><!-- End .banner-link -->
+                                    </div><!-- End .banner -->
+                                </div><!-- End .col-sm-6 -->
+
+                                <div class="col-sm-6">
+                                    <div class="banner banner-cat banner-badge">
+                                        <a href="/shop">
+                                            <img src="assets/images/category/boxed/banner-4.jpg" alt="Banner">
+                                        </a>
+
+                                        <a class="banner-link" href="#">
+                                            <h3 class="banner-title">Jeans</h3><!-- End .banner-title -->
+                                            <h4 class="banner-subtitle">1 Products</h4><!-- End .banner-subtitle -->
+                                            <span class="banner-link-text">Shop Now</span>
+                                        </a><!-- End .banner-link -->
+                                    </div><!-- End .banner -->
+                                </div><!-- End .col-sm-6 -->
+                            </div><!-- End .row -->
+
+                            <div class="banner banner-cat banner-badge">
+                                <a href="/shop">
+                                    <img src="assets/images/category/boxed/banner-5.jpg" alt="Banner">
+                                </a>
+
+                                <a class="banner-link" href="#">
+                                    <h3 class="banner-title">Bags</h3><!-- End .banner-title -->
+                                    <h4 class="banner-subtitle">4 Products</h4><!-- End .banner-subtitle -->
+                                    <span class="banner-link-text">Shop Now</span>
+                                </a><!-- End .banner-link -->
+                            </div><!-- End .banner -->
+                        </div><!-- End .col-md-6 -->
+
+                        <div class="col-sm-6 col-md-3">
+                            <div class="banner banner-cat banner-badge">
+                                <a href="/shop">
+                                    <img src="assets/images/category/boxed/banner-6.jpg" alt="Banner">
+                                </a>
+
+                                <a class="banner-link" href="#">
+                                    <h3 class="banner-title">Sportwear</h3><!-- End .banner-title -->
+                                    <h4 class="banner-subtitle">0 Products</h4><!-- End .banner-subtitle -->
+                                    <span class="banner-link-text">Shop Now</span>
+                                </a><!-- End .banner-link -->
+                            </div><!-- End .banner -->
+                        </div><!-- End .col-md-3 -->
+
+                        <div class="col-sm-6 col-md-3 order-md-last">
+                            <div class="banner banner-cat banner-badge">
+                                <a href="/shop">
+                                    <img src="assets/images/category/boxed/banner-8.jpg" alt="Banner">
+                                </a>
+
+                                <a class="banner-link" href="#">
+                                    <h3 class="banner-title">Jumpers</h3><!-- End .banner-title -->
+                                    <h4 class="banner-subtitle">1 Products</h4><!-- End .banner-subtitle -->
+                                    <span class="banner-link-text">Shop Now</span>
+                                </a><!-- End .banner-link -->
+                            </div><!-- End .banner -->
+                        </div><!-- End .col-md-3 -->
+
+                        <div class="col-md-6">
+                            <div class="banner banner-cat banner-badge">
+                                <a href="/shop">
+                                    <img src="assets/images/category/boxed/banner-7.jpg" alt="Banner">
+                                </a>
+
+                                <a class="banner-link" href="#">
+                                    <h3 class="banner-title">Shoes</h3><!-- End .banner-title -->
+                                    <h4 class="banner-subtitle">2 Products</h4><!-- End .banner-subtitle -->
+                                    <span class="banner-link-text">Shop Now</span>
+                                </a><!-- End .banner-link -->
+                            </div><!-- End .banner -->
+                        </div><!-- End .col-md-6 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .categories-page -->
+            
+            <div class="sidebar-filter-overlay"></div><!-- End .sidebar-filter-overlay -->
+            <aside class="sidebar-shop sidebar-filter sidebar-filter-banner">
+                <div class="sidebar-filter-wrapper">
+                    <div class="widget widget-clean">
+                        <label><i class="icon-close"></i>Filters</label>
+                        <a href="#" class="sidebar-filter-clear">Clean All</a>
+                    </div>
+                    <div class="widget">
+                        <h3 class="widget-title">
+                            Browse Category
+                        </h3><!-- End .widget-title -->
+
+                        <div class="widget-body">
+                            <div class="filter-items filter-items-count">
+                                <div class="filter-item">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="cat-1">
+                                        <label class="custom-control-label" for="cat-1">Women</label>
+                                    </div><!-- End .custom-checkbox -->
+                                    <span class="item-count">3</span>
+                                </div><!-- End .filter-item -->
+
+                                <div class="filter-item">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="cat-2">
+                                        <label class="custom-control-label" for="cat-2">Men</label>
+                                    </div><!-- End .custom-checkbox -->
+                                    <span class="item-count">0</span>
+                                </div><!-- End .filter-item -->
+
+                                <div class="filter-item">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="cat-3">
+                                        <label class="custom-control-label" for="cat-3">Holiday Shop</label>
+                                    </div><!-- End .custom-checkbox -->
+                                    <span class="item-count">0</span>
+                                </div><!-- End .filter-item -->
+
+                                <div class="filter-item">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="cat-4">
+                                        <label class="custom-control-label" for="cat-4">Gifts</label>
+                                    </div><!-- End .custom-checkbox -->
+                                    <span class="item-count">0</span>
+                                </div><!-- End .filter-item -->
+
+                                <div class="filter-item">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="cat-5">
+                                        <label class="custom-control-label" for="cat-5">Homeware</label>
+                                    </div><!-- End .custom-checkbox -->
+                                    <span class="item-count">0</span>
+                                </div><!-- End .filter-item -->
+
+                                <div class="filter-item">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="cat-6" checked="checked">
+                                        <label class="custom-control-label" for="cat-6">Grid Categories Fullwidth</label>
+                                    </div><!-- End .custom-checkbox -->
+                                    <span class="item-count">13</span>
+                                </div><!-- End .filter-item -->
+
+                                <div class="sub-filter-items">
+                                    <div class="filter-item">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="cat-7">
+                                            <label class="custom-control-label" for="cat-7">Dresses</label>
+                                        </div><!-- End .custom-checkbox -->
+                                        <span class="item-count">3</span>
+                                    </div><!-- End .filter-item -->
+
+                                    <div class="filter-item">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="cat-8">
+                                            <label class="custom-control-label" for="cat-8">T-shirts</label>
+                                        </div><!-- End .custom-checkbox -->
+                                        <span class="item-count">0</span>
+                                    </div><!-- End .filter-item -->
+
+                                    <div class="filter-item">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="cat-9">
+                                            <label class="custom-control-label" for="cat-9">Bags</label>
+                                        </div><!-- End .custom-checkbox -->
+                                        <span class="item-count">4</span>
+                                    </div><!-- End .filter-item -->
+
+                                    <div class="filter-item">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="cat-10">
+                                            <label class="custom-control-label" for="cat-10">Jackets</label>
+                                        </div><!-- End .custom-checkbox -->
+                                        <span class="item-count">2</span>
+                                    </div><!-- End .filter-item -->
+
+                                    <div class="filter-item">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="cat-11">
+                                            <label class="custom-control-label" for="cat-11">Shoes</label>
+                                        </div><!-- End .custom-checkbox -->
+                                        <span class="item-count">2</span>
+                                    </div><!-- End .filter-item -->
+
+                                    <div class="filter-item">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="cat-12">
+                                            <label class="custom-control-label" for="cat-12">Jumpers</label>
+                                        </div><!-- End .custom-checkbox -->
+                                        <span class="item-count">1</span>
+                                    </div><!-- End .filter-item -->
+
+                                    <div class="filter-item">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="cat-13">
+                                            <label class="custom-control-label" for="cat-13">Jeans</label>
+                                        </div><!-- End .custom-checkbox -->
+                                        <span class="item-count">1</span>
+                                    </div><!-- End .filter-item -->
+
+                                    <div class="filter-item">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="cat-14">
+                                            <label class="custom-control-label" for="cat-14">Sportwear</label>
+                                        </div><!-- End .custom-checkbox -->
+                                        <span class="item-count">0</span>
+                                    </div><!-- End .filter-item -->
+                                </div><!-- End .sub-filter-items -->
+                            </div><!-- End .filter-items -->
+                        </div><!-- End .widget-body -->
+                    </div><!-- End .widget -->
+                </div><!-- End .sidebar-filter-wrapper -->
+            </aside><!-- End .sidebar-filter -->
+        </div><!-- End .page-content -->
+    </main><!-- End .main -->
+
+    <footer class="footer">
+        <div class="footer-middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget widget-about">
+                            <img src="assets/images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+                            <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+
+                            <div class="social-icons">
+                                <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+                                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+                                <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+                                <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+                                <a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
+                            </div><!-- End .soial-icons -->
+                        </div><!-- End .widget about-widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget">
+                            <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+
+                            <ul class="widget-list">
+                                <li><a href="about.html">About Molla</a></li>
+                                <li><a href="#">How to shop on Molla</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="contact.html">Contact us</a></li>
+                                <li><a href="login.html">Log in</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget">
+                            <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+
+                            <ul class="widget-list">
+                                <li><a href="#">Payment Methods</a></li>
+                                <li><a href="#">Money-back guarantee!</a></li>
+                                <li><a href="#">Returns</a></li>
+                                <li><a href="#">Shipping</a></li>
+                                <li><a href="#">Terms and conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget">
+                            <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+
+                            <ul class="widget-list">
+                                <li><a href="#">Sign In</a></li>
+                                <li><a href="cart.html">View Cart</a></li>
+                                <li><a href="#">My Wishlist</a></li>
+                                <li><a href="#">Track My Order</a></li>
+                                <li><a href="#">Help</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-middle -->
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+                <figure class="footer-payments">
+                    <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                </figure><!-- End .footer-payments -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-bottom -->
+    </footer><!-- End .footer -->
+</div><!-- End .page-wrapper -->
+<button id="scroll-top" title="Back to Top" style="border-radius: 40%; background: #eea287;"><i class="icon-arrow-up"></i></button>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+<%- include('../layouts/mobileView.ejs') %>
+
+<!-- Sign in / Register Modal -->
+<div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="icon-close"></i></span>
+                </button>
+
+                <div class="form-box">
+                    <div class="form-tab">
+                        <ul class="nav nav-pills nav-fill" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="tab-content-5">
+                            <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <label for="singin-email">Username or email address *</label>
+                                        <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="singin-password">Password *</label>
+                                        <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>LOG IN</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="signin-remember">
+                                            <label class="custom-control-label" for="signin-remember">Remember Me</label>
+                                        </div><!-- End .custom-checkbox -->
+
+                                        <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <label for="register-email">Your email address *</label>
+                                        <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-password">Password *</label>
+                                        <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>SIGN UP</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="register-policy" required>
+                                            <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
+                                        </div><!-- End .custom-checkbox -->
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login  btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .modal-body -->
+        </div><!-- End .modal-content -->
+    </div><!-- End .modal-dialog -->
+</div><!-- End .modal -->
+<%- include('../layouts/footer.ejs') %>

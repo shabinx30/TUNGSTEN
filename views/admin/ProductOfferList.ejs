@@ -1,0 +1,512 @@
+<%-include('../layouts/adminHeader.ejs')%>
+  <%-include('../layouts/adminSidebar.ejs')%>
+
+    <style>
+      .purple-header-box {
+        background-color: #936dd1;
+        /* Purple color */
+        color: #ffffff;
+        /* White text color */
+        padding: 15px;
+        /* Adjust padding as needed */
+        border-radius: 5px;
+        /* Optional: Add rounded corners */
+        margin-bottom: 20px;
+        /* Optional: Add space below the box */
+        text-align: center;
+      }
+
+      .search-bar {
+        margin-bottom: 10px;
+        /* Adjust spacing between search bar and heading */
+      }
+
+      .purple-button {
+        background-color: #936dd1;
+        color: white;
+        /* text color */
+        border: 1px solid #00000000;
+        /* black border */
+        border-radius: 10px;
+        /* slight curve */
+        padding: 10px 20px;
+        /* adjust padding as needed */
+        font-size: 16px;
+        /* adjust font size as needed */
+        cursor: pointer;
+        /* cursor style */
+        /* You can add additional styling as needed */
+      }
+
+      .search-btn {
+        width: 100px;
+        /* Adjust the width of the button as needed */
+        height: 40px;
+        /* Adjust the height of the button as needed */
+        border: 2px solid #000;
+        /* Black border */
+        border-radius: 2px;
+        /* Make it round */
+        background-color: #936dd1;
+        /* Black background */
+        color: #050404;
+        /* White text color */
+        font-size: 14px;
+        /* Adjust font size */
+        padding: 0;
+        /* Remove padding */
+      }
+
+      .search-btn::after {
+        display: inline-block;
+        margin-left: 0.3rem;
+        /* Adjust spacing between button and text */
+      }
+
+      .search-bar {
+        width: calc(100% - 80px);
+        /* Adjust the width of the search bar */
+        margin-right: 10px;
+        /* Adjust spacing between search bar and button */
+      }
+
+      .custom-table-header {
+        background-color: grey;
+        color: black;
+        width: 100%;
+      }
+
+      .red-button {
+        color: #9f0000;
+        background-color: #ff9797;
+        border-radius: 10px;
+      }
+
+      .red-button:hover {
+        color: #9f0000;
+        background-color: #ff6969;
+      }
+
+      .green-button {
+        color: #009f18;
+        background-color: #a2ff97;
+        border-radius: 10px;
+      }
+
+      .green-button:hover {
+        color: #009f18;
+        background-color: #68ff58;
+      }
+
+      .delete-button {
+        color: #ff0000;
+        background-color: #525252;
+        border-radius: 10px;
+      }
+
+      .delete-button:hover {
+        color: #ff0000;
+        background-color: #000;
+      }
+
+      .edit-button {
+        color: blue;
+        background-color: #a1a1ff;
+        border-radius: 10px;
+      }
+
+      .edit-button:hover {
+        color: blue;
+        background-color: #7b7bff;
+      }
+
+      .custom-class {
+        border-radius: 20px;
+      }
+
+      .custom-button {
+        border-radius: 20px;
+      }
+
+      .error {
+        display: flex;
+        z-index: 1001;
+        width: 25%;
+        height: 35px;
+        border-radius: 10px;
+        margin-top: 100px;
+        background-color: #000000ad;
+        margin-left: 40%;
+        position: absolute;
+        padding: .3em;
+        animation: errorS .5s ease forwards;
+      }
+
+      .error p {
+        margin-left: 1em;
+        color: white;
+      }
+
+      .error div {
+        border-radius: 50%;
+        background-color: #ff5454;
+        height: 90%;
+        width: 24px;
+        padding-left: 5px;
+        margin-left: 1em;
+      }
+
+      @keyframes errorS {
+        0% {
+          margin-top: 0;
+        }
+
+        100% {
+          margin-top: 100px;
+        }
+      }
+
+      @keyframes errorF {
+        0% {
+          margin-top: 100px;
+        }
+
+        100% {
+          margin-top: 0;
+        }
+      }
+    </style>
+    <% if( newOffferMsg && newOffferMsg.length> 0 ){ %>
+      <div class="error" id="newError">
+        <div>
+          <i class="fa-solid fa-xmark" style="color: #ffffff; "></i>
+        </div>
+        <p>
+          <%= newOffferMsg %>
+        </p>
+      </div>
+      <% } %>
+        <div class="page-wrapper">
+          <!-- ============================================================== -->
+          <!-- Container fluid  -->
+          <!-- ============================================================== -->
+          <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="" style="width: 100%">
+
+                      <!-- Added div with custom class -->
+
+                      <h2 class="card-title text-center mb-3">
+                        PRODUCT OFFER LIST
+                      </h2>
+                      <div class="text-right mb-3">
+                        <a class="purple-button" data-toggle="modal" data-target="#addOffer" style="color: white;">+ Add
+                          offer</a>
+                      </div>
+                      <!-- </div>
+            <% if (locals.success) { %>
+            <div
+              class="alert text-center"
+              role="alert"
+              style="color: green; background: white"
+            >
+              <%= locals.success %>
+            </div>
+            <% } %> -->
+                      <div class="table-responsive mx-auto" style="border-radius: 20px">
+                        <table class="table">
+                          <thead>
+                            <tr style="width: 100%; background-color: #936dd1; color: #000">
+                              <th scope="col">No.</th>
+                              <th scope="col">Product Name</th>
+                              <th scope="col">Discount</th>
+                              <th scope="col">Expiry</th>
+                              <th scope="col" class="text-right">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% if (offers.length> 0) { %> <% offers.forEach((offer, index)=> { %>
+                                <tr style="font-size: 14px;">
+                                  <td>
+                                    <%= ++index %>
+                                  </td>
+                                  <!-- Index starts from 0, so adding 1 for display -->
+                                  <td>
+                                    <%= offer.productName.name %>
+                                  </td>
+                                  <td>
+                                    <%= offer.discount %>%
+                                  </td>
+                                  <td>
+                                    <%= offer.expiryDate.toLocaleDateString('en-US'); %>
+                                  </td>
+
+                                  <td class="text-right align-middle">
+                                    <a onclick="deleteOffer('<%= offer._id %>')" class="btn-status-toggle"
+                                      data-categoryid="<%= offer._id %>">
+                                      <span class="btn delete-button">Delete</span>
+                                    </a>
+                                    <a href="/admin/editProductOffer?offerId=<%= offer._id %>" class="btn-status-toggle"
+                                      data-categoryid="<%= offer._id %>">
+                                      <span class="btn ml-3 edit-button">Edit</span>
+                                    </a>
+
+
+                                    <% if(offer.is_activated==true) { %>
+                                      <button id="status-button-<%= offer._id %>"
+                                        onclick="confirmAction('<%= offer._id %>')"
+                                        class="btn ml-3 red-button">Deactivate</button>
+                                      <%} else { %>
+                                        <button id="status-button-<%= offer._id %>"
+                                          onclick="confirmAction('<%= offer._id %>')"
+                                          class="btn ml-3 green-button">Activate</button>
+                                        <% } %>
+                                  </td>
+                                </tr>
+                                <% }); %>
+                                  <% } else { %>
+
+
+                                    <tr>
+                                      <td colspan="3">No offers found</td>
+                                    </tr>
+                                    <% } %>
+                          </tbody>
+                        </table>
+
+                        <% if (locals.errmsg) { %>
+                          <div class="alert text-center" role="alert" style="color: blueviolet; background: white">
+                            <%= locals.errmsg %>
+                          </div>
+                          <% } %>
+                      </div>
+
+                      <div class="modal fade" id="addOffer" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content p-3" style="border-radius: 20px;">
+                            <div class="modal-header">
+                              <h3 class="modal-title" id="exampleModalLongTitle" style="color: #000;">Add new Offer</h3>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body pl-3 pr-3">
+                              <form id="offerAddingForm" action="/admin/addOffer" method="post">
+                                <p class="text-danger" aria-live="polite" id="forgot_error">
+                                  <%= locals.forgot %>
+                                </p>
+                                <div class="form-group">
+                                  <label for="forgot_password" style="color: #000;">Product Name *</label>
+                                  <select name="productName"
+                                    style="border-radius: 5px; font-size: 14px; width: 100%; height: 2.5em; padding: .5em;">
+                                    <option value="" hidden selected>Select a Product</option>
+                                    <% if(products.length>0) {%>
+                                      <% products.forEach((val)=>{ %>
+                                        <option value="<%= val._id %>">
+                                          <%= val.name %>
+                                        </option>
+                                        <% }) %>
+                                          <% }else{ %>
+                                            <p>No product</p>
+                                            <% } %>
+                                  </select>
+                                  <span id="productName_error" class="error-message"
+                                    style="color: red; font-size: smaller;"></span>
+                                </div> <!--End .form-group -->
+                                <div class="form-group">
+                                  <label for="description" style="color: #000;">Description *</label><br>
+                                  <textarea name="description" id="description"
+                                    style="border-radius: 10px; font-size: 14px; width: 100%; padding: .5em;"></textarea>
+                                  <span id="description_error" class="error-message"
+                                    style="color: red; font-size: smaller;"></span>
+                                </div> <!--End .form-group -->
+                                <div class="form-group">
+                                  <label for="forgot_password" style="color: #000;">Discount % *</label>
+                                  <input type="number" class="form-control" id="discount" name="discount"
+                                    style="border-radius: 10px;" placeholder="Discount" autocomplete="off">
+                                  <span id="discount_error" class="error-message"
+                                    style="color: red; font-size: smaller;"></span>
+                                </div> <!--End .form-group -->
+                                <div class="form-group">
+                                  <label for="forgot_password" style="color: #000;">Expiry Date *</label>
+                                  <input type="date" class="form-control" id="expiryDate" name="expiryDate"
+                                    style="border-radius: 10px;" placeholder="Discount" autocomplete="off">
+                                  <span id="expiryDate_error" class="error-message"
+                                    style="color: red; font-size: smaller;"></span>
+                                </div> <!--End .form-group -->
+                            </div>
+                            <div class="modal-footer mx-auto">
+                              <button type="button" class="btn btn-outline-primary-2" data-dismiss="modal"
+                                style="border-radius: 10px; height: 2.9em;">
+                                <span>Close</span>
+                              </button>
+                              <button type="submit" style="border-radius: 10px;" class="btn btn-primary">Submit</button>
+                            </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- ============================================================== -->
+              <!-- End Page wrapper  -->
+              <!-- ============================================================== -->
+            </div>
+          </div>
+
+
+          <script>
+            document.getElementById("offerAddingForm").addEventListener("submit", function (event) {
+              let isValid = true;
+
+              // Get form elements
+              const productName = document.querySelector("select[name='productName']");
+              const description = document.querySelector("textarea[name='description']");
+              const discount = document.querySelector("input[name='discount']");
+              const expiryDate = document.querySelector("input[name='expiryDate']");
+
+              // Clear previous errors
+              document.getElementById("productName_error").textContent = "";
+              document.getElementById("description_error").textContent = "";
+              document.getElementById("discount_error").textContent = "";
+              document.getElementById("expiryDate_error").textContent = "";
+
+              // Validate Product Name
+              if (!productName.value) {
+                isValid = false;
+                document.getElementById("productName_error").textContent = "Please select a product.";
+              }
+
+              // Validate Description
+              if (description.value.trim() === "") {
+                isValid = false;
+                document.getElementById("description_error").textContent = "Please enter a description.";
+              }
+
+              // Validate Discount Percentage
+              if (discount.value === "" || discount.value < 0 || discount.value > 100) {
+                isValid = false;
+                document.getElementById("discount_error").textContent = "Please enter a valid discount percentage (0-100).";
+              }
+
+              // Validate Expiry Date
+              const currentDate = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+              if (!expiryDate.value) {
+                isValid = false;
+                document.getElementById("expiryDate_error").textContent = "Please select an expiry date.";
+              } else if (expiryDate.value < currentDate) {
+                isValid = false;
+                document.getElementById("expiryDate_error").textContent = "Expiry date cannot be in the past.";
+              }
+
+              // If the form is not valid, prevent submission
+              if (!isValid) {
+                event.preventDefault();
+              }
+            });
+          </script>
+
+
+
+          <script>
+            setTimeout(() => {
+              document.getElementById('newError').style.animation = '.2s ease 0s 1 errorF'
+              // document.getElementById('newError').style.display = 'none'
+            }, 3000);
+
+            setTimeout(() => {
+              document.getElementById('newError').style.display = 'none'
+            }, 3100)
+
+
+
+            function confirmAction(offerId) {
+              let categoryBtn = document.getElementById(`status-button-${offerId}`);
+              console.log(offerId);
+
+              Swal.fire({
+                title: 'Are you sure?',
+                text: "Are you sure to change the status of it!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ff6464',
+                cancelButtonColor: '#936dd1',
+                confirmButtonText: 'Yes, change status!',
+                customClass: {
+                  popup: 'custom-class',
+                  confirmButton: 'custom-button',
+                  cancelButton: 'custom-button'
+                }
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  fetch(`/admin/productofferStatus?offerId=${offerId}`, {
+                    method: "GET"
+                  })
+                    .then((response) => {
+                      if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                      }
+                      return response.json();
+                    })
+                    .then((data) => {
+                      console.log("Response is working:", data.is_activated);
+
+                      if (data.is_activated == false) {
+                        console.log("heyyyyy");
+                        categoryBtn.innerText = "Deactivate";
+                        categoryBtn.className = "btn ml-3 red-button";
+                        categoryBtn.style.backgroundColor = "#ff9797";
+                        categoryBtn.style.color = "#9f0000";
+                      } else {
+                        console.log("haaaaaiiiiiii");
+                        categoryBtn.innerText = "Activate";
+                        categoryBtn.className = "btn ml-3 green-button";
+                        categoryBtn.style.backgroundColor = "#a2ff97";
+                        categoryBtn.style.color = "#009f18";
+                      }
+
+                    })
+                    .catch((error) => {
+                      console.error("There was a problem with the fetch operation:", error);
+                    });
+                }
+              });
+            }
+
+
+            function deleteOffer(offerId) {
+              Swal.fire({
+                title: 'Are you sure?',
+                text: "Are you really want to delete this Offer!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ff6464',
+                cancelButtonColor: '#936dd1',
+                confirmButtonText: 'Yes, Delete it!',
+                customClass: {
+                  popup: 'custom-class',
+                  confirmButton: 'custom-button',
+                  cancelButton: 'custom-button'
+                }
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = `/admin/deleteOffer?offerId=${offerId}`
+                }
+              });
+            }
+          </script>
+
+
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+          <%-include('../layouts/adminFooter.ejs')%>

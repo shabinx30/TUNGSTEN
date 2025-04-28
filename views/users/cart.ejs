@@ -1,0 +1,658 @@
+<%- include('../layouts/header.ejs') %>
+<div id="preLoader" class="centerImage" style="width: 100%; height: 100vh; padding-top: 35vh; background-color: #000000;">
+    <img class="img-fluid" style="width: 20%; display: block; margin-left: auto;margin-right: auto;" src="animation/preloading_animation.gif">
+</div>
+
+
+<script>
+    let loader = document.getElementById("preLoader")
+    window.addEventListener("load", function () {
+        let nav = document.getElementById('head_nav')
+        loader.style.display = "none";
+        nav.className = "header smol"
+    })
+</script>
+
+
+    <div class="page-wrapper">
+        <header class="header" id="head_nav">
+            <div class="header-bottom sticky-header">
+                <style>
+
+
+                    /* for logout */
+              @keyframes slideInFromLeft1 {
+                  0% {
+                    transform: translateY(-100%);
+                    opacity: 0;
+                  }
+                  100% {
+                      transform: translateY(0);
+                      opacity: 1;
+                  }
+                }
+                
+                .smol {  
+                  /* This section calls the slideInFromLeft animation we defined above */
+                  animation: .3s ease 0s 1 slideInFromLeft1;
+                }
+              </style>
+            <div class="container">
+                <div class="header-left">
+                    <button class="mobile-menu-toggler">
+                        <span class="sr-only">Toggle mobile menu</span>
+                        <i class="icon-bars"></i>
+                    </button>
+                    
+                    <a class="logo" href="/home">
+                        <h3 style="margin-top: auto; margin-bottom: auto;">TUNGSTEN</h3>
+                    </a>
+                </div>
+                <div class="header-center mx-auto">
+                    <nav class="main-nav">
+                        <ul class="menu sf-arrows">
+                            <li class="megamenu-container">
+                                <a href="/home">Home</a>
+
+                            </li>
+                            <li>
+                                <a href="/shop">Shop</a>
+
+                            </li>
+                            <!-- <li>
+                                <a href="/category">Category</a>
+
+                            </li> -->
+                            <li>
+                                <a href="/about" >About Us</a>
+
+                            </li>
+                            <li>
+                                <a href="/contact" >Contact Us</a>
+
+                            </li>
+                            <li>
+                                <a href="/blog" >Blog</a>
+
+                            </li>
+                        </ul><!-- End .menu -->
+                    </nav><!-- End .main-nav -->
+                </div><!-- End .header-left -->
+
+                <div class="header-right">
+                    <div class="header-search">
+                        <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                        <form action="#" method="get">
+                            <div class="header-search-wrapper">
+                                <label for="q" class="sr-only">Search</label>
+                                <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                            </div><!-- End .header-search-wrapper -->
+                        </form>
+                    </div><!-- End .header-search -->
+
+                    <a href="/wishlist" class="wishlist-link">
+                        <i class="icon-heart-o"></i>
+                        <span class="wishlist-count"><%= wishlistCount %></span>
+                    </a>
+
+                    
+                    <div class="dropdown cart-dropdown">
+                        <a href="/userDashboard" class="dropdown-toggle" >
+                            <i class="fa-regular fa-user" style="font-size: x-large;"></i>
+                        </a>
+
+                        <!-- dropdown -->
+
+                    </div>
+                </div><!-- End .header-right -->
+            </div><!-- End .container -->
+        </div><!-- End .header-bottom -->
+    </header><!-- End .header -->
+    <main class="main">
+        <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+            <div class="container">
+                <h1 class="page-title">Shopping Cart<span>Shop</span></h1>
+            </div><!-- End .container -->
+        </div><!-- End .page-header -->
+        <nav aria-label="breadcrumb" class="breadcrumb-nav">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <div class="page-content">
+            <div class="cart">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <table class="table table-cart table-mobile">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Size</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% let total = 0 %>
+                                    <% if (products && products.length > 0) { %>
+                                        <% products.forEach((product,index) => { %>
+                                            <% if (product.productId) { %>
+                                                <% total = total + product.productId.finalPrice * product.quantity %>
+                                                <tr>
+                                                    <td class="product-col">
+                                                        <div class="product">
+                                                            <figure class="product-media">
+                                                                <a href="/product?productDetails=<%= product.productId._id %>">
+                                                                    <img src="/productImages/<%= product.productId.images[0] %>" alt="Product image">
+                                                                </a>
+                                                            </figure>
+                                                            <h3 class="product-title">
+                                                                <a href="/product?productDetails=<%= product.productId._id %>"><%= product.productId.name %></a>
+                                                            </h3>
+                                                        </div>
+                                                    </td>
+                                                    <!-- size of product -->
+                                                    <td class="price-col" id="" ><%= product.size %></td>
+
+                                                    <input hidden type="text" id="price<%= product._id %>" value="<%= product.productId.finalPrice %>">
+                                                    <td class="price-col">₹<%= product.productId.finalPrice %></td>
+                                                    <td class="quantity-col">
+                                                        <div class="cart-product-quantity d-flex" style="border: 1px solid #eea287; border-radius: 10px;">
+                                                            <!-- <input  type="number" class="form-control" value="<%= product.quantity %>" min="1" max="10" step="1" data-decimals="0" required> -->
+                                                            <input hidden type="text" id="max_quantity<%= product._id %>" value="<%=product.productId.quantity[product.size]%>">
+                                                            <% console.log(product.productId.quantity) %>
+                                                            <button style="border: none; border-radius: 10px 0 0 10px;" onclick="decrease('<%= product._id %>', '<%= product.quantity %>')">-</button><div class="mx-auto"><p style="color: #000000;" id="quantity<%= product._id %>"><%= product.quantity %></p></div><button style="border: none; border-radius: 0 10px 10px 0;" onclick="increase('<%= product._id %>', '<%= product.quantity %>')">+</button>
+                                                        </div>
+                                                    </td>
+                                                    <td class="total-col" id="total_price<%= product._id %>" >₹<%= product.productId.finalPrice * product.quantity %></td>
+                                                    <td class="remove-col"><button class="btn-remove" onclick="remove('<%= product._id%>')" id="remove_button<%= product._id%>"><i class="icon-close"></i></button></td>
+                                                </tr>
+                                                <% } else { %>
+                                                <tr>
+                                                    <td colspan="5">Product details not found for one of the items in your cart.</td>
+                                                </tr>
+                                                <% } %>
+                                        <% }); %>
+                                    <% } else { %>
+                                            <tr>
+                                                <td colspan="5">Your cart is empty.</td>
+                                            </tr>
+                                    <% } %>
+                                </tbody>
+                                                    
+                            </table><!-- End .table table-wishlist --> 
+                                                
+                                                <div class="cart-bottom">
+                                                    <!-- <div class="cart-discount"> -->
+                                                        <!-- <form action="#"> -->
+                                                            <!-- <div class="input-group"> -->
+                                            <!-- <input type="text" class="form-control" style="border-radius: 10px;" required placeholder="coupon code"> -->
+                                            <!-- <div class="input-group-append"> -->
+                                                <!-- <button class="btn btn-outline-primary-2" type="submit" style="border-radius: 10px;"><i class="icon-long-arrow-right"></i></button> -->
+                                            <!-- </div>.End .input-group-append -->
+                                        <!-- </div>End .input-group -->
+                                    <!-- </form> -->
+                                <!-- </div>End .cart-discount -->
+
+                                <a href="/cart" class="btn btn-outline-dark-2" style="border-radius: 10px;"><span>UPDATE CART</span><i class="icon-refresh"></i></a>
+                            </div><!-- End .cart-bottom -->
+                        </div><!-- End .col-lg-9 -->
+                        <aside class="col-lg-3">
+                            <div class="summary summary-cart" style="border-radius: 20px;">
+                                <h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
+
+                                <table class="table table-summary" id="payment-options">
+                                    <tbody>
+                                        <tr class="summary-total">
+                                            <td>Subtotal:</td>
+                                            <td id="sub_total">₹<%= total %></td>
+                                        </tr><!-- End .summary-subtotal -->
+                                    </tbody>
+                                </table><!-- End .table table-summary -->
+
+                                <button id="PROCEED" onclick="proceed('<%=total%>')" class="btn btn-outline-primary-2 btn-order btn-block" style="border-radius: 10px;">PROCEED TO CHECKOUT</button>
+                                <script>
+                                    function proceed(total){
+                                        const verify_quantity = document.getElementById('verify_quantity');
+                                        if(total==0){
+                                            Swal.fire({
+                                                icon : 'error',
+                                                title : "Can't place order",
+                                                text : 'Cart is empty',
+                                                showConfirmButton  :true
+                                            })
+                                        }else{
+                                            window.location.href="/checkout";
+                                        }
+                                    }
+                                </script>
+                            </div><!-- End .summary -->
+
+                            <a href="/shop" class="btn btn-outline-dark-2 btn-block mb-3" style="border-radius: 10px;"><span>CONTINUE SHOPPING</span><i class="icon-refresh" ></i></a>
+                        </aside><!-- End .col-lg-3 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .cart -->
+        </div><!-- End .page-content -->
+    </main><!-- End .main -->
+
+    <footer class="footer footer-2">
+        <div class="footer-middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="widget widget-about">
+                            <h3 class="footer-logo" width="82" height="25">TUNGSTEN</h3>
+                            <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. </p>
+                            
+                            <div class="widget-about-info">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <span class="widget-about-title">Got Question? Call us 24/7</span>
+                                        <a href="tel:123456789">+0123 456 789</a>
+                                    </div><!-- End .col-sm-6 -->
+                                    <div class="col-sm-6 col-md-8">
+                                        <span class="widget-about-title">Payment Method</span>
+                                        <figure class="footer-payments">
+                                            <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                                        </figure><!-- End .footer-payments -->
+                                    </div><!-- End .col-sm-6 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .widget-about-info -->
+                        </div><!-- End .widget about-widget -->
+                    </div><!-- End .col-sm-12 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">Information</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="about.html">About Molla</a></li>
+                                <li><a href="#">How to shop on Molla</a></li>
+                                <li><a href="faq.html">FAQ</a></li>
+                                <li><a href="contact.html">Contact us</a></li>
+                                <li><a href="login.html">Log in</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-4 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="#">Payment Methods</a></li>
+                                <li><a href="#">Money-back guarantee!</a></li>
+                                <li><a href="#">Returns</a></li>
+                                <li><a href="#">Shipping</a></li>
+                                <li><a href="#">Terms and conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-4 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="#">Sign In</a></li>
+                                <li><a href="cart.html">View Cart</a></li>
+                                <li><a href="#">My Wishlist</a></li>
+                                <li><a href="#">Track My Order</a></li>
+                                <li><a href="#">Help</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-64 col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-middle -->
+    
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="footer-copyright">Copyright © 2019 TUNGSTEN Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+                <ul class="footer-menu">
+                    <li><a href="#">Terms Of Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul><!-- End .footer-menu -->
+    
+                <div class="social-icons social-icons-color">
+                    <span class="social-label">Social Media</span>
+                    <a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                    <a href="#" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                    <a href="#" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                    <a href="#" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+                    <a href="#" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                </div><!-- End .soial-icons -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-bottom -->
+    </footer><!-- End .footer -->
+</div><!-- End .page-wrapper -->
+<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+<%- include('../layouts/mobileView.ejs') %>
+
+<!-- Sign in / Register Modal -->
+<div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="icon-close"></i></span>
+                </button>
+
+                <div class="form-box">
+                    <div class="form-tab">
+                        <ul class="nav nav-pills nav-fill" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="tab-content-5">
+                            <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <label for="singin-email">Username or email address *</label>
+                                        <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="singin-password">Password *</label>
+                                        <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>LOG IN</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="signin-remember">
+                                            <label class="custom-control-label" for="signin-remember">Remember Me</label>
+                                        </div><!-- End .custom-checkbox -->
+
+                                        <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <label for="register-email">Your email address *</label>
+                                        <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-password">Password *</label>
+                                        <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>SIGN UP</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="register-policy" required>
+                                            <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
+                                        </div><!-- End .custom-checkbox -->
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login  btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .modal-body -->
+        </div><!-- End .modal-content -->
+    </div><!-- End .modal-dialog -->
+</div><!-- End .modal -->
+<%- include('../layouts/footer.ejs') %>
+
+<script>
+    function remove(productDId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you really want to remove this product from your cart?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, remove it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            console.log('function ' + productDId);
+            fetch('/removeProductFromCart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productDId })
+            })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log("Response is working:");
+                if (data.success) {
+                    window.location.reload();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: data.error || "Can't remove the product.",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+            .catch((error) => {
+                console.error("There was a problem with the fetch operation:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: "There was a problem with the fetch operation.",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            });
+        }
+    });
+}
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const totalPriceElement = document.getElementById('total_amount');
+        const total_amount_value = document.getElementById('total_amount_value').value
+        // console.log(total_amount_value);
+        const paymentOptions = document.getElementsByName('payment');
+        // const basePrice = 100; // Base price
+
+            function updateTotalPrice() {
+                const selectedOption = document.querySelector('input[name="payment"]:checked');
+                const additionalCost = parseFloat(selectedOption.value);
+                const totalPrice = parseInt(total_amount_value) + additionalCost;
+                totalPriceElement.textContent = totalPrice.toFixed(2);
+            }
+
+            paymentOptions.forEach(option => {
+                option.addEventListener('change', updateTotalPrice);
+            });
+
+            // Initialize the total price display
+            updateTotalPrice();
+        });
+</script>
+<script>
+    function increase(productDId, initialQuantity) {
+        console.log('increase',productDId);
+        let quantityEle = document.getElementById(`quantity${productDId}`);
+        let price = document.getElementById(`price${productDId}`).value
+        let total_price = document.getElementById(`total_price${productDId}`)
+        let sub_total = document.getElementById('sub_total')
+        let total_amount = document.getElementById('total_amount')
+        let max_quantity = parseInt(document.getElementById(`max_quantity${productDId}`).value)
+        let sub_total_price = 0
+        // let products = document.getElementById('products').value
+        let quantity = parseInt(quantityEle.textContent);
+        let limit = false
+        if(quantity==10){
+            limit = true
+        }
+        // Increment the quantity
+        if(quantity<max_quantity&&quantity<10){
+            quantity++
+
+        fetch('/increase', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productDId, quantity })
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log("Response is working:");
+            quantityEle.textContent = data.quantity;
+            let eachpri = (quantity*price).toFixed(2)
+            total_price.textContent = `₹${eachpri}`;
+            // products.forEach(product => {
+            //     sub_total.textContent=product.productId.price*product.quantity
+            // });
+            data.products.forEach(product => {
+                sub_total_price+=Number(product.productId.finalPrice*product.quantity)
+            });
+
+            sub_total_price = sub_total_price.toFixed(2)
+
+            sub_total.textContent = `₹${sub_total_price}`
+            total_amount.textContent = `₹${sub_total_price}`
+            
+        })
+        .catch((error) => {
+            console.error("There was a problem with the fetch operation:", error);
+        });
+        }else if(limit){
+            Swal.fire({
+                icon : 'warning',
+                title : "Can't increase quantity",
+                text : 'Stock limit exeeded.',
+                showConfirmButton  :true
+            })
+        }else{
+            Swal.fire({
+                icon : 'warning',
+                title : "Can't increase quantity",
+                text : 'Stock is not available.',
+                showConfirmButton  :true
+            })
+        }
+    };
+
+
+    function decrease(productDId, initialQuantity) {
+        console.log('decrease',productDId);
+        let quantityEle = document.getElementById(`quantity${productDId}`);
+        let price = document.getElementById(`price${productDId}`).value
+        let total_price = document.getElementById(`total_price${productDId}`)
+        let sub_total = document.getElementById('sub_total')
+        let sub_total_price = 0
+        let total_amount = document.getElementById('total_amount')
+        let quantity = parseInt(quantityEle.textContent);
+
+        // Increment the quantity
+        
+        if(quantity>1){
+            quantity--
+
+            fetch('/increase', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productDId, quantity })
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log("Response is working:");
+            quantityEle.textContent = data.quantity;
+
+            let eachpri = (quantity*price).toFixed(2)
+
+            total_price.textContent = `₹${eachpri}`;
+            data.products.forEach(product => {
+                sub_total_price+=Number(product.productId.finalPrice*product.quantity)
+            });
+            sub_total.textContent = `₹${sub_total_price.toFixed(2)}`
+            total_amount.textContent = `₹${sub_total_price.toFixed(2)}`
+        })
+        .catch((error) => {
+            console.error("There was a problem with the fetch operation:", error);
+        });
+        }
+    }
+</script>
+

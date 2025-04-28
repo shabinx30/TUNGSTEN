@@ -1,0 +1,53 @@
+<div class="mobile-menu-container" style="overflow: hidden;">
+    <div class="mobile-menu-wrapper">
+        <span class="mobile-menu-close"><i class="icon-close"></i></span>
+    
+        <form action="/searchProducts" method="get" class="mobile-search">
+            <label for="mobile-search" class="sr-only">Search</label>
+            <input type="search" class="form-control" style="border-radius: 20px 0 0 20px;" name="searchString" id="mobile-search" placeholder="Search in..." required>
+            <button class="btn btn-primary" style="border-radius: 0 20px 20px 0;" type="submit"><i class="icon-search"></i></button>
+            <input type="hidden" value="All" name="categorySelected">
+            <input type="hidden" value="All" name="sortSelected">
+        </form>
+        
+        <nav class="mobile-nav">
+            <ul class="mobile-menu">
+                <li>
+                    <a href="/home">Home</a>
+    
+                </li>
+                <li>
+                    <a href="/shop">Shop</a>
+                    
+                </li>
+                <!-- <li>
+                    <a href="/category">Category</a>
+                    
+                </li> -->
+                <li>
+                    <a href="/wishlist">Wishlist</a>
+                    
+                </li>
+                <li>
+                    <a href="/about">About Us</a>
+                    
+                </li>
+                <li>
+                    <a href="/contact">Contact Us</a>
+    
+                </li>
+                <li>
+                    <a href="/blog">blog</a>
+                    
+                </li>
+            </ul>
+        </nav><!-- End .mobile-nav -->
+    
+        <div class="social-icons">
+            <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+            <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+            <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+            <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+        </div><!-- End .social-icons -->
+    </div><!-- End .mobile-menu-wrapper -->
+    </div><!-- End .mobile-menu-container -->

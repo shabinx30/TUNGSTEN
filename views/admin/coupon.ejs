@@ -1,0 +1,397 @@
+<%-include('../layouts/adminHeader.ejs')%>
+<%-include('../layouts/adminSidebar.ejs')%>
+
+<style>
+  .purple-header-box {
+    background-color: #936dd1; /* Purple color */
+    color: #ffffff; /* White text color */
+    padding: 15px; /* Adjust padding as needed */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    margin-bottom: 20px; /* Optional: Add space below the box */
+    text-align: center;
+  }
+  .search-bar {
+    margin-bottom: 10px; /* Adjust spacing between search bar and heading */
+  }
+  .purple-button {
+    background-color: #936dd1;
+    color: white; /* text color */
+    border: 1px solid #00000000; /* black border */
+    border-radius: 10px; /* slight curve */
+    padding: 10px 20px; /* adjust padding as needed */
+    font-size: 16px; /* adjust font size as needed */
+    cursor: pointer; /* cursor style */
+    /* You can add additional styling as needed */
+  }
+  .search-btn {
+    width: 100px; /* Adjust the width of the button as needed */
+    height: 40px; /* Adjust the height of the button as needed */
+    border: 2px solid #000; /* Black border */
+    border-radius: 2px; /* Make it round */
+    background-color: #936dd1; /* Black background */
+    color: #050404; /* White text color */
+    font-size: 14px; /* Adjust font size */
+    padding: 0; /* Remove padding */
+  }
+
+  .search-btn::after {
+    display: inline-block;
+    margin-left: 0.3rem; /* Adjust spacing between button and text */
+  }
+  .search-bar {
+    width: calc(100% - 80px); /* Adjust the width of the search bar */
+    margin-right: 10px; /* Adjust spacing between search bar and button */
+  }
+  .custom-table-header {
+    background-color: grey;
+    color: black;
+    width: 100%;
+  }
+  .red-button{
+    color: #9f0000; 
+    background-color: #ff9797; 
+    border-radius: 10px;
+  }
+  .red-button:hover{
+    color: #9f0000;
+    background-color: #ff6969;
+  }
+  .green-button{
+    color: #009f18; 
+    background-color: #a2ff97; 
+    border-radius: 10px;
+  }
+  .green-button:hover{
+    color: #009f18;
+    background-color: #68ff58;
+  }
+  .delete-button{
+    color:#ff0000;
+    background-color: #525252;
+    border-radius: 10px;
+  }
+  .delete-button:hover{
+    color: #ff0000;
+    background-color: #000;
+  }
+  .edit-button{
+    color: blue;
+    background-color: #a1a1ff;
+    border-radius: 10px;
+  }
+  .edit-button:hover{
+    color: blue;
+    background-color: #7b7bff;
+  }
+  .custom-class {
+    border-radius: 20px;
+  }
+  .custom-button{
+    border-radius: 20px;
+  }
+</style>
+
+<div class="page-wrapper">
+  <!-- ============================================================== -->
+  <!-- Container fluid  -->
+  <!-- ============================================================== -->
+  <div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="" style="width: 100%">
+              <!-- Added div with custom class -->
+              
+              <h2 class="card-title text-center mb-3">
+                COUPON LIST
+              </h2>
+              <div class="text-right mb-3">
+                <a class="purple-button" data-toggle="modal" data-target="#addOffer" style="color: white;" onclick="generateCode()">+ Add Coupon</a>
+              </div>
+            <!-- </div>
+            <% if (locals.success) { %>
+            <div
+              class="alert text-center"
+              role="alert"
+              style="color: green; background: white"
+            >
+              <%= locals.success %>
+            </div>
+            <% } %> -->
+            <div class="table-responsive mx-auto" style="border-radius: 20px">
+              <table class="table">
+                <thead>
+                  <tr style="width: 100%; background-color: #936dd1; color: #000">
+                    <th scope="col">No.</th>
+                    <th scope="col">Coupon Code</th>
+                    <th scope="col">Discount</th>
+                    <th scope="col">Cryteria Amount</th>
+                    <th scope="col">Expiry</th>
+                    <th scope="col" class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if (coupons.length > 0) { %> <%
+                    coupons.forEach((coupon, index) => { %>
+                  <tr style="font-size: 14px;">
+                    <td><%= ++index %></td>
+                    <!-- Index starts from 0, so adding 1 for display -->
+                    <td><%= coupon.couponCode %></td>
+                    <td><%= coupon.discount %>%</td>
+                    <td><%= coupon.cryteriaAmount %></td>
+                    <td><%= coupon.expiryDate.toLocaleDateString('en-US'); %></td>
+
+                    <td class="text-right align-middle">
+                      <a
+                        onclick="deleteCoupon('<%= coupon._id %>')"
+                        class="btn-status-toggle"
+                        data-categoryid="<%= coupon._id %>"
+                      >
+                        <span
+                          class="btn delete-button"
+                          >Delete</span
+                        >
+                      </a>
+                      <a
+                        href="/admin/editCoupon?couponId=<%= coupon._id %>"
+                        class="btn-status-toggle"
+                        data-categoryid="<%= coupon._id %>"
+                      >
+                        <span
+                          class="btn ml-3 edit-button"
+                          >Edit</span
+                        >
+                      </a>
+
+
+                      <% if(coupon.is_activated==true) { %>
+                        <button id="status-button-<%= coupon._id %>" onclick="confirmAction('<%= coupon._id %>')" class="btn ml-3 red-button">Deactivate</button>
+                      <%} else { %>
+                        <button id="status-button-<%= coupon._id %>" onclick="confirmAction('<%= coupon._id %>')" class="btn ml-3 green-button">Activate</button>
+                      <% } %>  
+                    </td> 
+                  </tr>
+                  <% }); %> <% } else { %>
+
+
+                  <tr>
+                    <td colspan="3">No offers found</td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+
+              <% if (locals.errmsg) { %>
+              <div
+                class="alert text-center"
+                role="alert"
+                style="color: blueviolet; background: white"
+              >
+                <%= locals.errmsg %>
+              </div>
+              <% } %>
+            </div>
+
+            <div class="modal fade" id="addOffer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content p-3" style="border-radius: 20px;">
+                      <div class="modal-header">
+                          <h3 class="modal-title" id="exampleModalLongTitle" style="color: #000;">Add new Coupon</h3>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body pl-3 pr-3">
+                          <form id="CouponForm" action="/admin/addCoupon" method="post">
+                              <p class="text-danger" aria-live="polite" id="forgot_error"><%= locals.forgot %></p>
+                              <div class="form-group">
+                                  <label for="forgot_password" style="color: #000;">Coupon Code *</label>
+                                  <div class="d-flex" style="justify-content: center; align-items: center;">
+                                    <div style="width: 50%; height: 2.3em; border-radius: 10px; border: 1px solid #000; display: flex; justify-content: center; align-items: center; padding-top: 1em;">
+                                      <p id="couponCode"></p>
+                                      <input type="hidden" id="couponCode_field" name="couponCode">
+                                    </div>
+                                    <div class="pl-3">
+                                      <button style="border-radius: 10px;" class="btn btn-primary" onclick="generateCode()" type="button">Generate Code</button>
+                                    </div>
+                                  </div>
+                                  <span id="couponCode_error" class="error-message" style="color: red; font-size: smaller;"></span>
+                              </div> <!--End .form-group -->
+                              <div class="form-group">
+                                <label for="forgot_password" style="color: #000;">Discount % *</label>
+                                <input type="number" class="form-control" id="forgot_password" name="discount" style="border-radius: 10px;" placeholder="Discount"  autocomplete="off">
+                                <span id="discount_error" class="error-message" style="color: red; font-size: smaller;"></span>
+                              </div> <!--End .form-group -->
+                              <div class="form-group">
+                                <label for="forgot_password" style="color: #000;">Cryteria Amount ₹ *</label>
+                                <input type="number" class="form-control" id="forgot_password" name="cryteriaAmount" style="border-radius: 10px;" placeholder="Amount"  autocomplete="off">
+                                <span id="cryteriaAmount_error" class="error-message" style="color: red; font-size: smaller;"></span>
+                              </div> <!--End .form-group -->
+                              <div class="form-group">
+                                <label for="forgot_password" style="color: #000;">Expiry Date *</label>
+                                <input type="date" class="form-control" id="forgot_password" name="expiryDate" style="border-radius: 10px;" placeholder="expiryDate"  autocomplete="off">
+                                <span id="expiryDate_error" class="error-message" style="color: red; font-size: smaller;"></span>
+                              </div> <!--End .form-group -->
+                      </div>
+                              <div class="modal-footer mx-auto">
+                                  <button type="button" class="btn btn-outline-primary-2" data-dismiss="modal" style="border-radius: 10px; height: 2.9em;">
+                                      <span>Close</span>
+                                  </button>
+                                  <button type="submit" style="border-radius: 10px;" class="btn btn-primary">Submit</button>
+                              </div>
+                          </form>
+                  </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+  </div>
+</div>
+
+<!-- validaton -->
+
+<script>
+  document.getElementById('CouponForm').addEventListener('submit', function(event) {
+      // event.preventDefault()
+      let isValid = true;
+
+      // Validate Discount Percentage
+      const discount = document.querySelector('input[name="discount"]').value;
+      if (!discount || discount <= 0 || discount > 100) {
+          isValid = false;
+          document.getElementById('discount_error').textContent = 'Please enter a valid discount percentage (1-100).';
+      } else {
+          document.getElementById('discount_error').textContent = '';
+      }
+
+      // Validate Criteria Amount
+      const cryteriaAmount = document.querySelector('input[name="cryteriaAmount"]').value;
+      if (!cryteriaAmount || cryteriaAmount <= 0) {
+          isValid = false;
+          document.getElementById('cryteriaAmount_error').textContent = 'Please enter a valid criteria amount greater than zero.';
+      } else {
+          document.getElementById('cryteriaAmount_error').textContent = '';
+      }
+
+      // Validate Expiry Date
+      const expiryDate = document.querySelector('input[name="expiryDate"]').value;
+      const currentDate = new Date().toISOString().split('T')[0];
+      if (!expiryDate || expiryDate < currentDate) {
+          isValid = false;
+          document.getElementById('expiryDate_error').textContent = 'Please enter a valid expiry date that is not in the past.';
+      } else {
+          document.getElementById('expiryDate_error').textContent = '';
+      }
+
+      // If the form is not valid, prevent submission
+      if (!isValid) {
+          event.preventDefault();
+      }
+  });
+</script>
+
+
+<script>
+    function confirmAction(couponId) {
+              let categoryBtn = document.getElementById(`status-button-${couponId}`);
+              console.log(couponId);
+
+              Swal.fire({
+                title: 'Are you sure?',
+                text: "Are you sure to change the status of it!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ff6464',
+                cancelButtonColor: '#936dd1',
+                confirmButtonText: 'Yes, change status!',
+                customClass: {
+                  popup: 'custom-class',
+                  confirmButton: 'custom-button',
+                  cancelButton: 'custom-button'
+                }
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  fetch(`/admin/couponStatus?couponId=${couponId}`, {
+                    method: "GET"
+                  })
+                    .then((response) => {
+                      if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                      }
+                      return response.json();
+                    })
+                    .then((data) => {
+                      console.log("Response is working:", data.is_activated);
+
+                      if (data.is_activated == false) {
+                        console.log("heyyyyy");
+                        categoryBtn.innerText = "Deactivate";
+                        categoryBtn.className = "btn ml-3 red-button";
+                        categoryBtn.style.backgroundColor = "#ff9797";
+                        categoryBtn.style.color = "#9f0000";
+                      } else {
+                        console.log("haaaaaiiiiiii");
+                        categoryBtn.innerText = "Activate";
+                        categoryBtn.className = "btn ml-3 green-button";
+                        categoryBtn.style.backgroundColor = "#a2ff97";
+                        categoryBtn.style.color = "#009f18";
+                      }
+
+                    })
+                    .catch((error) => {
+                      console.error("There was a problem with the fetch operation:", error);
+                    });
+                }
+              });
+            }
+
+
+            function deleteCoupon(couponId) {
+              Swal.fire({
+                title: 'Are you sure?',
+                text: "Are you really want to delete this Offer!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ff6464',
+                cancelButtonColor: '#936dd1',
+                confirmButtonText: 'Yes, Delete it!',
+                customClass: {
+                  popup: 'custom-class',
+                  confirmButton: 'custom-button',
+                  cancelButton: 'custom-button'
+                }
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = `/admin/deleteCoupon?couponId=${couponId}`
+                }
+              });
+            }
+</script>   
+
+<script>
+  function generateCode(){
+    let abc = 'QWERTYUIOPASDFGHJKLZXCVBNM1234567890'
+    let string = ''
+    for(let i=0;i<=8;i++){
+      let index = Math.floor(Math.random()*abc.length)
+      string += abc[index]
+    }
+    document.getElementById('couponCode').textContent = string
+    document.getElementById('couponCode_field').value = string
+  }
+</script>
+  
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<%-include('../layouts/adminFooter.ejs')%>

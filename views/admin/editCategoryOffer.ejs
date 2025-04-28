@@ -1,0 +1,346 @@
+<%-include('../layouts/adminHeader.ejs')%>
+    <%-include('../layouts/adminSidebar.ejs')%>
+
+        <style>
+            .purple-header-box {
+                background-color: #936dd1;
+                /* Purple color */
+                color: #ffffff;
+                /* White text color */
+                padding: 15px;
+                /* Adjust padding as needed */
+                border-radius: 5px;
+                /* Optional: Add rounded corners */
+                margin-bottom: 20px;
+                /* Optional: Add space below the box */
+                text-align: center;
+            }
+
+            .purple-button {
+                background-color: #936dd1;
+                color: white;
+                /* text color */
+                border: 1px solid black;
+                /* black border */
+                border-radius: 5px;
+                /* slight curve */
+                padding: 10px 20px;
+                /* adjust padding as needed */
+                font-size: 16px;
+                /* adjust font size as needed */
+                cursor: pointer;
+                /* cursor style */
+                /* You can add additional styling as needed */
+            }
+
+            .button-group {
+                margin-top: 2cm;
+                /* Adjust the margin-top to create a 2cm gap */
+            }
+
+            .purple-button {
+                background-color: #936dd1;
+                color: white;
+                /* text color */
+                border: 1px solid black;
+                /* black border */
+                border-radius: 5px;
+                /* slight curve */
+                padding: 10px 20px;
+                /* adjust padding as needed */
+                font-size: 16px;
+                /* adjust font size as needed */
+                cursor: pointer;
+                /* cursor style */
+                /* You can add additional styling as needed */
+            }
+
+            .form-actions {
+                display: flex;
+                /* Use flexbox for layout */
+                justify-content: center;
+                /* Center align items horizontally */
+                margin-top: 20px;
+                /* Add margin to separate from form */
+            }
+
+            .form-actions button {
+                margin-right: 3cm;
+                /* Add a 3cm gap between buttons */
+            }
+
+            .btn-submit {
+                background-color: #007bff;
+                /* Change background color of Submit button */
+                color: #fff;
+                /* Change text color of Submit button */
+                border-color: #007bff;
+                /* Change border color of Submit button */
+            }
+
+            .btn-reset {
+                background-color: #dc3545;
+                /* Change background color of Reset button */
+                color: #fff;
+                /* Change text color of Reset button */
+                border-color: #dc3545;
+                /* Change border color of Reset button */
+            }
+
+            .form-control {
+                border: 1px solid #000;
+                /* Black border */
+                border-radius: 5px;
+                /* Slight curve */
+            }
+
+            #category {
+                border: 1px solid #000;
+                border-radius: 5px;
+            }
+
+            #changes {
+                border: 1px solid #000;
+                border-radius: 5px;
+            }
+
+            .error {
+                display: flex;
+                z-index: 1001;
+                width: 25%;
+                height: 35px;
+                border-radius: 10px;
+                margin-top: 100px;
+                background-color: #000000ad;
+                margin-left: 40%;
+                position: absolute;
+                padding: .3em;
+                animation: errorS .5s ease forwards;
+            }
+
+            .error p {
+                margin-left: 1em;
+                color: white;
+            }
+
+            .error div {
+                border-radius: 50%;
+                background-color: #ff5454;
+                height: 90%;
+                width: 24px;
+                padding-left: 5px;
+                margin-left: 1em;
+            }
+
+            @keyframes errorS {
+                0% {
+                    margin-top: 0;
+                }
+
+                100% {
+                    margin-top: 100px;
+                }
+            }
+
+            @keyframes errorF {
+                0% {
+                    margin-top: 100px;
+                }
+
+                100% {
+                    margin-top: 0;
+                }
+            }
+        </style>
+
+        <% if( offermsg && offermsg.length> 0 ){ %>
+            <div class="error" id="newError">
+                <div>
+                    <i class="fa-solid fa-xmark" style="color: #ffffff; "></i>
+                </div>
+                <p>
+                    <%= offermsg %>
+                </p>
+            </div>
+            <% } %>
+
+                <div class="container">
+                    <div class="page-wrapper">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="w-100 mt-4">
+                                                <h2 class="card-title text-center">EDIT CATEGORY OFFER</h2>
+                                            </div>
+                                            <form id="categoryEditForm" action="/admin/editCategoryOffer" method="post">
+                                                <p class="text-danger" aria-live="polite" id="forgot_error">
+                                                    <%= locals.forgot %>
+                                                </p>
+
+                                                <input type="hidden" value="<%= offerData._id %>" name="offerId">
+                                                <div class="form-group">
+                                                    <label for="forgot_password" style="color: #000;">Category Name 
+                                                        *</label>
+                                                    <select name="categoryId" 
+                                                        style="border-radius: 5px; font-size: 14px; width: 100%; height: 2.5em; padding: .5em;">
+                                                        <% if(category.length>0) {%>
+                                                            <% category.forEach((val)=>{ %>
+                                                                <% if(val._id.toString() == offerData.categoryId) {%>
+                                                                    <option value="<%= val._id %>" selected>
+                                                                        <%= val.name %>
+                                                                    </option>    
+                                                                <%}else{%>
+                                                                    <option value="<%= val._id %>">
+                                                                        <%= val.name %>
+                                                                    </option>
+                                                                <%}%>
+                                                            <% }) %>
+                                                        <% }else{ %>
+                                                            <p>No product</p>
+                                                        <% } %>
+                                                    </select>
+                                                    <span id="categoryName_error" class="error-message"
+                                                        style="color: red; font-size: smaller;"></span>
+                                                </div> <!--End .form-group -->
+                                                <div class="form-group">
+                                                    <label for="description" style="color: #000;">Description
+                                                        *</label><br>
+                                                    <input type="hidden" value="<%= offerData.description %>"
+                                                        id="descriptionReffer">
+                                                    <textarea name="description" id="description"
+                                                        style="border-radius: 10px; font-size: 14px; width: 100%; padding: .5em;"></textarea>
+                                                    <span id="description_error" class="error-message"
+                                                        style="color: red; font-size: smaller;"></span>
+                                                </div> <!--End .form-group -->
+                                                <div class="form-group">
+                                                    <label for="forgot_password" style="color: #000;">Discount %
+                                                        *</label>
+                                                    <input type="number" class="form-control" id="forgot_password"
+                                                        value="<%= offerData.discount %>" name="discount"
+                                                        style="border-radius: 10px;" placeholder="Discount"
+                                                        autocomplete="off">
+                                                    <span id="discount_error" class="error-message"
+                                                        style="color: red; font-size: smaller;"></span>
+                                                </div> <!--End .form-group -->
+                                                <div class="form-group">
+                                                    <label for="forgot_password" style="color: #000;">Expiry Date
+                                                        *</label>
+                                                    <input type="hidden" value="<%= offerData.expiryDate %>"
+                                                        id="expiryDateReffer">
+                                                    <input type="date" class="form-control"
+                                                        value="<%= offerData.expiryDate %>" id="expiryDate"
+                                                        name="expiryDate" style="border-radius: 10px;"
+                                                        placeholder="Discount" autocomplete="off">
+                                                    <span id="expiryDate_error" class="error-message"
+                                                        style="color: red; font-size: smaller;"></span>
+                                                </div> <!--End .form-group -->
+                                        </div>
+                                        <!-- <div class="modal-footer mx-auto"> -->
+                                        <!-- <button type="button" class="btn btn-outline-primary-2" data-dismiss="modal" style="border-radius: 10px; height: 2.9em;">
+                                        <span>Close</span>
+                                    </button> -->
+                                        <button type="submit" style="border-radius: 10px;"
+                                            class="btn btn-primary">Submit</button>
+                                        <!-- </div> -->
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+
+                <!-- Error message animation -->
+                <script>
+
+                    setTimeout(() => {
+                        document.getElementById('newError').style.animation = '.2s ease 0s 1 errorF'
+                        // document.getElementById('newError').style.display = 'none'
+                    }, 3000);
+
+                    setTimeout(() => {
+                        document.getElementById('newError').style.display = 'none'
+                    }, 3100)
+
+                </script>
+
+
+                <script>
+
+                    document.getElementById('description').value = document.getElementById('descriptionReffer').value
+                    const dateString = document.getElementById('expiryDateReffer').value
+
+                    var date = new Date(dateString);
+
+                    // Extract the year, month, and day
+                    var year = date.getFullYear();
+                    var month = String(date.getMonth() + 1).padStart(2, '0');
+                    var day = String(date.getDate()).padStart(2, '0');
+
+                    // Format the date as YYYY-MM-DD
+                    var formattedDate = `${year}-${month}-${day}`;
+
+                    document.getElementById('expiryDate').value = formattedDate
+
+
+                    
+                </script>
+
+
+<!-- validation -->
+
+
+<script>
+    document.getElementById('categoryEditForm').addEventListener('submit', function (event) {
+        // event.preventDefault()
+        let isValid = true;
+
+        // Validate Product Name
+        const productName = document.querySelector('select[name="categoryId"]').value;
+        if (!productName) {
+            isValid = false;
+            document.getElementById('categoryName_error').textContent = 'Please select a Product.';
+        } else {
+            document.getElementById('categoryName_error').textContent = '';
+        }
+
+        // Validate Description
+        const description = document.getElementById('description').value.trim();
+        if (!description) {
+            isValid = false;
+            document.getElementById('description_error').textContent = 'Description is required.';
+        } else {
+            document.getElementById('description_error').textContent = '';
+        }
+
+        // Validate Discount Percentage
+        const discount = document.querySelector('input[name="discount"]').value;
+        if (!discount || discount < 0 || discount > 100) {
+            isValid = false;
+            document.getElementById('discount_error').textContent = 'Please enter a valid discount percentage (0-100).';
+        } else {
+            document.getElementById('discount_error').textContent = '';
+        }
+
+        // Validate Expiry Date
+        const expiryDate = document.getElementById('expiryDate').value;
+        const currentDate = new Date().toISOString().split('T')[0];
+        if (!expiryDate || expiryDate < currentDate) {
+            isValid = false;
+            document.getElementById('expiryDate_error').textContent = 'Please enter a valid expiry date.';
+        } else {
+            document.getElementById('expiryDate_error').textContent = '';
+        }
+
+        // If the form is not valid, prevent submission
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+</script>
+
+                <%-include('../layouts/adminFooter.ejs')%>

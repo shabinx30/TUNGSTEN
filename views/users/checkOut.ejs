@@ -1,0 +1,790 @@
+<%- include('../layouts/header.ejs') %>
+<style>
+	input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 17px;
+    height: 17px;
+    border: 1px solid #eea287;
+    border-radius: 60%;
+    outline: none;
+    cursor: pointer;
+  }
+
+  /* Style the checked radio button */
+  input[type="radio"]:checked {
+    background-color: #f9f9f9;
+    border: 1px solid #eea287;
+  }
+
+  /* Add a custom "dot" to the checked radio button */
+  input[type="radio"]:checked::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background-color: #eea287;
+    border-radius: 60%;
+    margin: 4.65px;
+  }
+</style>
+    <div class="page-wrapper">
+        <header class="header">
+            <div class="header-bottom sticky-header">
+                <div class="container">
+                    <div class="header-left">
+                        <button class="mobile-menu-toggler">
+                            <span class="sr-only">Toggle mobile menu</span>
+                            <i class="icon-bars"></i>
+                        </button>
+                        
+                        <a class="logo" style="cursor: pointer;">
+                            <h3 style="margin-top: auto; margin-bottom: auto;">TUNGSTEN</h3>
+                        </a>
+                    </div>
+                    <div class="header-center mx-auto">
+                        <nav class="main-nav">
+                            <ul class="menu sf-arrows">
+                                <li class="megamenu-container active">
+                                    <a style="cursor: pointer;">Home</a>
+
+                                </li>
+                                <li>
+                                    <a href="/shop">Shop</a>
+
+                                </li>
+                                <!-- <li>
+                                    <a href="/category">Category</a>
+
+                                </li> -->
+                                <li>
+                                    <a href="/about" >About Us</a>
+
+                                </li>
+                                <li>
+                                    <a href="/contact" >Contact Us</a>
+
+                                </li>
+                                <li>
+                                    <a href="/blog" >Blog</a>
+
+                                </li>
+                            </ul><!-- End .menu -->
+                        </nav><!-- End .main-nav -->
+                    </div><!-- End .header-left -->
+
+                    <div class="header-right">
+                        <div class="header-search">
+                            <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                            <form action="#" method="get">
+                                <div class="header-search-wrapper">
+                                    <label for="q" class="sr-only">Search</label>
+                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                                </div><!-- End .header-search-wrapper -->
+                            </form>
+                        </div><!-- End .header-search -->
+
+                        <a href="/wishlist" class="wishlist-link">
+                            <i class="icon-heart-o"></i>
+                            <span class="wishlist-count">3</span>
+                        </a>
+
+                        <div class="dropdown cart-dropdown">
+                            <a href="/cart" class="dropdown-toggle" >
+                                <i class="icon-shopping-cart"></i>
+                                <span class="cart-count"><%= products.length %></span>
+                            </a>
+    
+                            <!-- dropdown -->
+    
+                        </div><!-- End .cart-dropdown -->
+                        <div class="dropdown cart-dropdown">
+                            <a href="/userDashboard" class="dropdown-toggle" >
+                                <i class="fa-regular fa-user" style="font-size: x-large;"></i>
+                            </a>
+                            <p class="ml-2" id="profile"><b><% if(name) { %>
+                                <%= name %>
+                            <% }else { %> 
+                                Login
+                            <% } %>
+                            </b></p>
+                            <!-- dropdown -->
+    
+                        </div>
+                    </div><!-- End .header-right -->
+                </div><!-- End .container -->
+            </div><!-- End .header-bottom -->
+        </header><!-- End .header -->
+        <main class="main">
+        	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">Checkout</h1>
+        		</div><!-- End .container -->
+        	</div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/cart">Cart</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content">
+            	<div class="checkout">
+	                <div class="container">
+            			<!-- <div class="checkout-discount">
+            				<form action="#">
+        						<input type="text" class="form-control" required id="checkout-discount-input">
+            					<label for="checkout-discount-input" class="text-truncate">Have a coupon? <span>Click here to enter your code</span></label>
+            				</form>
+            			</div>End .checkout-discount -->
+                        <h5>Coupons</h5>
+                        <div>
+                            <% if(Object.keys(coupon).length === 0){ %>
+                                <p>No Coupon is available.</p>
+                            <% }else{ %>
+                                <button data-toggle="modal" data-target="#showCoupons" style="color: #000000; border-radius: 10px;" >View Coupons</button>
+                            <% } %>
+                        </div>
+            			<form id="form" action="/placeOrder" method="POST">
+                            <input type="hidden" id="couponId">
+		                	<div class="row">
+		                		<div class="col-lg-9">
+		                			<h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
+									
+									<% if(products.length>0) { %>
+										<% if(addresses.length > 0) { %>
+											<div class="row">
+												<% addresses.forEach((address, index) => { %>
+												<div class="col-lg-6">
+													<% if(index==0){ %>
+														<div class="card card-dashboard address-card" style="border-radius: 20px; border: 1px solid #9f9f9f; cursor: pointer; background-color: #ffd0be;" data-index="<%= index %>">
+													<%}else{%>
+														<div class="card card-dashboard address-card" style="border-radius: 20px; border: 1px solid #9f9f9f; cursor: pointer;" data-index="<%= index %>">
+													<%}%>
+														<div class="card-body">
+															<% if(index == 0) { %>
+															<h3 class="card-title">
+																<input class="styled-radio" type="radio" checked id="address_select<%= index %>" name="selected_address" value="<%= address.id %>" required> <%= address.address_type %>
+															</h3>
+															<% } else { %>
+															<h3 class="card-title">
+																<input class="styled-radio" type="radio" id="address_select<%= index %>" name="selected_address" value="<%= address.id %>" required> <%= address.address_type %>
+															</h3>
+															<% } %>
+															<p>
+																<%= address.first_name %> <%= address.last_name %><br>
+																<%= address.country %> <br>
+																<%= address.street_name %> <br>
+																<%= address.town %> <%= address.state %> <br>
+																<%= address.postcode %> <%= address.phone_number %> <br>
+																<%= address.email %>
+															</p>
+															<!-- <a href="#">Edit <i class="icon-edit"></i></a> -->
+														</div><!-- End .card-body -->
+													</div><!-- End .card-dashboard -->
+												</div><!-- End .col-lg-6 -->
+												<% }) %>
+											</div>
+											<a href="/userDashboard?re=1" class="btn btn-outline-primary-2" id="addAddress" style="border-radius: 10px; cursor: pointer;"><span>Add address</span><i class="icon-long-arrow-right"></i></a>
+											<% } else { %>
+											<p class="text-danger">Add an address</p><br>
+											<a href="/userDashboard?re=1" class="btn btn-outline-primary-2" id="addAddress" style="border-radius: 10px; cursor: pointer;"><span>Add address</span><i class="icon-long-arrow-right"></i></a>
+											<% } %>
+											
+											<style>
+												.styled-radio {
+													width: 0.8em;
+													height: 0.8em;
+													accent-color: black;
+												}
+											</style>
+											
+											<script>
+												document.addEventListener('DOMContentLoaded', function() {
+													const addressCards = document.querySelectorAll('.address-card');
+											
+													addressCards.forEach(card => {
+														card.addEventListener('click', function() {
+															// Remove border from all cards
+															addressCards.forEach(c => {
+                                                                c.style.border = '1px solid #9f9f9f'
+                                                                c.style.backgroundColor = '#f9f9f9'
+                                                            });
+															
+															// Add border to the clicked card
+															this.style.border = '1px solid #9f9f9f';
+                                                            this.style.backgroundColor = '#ffd0be'
+											
+															// Check the corresponding radio button
+															const index = this.getAttribute('data-index');
+															const radioButton = document.getElementById(`address_select${index}`);
+															radioButton.checked = true;
+														});
+													});
+												});
+											</script>																							
+									<% }else{ %>
+										<p class="text-danger">Cart is empty</p><br>
+										<a href="/shop" class="btn btn-outline-primary-2" id="addAddress" style="border-radius: 10px; cursor: pointer;"><span>Shop</span><i class="icon-long-arrow-right"></i></a>
+									<% } %>
+
+		                		</div><!-- End .col-lg-9 -->
+		                		<aside class="col-lg-3">
+		                			<div class="summary" style="border-radius: 20px;">
+		                				<h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
+
+		                				<table class="table table-summary">
+		                					<thead>
+		                						<tr>
+		                							<th>Product</th>
+		                							<th>Total</th>
+		                						</tr>
+		                					</thead>
+
+		                					<tbody>
+												<%let total=0 %>
+		                						<% products.forEach((product)=>{ %>
+													<% total += product.quantity*product.productId.finalPrice%>
+                                                    <p id="" hidden></p>
+													<tr>
+														<td><a href="#"><%=product.productId.name%></a></td>
+														<td>₹<%=product.productId.finalPrice*product.quantity%></td>
+													</tr>
+												<%})%>
+		                						<tr class="summary-subtotal">
+		                							<td>Subtotal:</td>
+		                							<td >₹<%=total%></td>
+		                						</tr><!-- End .summary-subtotal -->
+		                						<tr>
+		                							<td>Shipping:</td>
+		                							<td>Free shipping</td>
+		                						</tr>
+		                						<tr class="summary-total">
+		                							<td>Total:</td>
+		                							<td id="totalAmount">₹<%=total%></td>
+		                						</tr><!-- End .summary-total -->
+		                					</tbody>
+		                				</table><!-- End .table table-summary -->
+										
+										<p id="errorMessage" class="text-danger"></p>																		
+										<div class="mb-3">
+											<div class="d-flex align-items-center">
+												<input type="radio" name="paymentMethod" id="cod" value="cash">
+												<label for="cod" class="ml-3" style="margin-top: 1px; cursor: pointer;">Cash On Delivery</label>
+											</div>
+											<div class="d-flex align-items-center">
+												<input type="radio" name="paymentMethod" id="op" value="online">
+												<label for="op" class="ml-3" style="margin-top: 1px; cursor: pointer;">Online Payment</label>
+											</div>
+                                            <div class="d-flex align-items-center">
+												<input type="radio" name="paymentMethod" id="wlt" value="wallet">
+												<label for="wlt" class="ml-3" style="margin-top: 1px; cursor: pointer;">Wallet</label>
+											</div>
+										</div>
+		                				<button type="submit" class="btn btn-outline-primary-2 btn-order btn-block" style="border-radius: 10px;">
+		                					<span class="btn-text">Place Order</span>
+		                					<span class="btn-hover-text">Place Order</span>
+		                				</button>
+		                			</div><!-- End .summary -->
+		                		</aside><!-- End .col-lg-3 -->
+		                	</div><!-- End .row -->
+            			</form>
+	                </div><!-- End .container -->
+                </div><!-- End .checkout -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+        <footer class="footer footer-2">
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="widget widget-about">
+                                <h3 class="footer-logo" width="82" height="25">TUNGSTEN</h3>
+                                <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. </p>
+                                
+                                <div class="widget-about-info">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-4">
+                                            <span class="widget-about-title">Got Question? Call us 24/7</span>
+                                            <a href="tel:123456789">+0123 456 789</a>
+                                        </div><!-- End .col-sm-6 -->
+                                        <div class="col-sm-6 col-md-8">
+                                            <span class="widget-about-title">Payment Method</span>
+                                            <figure class="footer-payments">
+                                                <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                                            </figure><!-- End .footer-payments -->
+                                        </div><!-- End .col-sm-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .widget-about-info -->
+                            </div><!-- End .widget about-widget -->
+                        </div><!-- End .col-sm-12 col-lg-3 -->
+        
+                        <div class="col-sm-4 col-lg-2">
+                            <div class="widget">
+                                <h4 class="widget-title">Information</h4><!-- End .widget-title -->
+        
+                                <ul class="widget-list">
+                                    <li><a href="about.html">About Molla</a></li>
+                                    <li><a href="#">How to shop on Molla</a></li>
+                                    <li><a href="faq.html">FAQ</a></li>
+                                    <li><a href="contact.html">Contact us</a></li>
+                                    <li><a href="login.html">Log in</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-4 col-lg-3 -->
+        
+                        <div class="col-sm-4 col-lg-2">
+                            <div class="widget">
+                                <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+        
+                                <ul class="widget-list">
+                                    <li><a href="#">Payment Methods</a></li>
+                                    <li><a href="#">Money-back guarantee!</a></li>
+                                    <li><a href="#">Returns</a></li>
+                                    <li><a href="#">Shipping</a></li>
+                                    <li><a href="#">Terms and conditions</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-4 col-lg-3 -->
+        
+                        <div class="col-sm-4 col-lg-2">
+                            <div class="widget">
+                                <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+        
+                                <ul class="widget-list">
+                                    <li><a href="#">Sign In</a></li>
+                                    <li><a href="cart.html">View Cart</a></li>
+                                    <li><a href="#">My Wishlist</a></li>
+                                    <li><a href="#">Track My Order</a></li>
+                                    <li><a href="#">Help</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-64 col-lg-3 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-middle -->
+        
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="footer-copyright">Copyright © 2019 TUNGSTEN Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+                    <ul class="footer-menu">
+                        <li><a href="#">Terms Of Use</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul><!-- End .footer-menu -->
+        
+                    <div class="social-icons social-icons-color">
+                        <span class="social-label">Social Media</span>
+                        <a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                        <a href="#" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                        <a href="#" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                        <a href="#" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+                        <a href="#" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                    </div><!-- End .soial-icons -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-bottom -->
+        </footer><!-- End .footer -->
+    </div><!-- End .page-wrapper -->
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+    <%- include('../layouts/mobileView.ejs') %>
+
+    <!-- Sign in / Register Modal -->
+    <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close"></i></span>
+                    </button>
+
+                    <div class="form-box">
+                        <div class="form-tab">
+                            <ul class="nav nav-pills nav-fill" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="tab-content-5">
+                                <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <label for="singin-email">Username or email address *</label>
+                                            <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-group">
+                                            <label for="singin-password">Password *</label>
+                                            <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>LOG IN</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="signin-remember">
+                                                <label class="custom-control-label" for="signin-remember">Remember Me</label>
+                                            </div><!-- End .custom-checkbox -->
+
+                                            <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                        </div><!-- End .form-footer -->
+                                    </form>
+                                    <div class="form-choice">
+                                        <p class="text-center">or sign in with</p>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login btn-g">
+                                                    <i class="icon-google"></i>
+                                                    Login With Google
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login btn-f">
+                                                    <i class="icon-facebook-f"></i>
+                                                    Login With Facebook
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                        </div><!-- End .row -->
+                                    </div><!-- End .form-choice -->
+                                </div><!-- .End .tab-pane -->
+                                <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <label for="register-email">Your email address *</label>
+                                            <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-group">
+                                            <label for="register-password">Password *</label>
+                                            <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>SIGN UP</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="register-policy" required>
+                                                <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
+                                            </div><!-- End .custom-checkbox -->
+                                        </div><!-- End .form-footer -->
+                                    </form>
+                                    <div class="form-choice">
+                                        <p class="text-center">or sign in with</p>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login btn-g">
+                                                    <i class="icon-google"></i>
+                                                    Login With Google
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login  btn-f">
+                                                    <i class="icon-facebook-f"></i>
+                                                    Login With Facebook
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                        </div><!-- End .row -->
+                                    </div><!-- End .form-choice -->
+                                </div><!-- .End .tab-pane -->
+                            </div><!-- End .tab-content -->
+                        </div><!-- End .form-tab -->
+                    </div><!-- End .form-box -->
+                </div><!-- End .modal-body -->
+            </div><!-- End .modal-content -->
+        </div><!-- End .modal-dialog -->
+    </div><!-- End .modal -->
+
+    <!-- coupon -->
+    <div class="modal fade" id="showCoupons" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content p-4" style="border-radius: 20px;">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLongTitle">Coupons</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body pl-3 pr-3">
+                    
+                    <p class="text-danger" aria-live="polite" id="forgot_error"><%= locals.forgot %></p>
+                    <div class="form-group p-4">
+                        <div style="max-height: 300px; overflow-y: auto;">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Coupon Code</th>
+                                    <th scope="col">Discount</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <% if( coupon ) { %>
+                                        <tr>
+                                            <td><%= coupon.couponCode %></td>
+                                            <td><%= coupon.discount %>%</td>
+                                            <td>
+                                                <button onclick="applyCoupon('<%= coupon.discount %>','<%= coupon._id %>')" style="border-radius: 10px; background-color: #72ff72; border: none;" >apply</button>
+                                            </td>
+                                        </tr>
+                                    <% } else { %>  
+                                        <tr>
+                                            <td colspan="4"><p>No coupons</p></td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer mx-auto">
+                    <button type="button" class="btn btn-outline-primary-2" id="wallet_withdraw_close" data-dismiss="modal" style="border-radius: 10px; height: 2.9em;">
+                        <span>Close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div> 
+	
+<%- include('../layouts/footer.ejs') %>
+
+<!-- <script>
+	
+		var options = {
+    "key": "[YOUR_KEY_ID]", // Enter the Key ID generated from the Dashboard
+    "amount": "1000",
+    "currency": "INR",
+    "description": "Acme Corp",
+    "image": "example.com/image/rzp.jpg",
+    "prefill":
+    {
+      "email": "gaurav.kumar@example.com",
+      "contact": +919900000000,
+    },
+    config: {
+      display: {
+        blocks: {
+          utib: { //name for Axis block
+            name: "Pay using Axis Bank",
+            instruments: [
+              {
+                method: "card",
+                issuers: ["UTIB"]
+              },
+              {
+                method: "netbanking",
+                banks: ["UTIB"]
+              },
+            ]
+          },
+          other: { //  name for other block
+            name: "Other Payment modes",
+            instruments: [
+              {
+                method: "card",
+                issuers: ["ICIC"]
+              },
+              {
+                method: 'netbanking',
+              }
+            ]
+          }
+        },
+        hide: [
+          {
+          method: "upi"
+          }
+        ],
+        sequence: ["block.utib", "block.other"],
+        preferences: {
+          show_default_blocks: false // Should Checkout show its default blocks?
+        }
+      }
+    },
+    "handler": function (response) {
+      alert(response.razorpay_payment_id);
+    },
+    "modal": {
+      "ondismiss": function () {
+        if (confirm("Are you sure, you want to close the form?")) {
+          txt = "You pressed OK!";
+          console.log("Checkout form closed by the user");
+        } else {
+          txt = "You pressed Cancel!";
+          console.log("Complete the Payment")
+        }
+      }
+    }
+  };
+  var rzp1 = new Razorpay(options);
+  document.getElementById('rzp-button1').onclick = function (e) {
+	rzp1.open();
+    e.preventDefault();
+  }
+</script> -->
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.getElementById('form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const selectedPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+        const selectedAddress = document.querySelector('input[name="selected_address"]:checked');
+        
+        const couponId = document.getElementById('couponId').value
+
+        console.log(couponId);
+        
+        const selectedPaymentValue = selectedPaymentMethod ? selectedPaymentMethod.value : null;
+        const selectedAddressValue = selectedAddress ? selectedAddress.value : null;
+        
+        const totalAmount = document.getElementById('totalAmount').textContent
+        const Amount = parseFloat(totalAmount.replace('₹',''))
+        console.log(Amount,selectedPaymentValue);
+
+        if (!selectedPaymentValue) {
+            document.getElementById('errorMessage').innerText = 'Please select a payment method.';
+        } else if (!selectedAddressValue) {
+            document.getElementById('errorMessage').innerText = 'Please select an address.';
+        } else if(selectedPaymentValue=='cash'&&Amount>=1000){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Payment Method Restriction',
+                text: 'Sorry, cash on delivery is not available for amounts exceeding ₹1000. Please choose online payment instead.',
+                showConfirmButton: true,
+                timer: 4000
+            });
+        } else {
+            document.getElementById('errorMessage').innerText = '';
+            
+            axios.post('/placeOrder', {
+                selected_address: selectedAddressValue,
+                paymentMethod: selectedPaymentValue,
+                couponId
+            })
+            .then(response => {
+                const result = response.data.result;
+                console.log(result);
+
+                if(result=='redirect'){
+
+                    window.location.href=response.data.location;
+
+                }else if(response.data.success==true){
+
+                    window.location.href=response.data.location;
+
+                }else if(response.data.success==false){
+
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: response.data.error,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                }else if (result!='redirect') {
+
+                    const options = {
+                        key: "rzp_test_NlKpT8z0NsaS7K", 
+                        amount: result.amount, 
+                        currency: "INR",
+                        name: "Tungsten",
+                        description: "Test Transaction",
+                        image: "https://example.com/your_logo",
+                        order_id: null, 
+                        handler: function (response) {
+                            // alert('payment success')
+                            axios.post('/verifyPayment',{
+                                orderId: result.receipt
+                            })
+                            .then(response=>{
+                                console.log('payment verification response',response.data.status);
+                                if(response.data.status==true){
+                                    window.location.href = response.data.redirect
+                                }else{
+                                    alert('payment failed')
+                                }
+                            })
+                            .catch(error=>{
+                                console.log(error);
+                                alert('There was a problem while payment')
+                            })
+                        },
+                        prefill: {
+                            name: "Customer Name",
+                            email: "customer@example.com",
+                            contact: "1234567890"
+                        },
+                        notes: {
+                            address: "Customer Address"
+                        },
+                        theme: {
+                            color: "#eea287"
+                        }
+                    };
+
+                    var rzp1 = new Razorpay(options);
+                    rzp1.on('payment.failed', function (response){
+                        console.error('Payment failed:', response.error);
+                        alert('Payment failed. Please try again.');
+                        // window.location.href='/userDashboard?orderOp=1'
+                        window.location.href=`/paymentFailed?orderId=${result.receipt}`
+                    });
+                    rzp1.open();
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'An error occurred',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            });
+        }
+    });
+</script>
+
+<script>
+function applyCoupon(dis,couponId) {
+    
+    let totalElement = document.getElementById('totalAmount');
+    let totalText = totalElement.textContent;
+
+    
+    let totalValue = parseFloat(totalText.replace('₹', '').replace(',', '')); // Remove the currency symbol and commas, and convert to a number
+
+    
+    let discount = parseFloat(dis);
+    
+
+    let discountedAmount = totalValue * ((100-discount) / 100);
+    document.getElementById('couponId').value = couponId
+    
+
+    totalElement.textContent = `₹${discountedAmount.toFixed(2)}`;
+}
+</script>

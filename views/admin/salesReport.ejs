@@ -1,0 +1,304 @@
+<%-include('../layouts/adminHeader.ejs')%>
+<%-include('../layouts/adminSidebar.ejs')%>
+
+<style>
+  .purple-header-box {
+    background-color: #936dd1; /* Purple color */
+    color: #ffffff; /* White text color */
+    padding: 15px; /* Adjust padding as needed */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    margin-bottom: 20px; /* Optional: Add space below the box */
+    text-align: center;
+  }
+  .search-bar {
+    margin-bottom: 10px; /* Adjust spacing between search bar and heading */
+  }
+  .purple-button {
+    background-color: #936dd1;
+    color: white; /* text color */
+    border: 1px solid #00000000; /* black border */
+    border-radius: 10px; /* slight curve */
+    padding: 10px 20px; /* adjust padding as needed */
+    font-size: 16px; /* adjust font size as needed */
+    cursor: pointer; /* cursor style */
+    /* You can add additional styling as needed */
+  }
+  .search-btn {
+    width: 100px; /* Adjust the width of the button as needed */
+    height: 40px; /* Adjust the height of the button as needed */
+    border: 2px solid #000; /* Black border */
+    border-radius: 2px; /* Make it round */
+    background-color: #936dd1; /* Black background */
+    color: #050404; /* White text color */
+    font-size: 14px; /* Adjust font size */
+    padding: 0; /* Remove padding */
+  }
+
+  .search-btn::after {
+    display: inline-block;
+    margin-left: 0.3rem; /* Adjust spacing between button and text */
+  }
+  .search-bar {
+    width: calc(100% - 80px); /* Adjust the width of the search bar */
+    margin-right: 10px; /* Adjust spacing between search bar and button */
+  }
+  .custom-table-header {
+    background-color: grey;
+    color: black;
+    width: 100%;
+  }
+  .red-button{
+    color: #9f0000; 
+    background-color: #ff9797; 
+    border-radius: 10px;
+  }
+  .red-button:hover{
+    color: #9f0000;
+    background-color: #ff6969;
+  }
+  .green-button{
+    border: 1px solid #009f18;
+    color: #009f18;
+    padding: .3em; 
+    background-color: #a2ff97; 
+    border-radius: 10px;
+  }
+  .green-button:hover{
+    color: #009f18;
+    background-color: #68ff58;
+  }
+  .delete-button{
+    color:#ff0000;
+    border: none;
+    background-color: #525252;
+    border-radius: 10px;
+  }
+  .delete-button:hover{
+    color: #ff0000;
+    background-color: #000;
+  }
+  .edit-button{
+    color: blue;
+    border: 1px solid blue;
+    padding: .3em;
+    background-color: #a1a1ff;
+    border-radius: 10px;
+  }
+  .edit-button:hover{
+    color: blue;
+    background-color: #7b7bff;
+  }
+  .custom-class {
+    border-radius: 20px;
+  }
+  .custom-button{
+    border-radius: 20px;
+  }
+</style>
+
+<div class="page-wrapper">
+  <!-- ============================================================== -->
+  <!-- Container fluid  -->
+  <!-- ============================================================== -->
+  <div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card" id="salesReoport">
+          <div class="card-body">
+            <div class="" style="width: 100%">
+              <!-- Added div with custom class -->
+              
+
+              <div class="d-flex flex-column align-items-center">
+                <h2 class="card-title text-center mb-3">
+                  Sales Report
+                </h2>
+                <div>
+                  <button id="pdf" class="edit-button">Download as PDF<i data-feather="file-plus" style="color: blue; width: 20px; margin-left: .5em; margin-right: .3em;" class="feather-icon" ></i></button>
+                  <button id="excel" class="green-button">Download as Excel<i data-feather="file-plus" style="color: #009f18; width: 20px; margin-left: .5em; margin-right: .3em;" class="feather-icon" ></i></button>
+                </div>
+              </div>              
+
+              <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+                <form action="/admin/searchWithDate" method="get" class="searchform">
+                  <div class="input-group pt-15 ml-15" style="width: 100%;">
+                    <input list="search_terms" id="search" type="date" name="searcheDate" class="form-control"
+                      placeholder="Search term" style="border-radius: 10px 0px 0px 10px;" />
+                    <input class="btn btn-light bg" type="submit" style="border-radius: 0px 10px 10px 0px;">
+                  </div>
+                </form>
+              
+                <div class="text-right">
+                  <div class="d-inline-flex align-items-center">
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" style="border-radius: 10px;" type="button"
+                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sort:
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/admin/salesReport"><p>None</p></a>
+                        <a class="dropdown-item" href="/admin/sortSalesReport?sort=day"><p>Day</p></a>
+                        <a class="dropdown-item" href="/admin/sortSalesReport?sort=month"><p>Month</p></a>
+                        <a class="dropdown-item" href="/admin/sortSalesReport?sort=year"><p>Year</p></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>              
+            
+            
+            <!-- </div>
+            <% if (locals.success) { %>
+            <div
+              class="alert text-center"
+              role="alert"
+              style="color: green; background: white"
+            >
+              <%= locals.success %>
+            </div>
+            <% } %> -->
+            <div >
+              <div class="row">
+              
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card border-end " style="border-radius: 15px; border: 1px solid #777777">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium"><sup
+                                            class="set-doller">₹</sup>
+                                        <%= totalEarning?totalEarning:'No Earning' %>
+                                    </h2>
+                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Earnings
+                                    </h6>
+                                </div>
+                                <div class="ms-auto mt-md-3 mt-lg-0">
+                                    <span class="opacity-7 text-muted"><i data-feather="dollar-sign"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+                <div class="table-responsive" style="border-radius: 20px">
+                    <table class="table" id="tableData">
+                      <thead>
+                        <tr style="background-color: #936dd1; color: #000">
+                          <th scope="col">NO.</th>
+                          <th scope="col">Order ID</th>
+                          <th scope="col">User Name</th>
+                          <th scope="col">Products</th>
+                          <th scope="col">Order Date</th>
+                          <th scope="col">Price</th>
+                          <th scope="col">Offer</th>
+                          <th scope="col">Final Price</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% if (Sales.length > 0) { %> <%
+                        Sales.forEach((order, index) => { %>
+                        <tr>
+                          <td><%= ++index %></td>
+                          <td><%= order.orderId %></td>
+                          <td><%= order.userName %></td>
+                          <td><%= order.orderedProducts[0].productId.name+' ...' %></td>
+                          <td><%= order.purchasedDate %></td>
+                          <td>₹<%= order.total? order.total:order.subTotal %></td>
+                          <td>₹<%= order.total? (order.total-order.subTotal).toFixed(2):0 %></td>
+                          <td>₹<%= order.subTotal.toFixed(2) %></td>
+                        </tr>
+                        <% }); %> <% } else { %>
+      
+      
+                        <tr>
+                          <td colspan="3">No sales found</td>
+                        </tr>
+                        <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+            </div>
+
+            
+
+          <div class="d-flex mt-3" style="justify-content: center; align-items: center;">
+            <!-- back button in pagination -->
+            <% if(page>0){ %>
+                <div class="mr-3" onclick="window.location.href='?page=<%= page-1 %>'" style="border: 1px solid #d4d4d4; width: 80px; height: 30px; background-color: #ffffff; border-radius: 7.5px; cursor: pointer;">
+                    <p style="padding-left: 7px;">Previous</p>
+                </div>
+                <p class="mr-3" style="cursor: default;">...</p>
+            <% } %>
+
+            <!-- number in pagination -->
+            <div  onclick="window.location.href='?page=<%= page %>'" style="border: 1px solid #b0b0b0; width: 25px; height: 30px; background-color: #c7c7c7; border-radius: 7.5px; cursor: default;">
+                <p style="padding-left: 7px;"><%= page+1 %></p>
+            </div>
+            
+            <!-- next button in pagination -->
+            <% if(page>=0&&page<(orderCount/10)-1){ %>
+                <p class="ml-3" style="cursor: default;">...</p>
+                <div class="ml-3" onclick="window.location.href='?page=<%= page+1 %>'" style="border: 1px solid #d4d4d4; width: 50px; height: 30px; background-color: #ffffff; border-radius: 7.5px; cursor: pointer;">
+                    <p style="padding-left: 8px;">Next</p>
+                </div>
+            <% } %>
+
+        </div>
+
+              <% if (locals.errmsg) { %>
+              <div
+                class="alert text-center"
+                role="alert"
+                style="color: blueviolet; background: white"
+              >
+                <%= locals.errmsg %>
+              </div>
+              <% } %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+  </div>
+</div>  
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('pdf').addEventListener('click', function () {
+        const invoiceElement = document.getElementById('salesReoport');
+
+        html2pdf(invoiceElement, {
+    margin: [0.5, 0.5, 0.5, 0.5], // Smaller margins to fit more content
+    filename: 'Sales Report.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 1.5 }, // Scale down a bit
+    jsPDF: {
+        unit: 'in',
+        format: 'a4',
+        orientation: 'portrait' // Adjust if necessary to landscape
+    },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+});
+
+    });
+});
+
+
+    document.getElementById('excel').addEventListener('click', function () {
+        let tableData = document.getElementById('tableData');
+        const wb = XLSX.utils.table_to_book(tableData);
+        // Save workbook as XLSX file
+        XLSX.writeFile(wb, 'sales-report-excel.xlsx');
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<%-include('../layouts/adminFooter.ejs')%>

@@ -1,0 +1,497 @@
+<%- include('../layouts/header.ejs') %>
+<div id="preLoader" class="centerImage" style="width: 100%; height: 100vh; padding-top: 35vh; background-color: #000000;">
+    <img class="img-fluid" style="width: 20%; display: block; margin-left: auto;margin-right: auto;" src="animation/preloading_animation.gif">
+</div>
+
+
+<script>
+    let loader = document.getElementById("preLoader")
+    window.addEventListener("load", function () {
+        let nav = document.getElementById('head_nav')
+        loader.style.display = "none";
+        nav.className = "header smol"
+    })
+</script>
+
+
+    <div class="page-wrapper">
+        <header class="header" id="head_nav">
+            <div class="header-bottom sticky-header">
+                <style>
+
+
+                    /* for logout */
+              @keyframes slideInFromLeft1 {
+                  0% {
+                    transform: translateY(-100%);
+                    opacity: 0;
+                  }
+                  100% {
+                      transform: translateY(0);
+                      opacity: 1;
+                  }
+                }
+                
+                .smol {  
+                  /* This section calls the slideInFromLeft animation we defined above */
+                  animation: .3s ease 0s 1 slideInFromLeft1;
+                }
+              </style>
+            <div class="container">
+                <div class="header-left">
+                    <button class="mobile-menu-toggler">
+                        <span class="sr-only">Toggle mobile menu</span>
+                        <i class="icon-bars"></i>
+                    </button>
+                    
+                    <a href="/home" class="logo">
+                        <!-- <img src="assets/images/demos/demo-8/logo.png" alt="Molla Logo" width="82" height="20"> -->
+                        <h3 style="margin-top: auto; margin-bottom: auto;">TUNGSTEN</h3>
+                    </a>
+                </div>
+                <div class="header-center mx-auto">
+                    <nav class="main-nav">
+                        <ul class="menu sf-arrows">
+                            <li class="megamenu-container">
+                                <a href="/home">Home</a>
+
+                            </li>
+                            <li>
+                                <a href="/shop">Shop</a>
+
+                            </li>
+                            <!-- <li>
+                                <a href="/category">Category</a>
+
+                            </li> -->
+                            <li>
+                                <a href="/about" >About Us</a>
+
+                            </li>
+                            <li class="active">
+                                <a href="/contact" >Contact Us</a>
+
+                            </li>
+                            <li>
+                                <a href="/blog" >Blog</a>
+
+                            </li>
+                        </ul><!-- End .menu -->
+                    </nav><!-- End .main-nav -->
+                </div><!-- End .header-left -->
+
+                <div class="header-right">
+                    <div class="header-search">
+                        <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                        <form action="#" method="get">
+                            <div class="header-search-wrapper">
+                                <label for="q" class="sr-only">Search</label>
+                                <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                            </div><!-- End .header-search-wrapper -->
+                        </form>
+                    </div><!-- End .header-search -->
+
+                    <a href="/wishlist" class="wishlist-link">
+                        <i class="icon-heart-o"></i>
+                        <span class="wishlist-count">3</span>
+                    </a>
+
+                    <div class="dropdown cart-dropdown">
+                        <a href="/cart" class="dropdown-toggle" >
+                            <i class="icon-shopping-cart"></i>
+                            <span class="cart-count">2</span>
+                        </a>
+
+                        <!-- dropdown -->
+
+                    </div><!-- End .cart-dropdown -->
+                    <div class="dropdown cart-dropdown">
+                        <a href="/userDashboard" class="dropdown-toggle" >
+                            <i class="fa-regular fa-user" style="font-size: x-large;"></i>
+                        </a>
+
+                        <!-- dropdown -->
+
+                    </div>
+                </div><!-- End .header-right -->
+            </div><!-- End .container -->
+        </div><!-- End .header-bottom -->
+    </header><!-- End .header -->
+    <main class="main">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Contact us</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+        <div class="container">
+            <div class="page-header page-header-big text-center" style="background-image: url('assets/images/contact-header-bg.jpg')">
+                <h1 class="page-title text-white">Contact us<span class="text-white">keep in touch with us</span></h1>
+            </div><!-- End .page-header -->
+        </div><!-- End .container -->
+
+        <div class="page-content pb-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mb-2 mb-lg-0">
+                        <h2 class="title mb-1">Contact Information</h2><!-- End .title mb-2 -->
+                        <p class="mb-3">Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <div class="contact-info">
+                                    <h3>The Office</h3>
+
+                                    <ul class="contact-list">
+                                        <li>
+                                            <i class="icon-map-marker"></i>
+                                            70 Washington Square South New York, NY 10012, United States
+                                        </li>
+                                        <li>
+                                            <i class="icon-phone"></i>
+                                            <a href="tel:#">+92 423 567</a>
+                                        </li>
+                                        <li>
+                                            <i class="icon-envelope"></i>
+                                            <a href="mailto:#">info@Molla.com</a>
+                                        </li>
+                                    </ul><!-- End .contact-list -->
+                                </div><!-- End .contact-info -->
+                            </div><!-- End .col-sm-7 -->
+
+                            <div class="col-sm-5">
+                                <div class="contact-info">
+                                    <h3>The Office</h3>
+
+                                    <ul class="contact-list">
+                                        <li>
+                                            <i class="icon-clock-o"></i>
+                                            <span class="text-dark">Monday-Saturday</span> <br>11am-7pm ET
+                                        </li>
+                                        <li>
+                                            <i class="icon-calendar"></i>
+                                            <span class="text-dark">Sunday</span> <br>11am-6pm ET
+                                        </li>
+                                    </ul><!-- End .contact-list -->
+                                </div><!-- End .contact-info -->
+                            </div><!-- End .col-sm-5 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .col-lg-6 -->
+                    <div class="col-lg-6">
+                        <h2 class="title mb-1">Got Any Questions?</h2><!-- End .title mb-2 -->
+                        <p class="mb-2">Use the form below to get in touch with the sales team</p>
+
+                        <form action="#" class="contact-form mb-3">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="cname" class="sr-only">Name</label>
+                                    <input type="text" class="form-control" id="cname" placeholder="Name *" required>
+                                </div><!-- End .col-sm-6 -->
+
+                                <div class="col-sm-6">
+                                    <label for="cemail" class="sr-only">Email</label>
+                                    <input type="email" class="form-control" id="cemail" placeholder="Email *" required>
+                                </div><!-- End .col-sm-6 -->
+                            </div><!-- End .row -->
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="cphone" class="sr-only">Phone</label>
+                                    <input type="tel" class="form-control" id="cphone" placeholder="Phone">
+                                </div><!-- End .col-sm-6 -->
+
+                                <div class="col-sm-6">
+                                    <label for="csubject" class="sr-only">Subject</label>
+                                    <input type="text" class="form-control" id="csubject" placeholder="Subject">
+                                </div><!-- End .col-sm-6 -->
+                            </div><!-- End .row -->
+
+                            <label for="cmessage" class="sr-only">Message</label>
+                            <textarea class="form-control" cols="30" rows="4" id="cmessage" required placeholder="Message *"></textarea>
+
+                            <button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm">
+                                <span>SUBMIT</span>
+                                <i class="icon-long-arrow-right"></i>
+                            </button>
+                        </form><!-- End .contact-form -->
+                    </div><!-- End .col-lg-6 -->
+                </div><!-- End .row -->
+
+                <hr class="mt-4 mb-5">
+
+                <div class="stores mb-4 mb-lg-5">
+                    <h2 class="title text-center mb-3">Our Stores</h2><!-- End .title text-center mb-2 -->
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="store">
+                                <div class="row">
+                                    <div class="col-sm-5 col-xl-6">
+                                        <figure class="store-media mb-2 mb-lg-0">
+                                            <img src="assets/images/stores/img-1.jpg" alt="image">
+                                        </figure><!-- End .store-media -->
+                                    </div><!-- End .col-xl-6 -->
+                                    <div class="col-sm-7 col-xl-6">
+                                        <div class="store-content">
+                                            <h3 class="store-title">Wall Street Plaza</h3><!-- End .store-title -->
+                                            <address>88 Pine St, New York, NY 10005, USA</address>
+                                            <div><a href="tel:#">+1 987-876-6543</a></div>
+
+                                            <h4 class="store-subtitle">Store Hours:</h4><!-- End .store-subtitle -->
+                                            <div>Monday - Saturday 11am to 7pm</div>
+                                            <div>Sunday 11am to 6pm</div>
+
+                                            <a href="#" class="btn btn-link" target="_blank"><span>View Map</span><i class="icon-long-arrow-right"></i></a>
+                                        </div><!-- End .store-content -->
+                                    </div><!-- End .col-xl-6 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .store -->
+                        </div><!-- End .col-lg-6 -->
+
+                        <div class="col-lg-6">
+                            <div class="store">
+                                <div class="row">
+                                    <div class="col-sm-5 col-xl-6">
+                                        <figure class="store-media mb-2 mb-lg-0">
+                                            <img src="assets/images/stores/img-2.jpg" alt="image">
+                                        </figure><!-- End .store-media -->
+                                    </div><!-- End .col-xl-6 -->
+
+                                    <div class="col-sm-7 col-xl-6">
+                                        <div class="store-content">
+                                            <h3 class="store-title">One New York Plaza</h3><!-- End .store-title -->
+                                            <address>88 Pine St, New York, NY 10005, USA</address>
+                                            <div><a href="tel:#">+1 987-876-6543</a></div>
+
+                                            <h4 class="store-subtitle">Store Hours:</h4><!-- End .store-subtitle -->
+                                            <div>Monday - Friday 9am to 8pm</div>
+                                            <div>Saturday - 9am to 2pm</div>
+                                            <div>Sunday - Closed</div>
+
+                                            <a href="#" class="btn btn-link" target="_blank"><span>View Map</span><i class="icon-long-arrow-right"></i></a>
+                                        </div><!-- End .store-content -->
+                                    </div><!-- End .col-xl-6 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .store -->
+                        </div><!-- End .col-lg-6 -->
+                    </div><!-- End .row -->
+                </div><!-- End .stores -->
+            </div><!-- End .container -->
+            <div id="map"></div><!-- End #map -->
+        </div><!-- End .page-content -->
+    </main><!-- End .main -->
+
+    <footer class="footer footer-2">
+        <div class="footer-middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="widget widget-about">
+                            <h3 class="footer-logo" width="82" height="25">TUNGSTEN</h3>
+                            <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. </p>
+                            
+                            <div class="widget-about-info">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <span class="widget-about-title">Got Question? Call us 24/7</span>
+                                        <a href="tel:123456789">+0123 456 789</a>
+                                    </div><!-- End .col-sm-6 -->
+                                    <div class="col-sm-6 col-md-8">
+                                        <span class="widget-about-title">Payment Method</span>
+                                        <figure class="footer-payments">
+                                            <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                                        </figure><!-- End .footer-payments -->
+                                    </div><!-- End .col-sm-6 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .widget-about-info -->
+                        </div><!-- End .widget about-widget -->
+                    </div><!-- End .col-sm-12 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">Information</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="about.html">About Molla</a></li>
+                                <li><a href="#">How to shop on Molla</a></li>
+                                <li><a href="faq.html">FAQ</a></li>
+                                <li><a href="contact.html">Contact us</a></li>
+                                <li><a href="login.html">Log in</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-4 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="#">Payment Methods</a></li>
+                                <li><a href="#">Money-back guarantee!</a></li>
+                                <li><a href="#">Returns</a></li>
+                                <li><a href="#">Shipping</a></li>
+                                <li><a href="#">Terms and conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-4 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="#">Sign In</a></li>
+                                <li><a href="cart.html">View Cart</a></li>
+                                <li><a href="#">My Wishlist</a></li>
+                                <li><a href="#">Track My Order</a></li>
+                                <li><a href="#">Help</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-64 col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-middle -->
+    
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="footer-copyright">Copyright © 2019 TUNGSTEN Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+                <ul class="footer-menu">
+                    <li><a href="#">Terms Of Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul><!-- End .footer-menu -->
+    
+                <div class="social-icons social-icons-color">
+                    <span class="social-label">Social Media</span>
+                    <a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                    <a href="#" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                    <a href="#" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                    <a href="#" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+                    <a href="#" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                </div><!-- End .soial-icons -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-bottom -->
+    </footer><!-- End .footer -->
+</div><!-- End .page-wrapper -->
+<button id="scroll-top" title="Back to Top" style="border-radius: 40%; background: #eea287;"><i class="icon-arrow-up"></i></button>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+<%- include('../layouts/mobileView.ejs') %>
+
+<!-- Sign in / Register Modal -->
+<div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="icon-close"></i></span>
+                </button>
+
+                <div class="form-box">
+                    <div class="form-tab">
+                        <ul class="nav nav-pills nav-fill" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="tab-content-5">
+                            <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <label for="singin-email">Username or email address *</label>
+                                        <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="singin-password">Password *</label>
+                                        <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>LOG IN</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="signin-remember">
+                                            <label class="custom-control-label" for="signin-remember">Remember Me</label>
+                                        </div><!-- End .custom-checkbox -->
+
+                                        <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <label for="register-email">Your email address *</label>
+                                        <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-password">Password *</label>
+                                        <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>SIGN UP</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="register-policy" required>
+                                            <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
+                                        </div><!-- End .custom-checkbox -->
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login  btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .modal-body -->
+        </div><!-- End .modal-content -->
+    </div><!-- End .modal-dialog -->
+</div><!-- End .modal -->
+<%- include('../layouts/footer.ejs') %>

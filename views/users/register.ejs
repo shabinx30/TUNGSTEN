@@ -1,0 +1,590 @@
+<%- include('../layouts/header.ejs') %>
+<div id="preLoader" class="centerImage" style="width: 100%; height: 100vh; padding-top: 35vh; background-color: #000000;">
+    <img class="img-fluid" style="width: 20%; display: block; margin-left: auto;margin-right: auto;" src="animation/preloading_animation.gif">
+</div>
+
+
+<script>
+    let loader = document.getElementById("preLoader")
+    window.addEventListener("load", function () {
+        let nav = document.getElementById('head_nav')
+        loader.style.display = "none";
+        nav.className = "header smol"
+    })
+</script>
+
+
+    <div class="page-wrapper">
+        <header class="header" id="head_nav">
+            <div class="header-bottom sticky-header">
+                <style>
+
+
+                    /* for logout */
+              @keyframes slideInFromLeft1 {
+                  0% {
+                    transform: translateY(-100%);
+                    opacity: 0;
+                  }
+                  100% {
+                      transform: translateY(0);
+                      opacity: 1;
+                  }
+                }
+                
+                .smol {  
+                  /* This section calls the slideInFromLeft animation we defined above */
+                  animation: .3s ease 0s 1 slideInFromLeft1;
+                }
+              </style>
+            <div class="container">
+                <div class="header-left">
+                    <button class="mobile-menu-toggler">
+                        <span class="sr-only">Toggle mobile menu</span>
+                        <i class="icon-bars"></i>
+                    </button>
+                    
+                    <a href="/home" class="logo">
+                        <!-- <img src="assets/images/demos/demo-8/logo.png" alt="Molla Logo" width="82" height="20"> -->
+                        <h3 style="margin-top: auto; margin-bottom: auto;">TUNGSTEN</h3>
+                    </a>
+                </div>
+                <div class="header-center mx-auto">
+                    <nav class="main-nav">
+                        <ul class="menu sf-arrows">
+                            <li class="megamenu-container active">
+                                <a>Home</a>
+
+                            </li>
+                            <li>
+                                <a href="/shop">Shop</a>
+
+                            </li>
+                            <!-- <li>
+                                <a href="/category">Category</a>
+
+                            </li> -->
+                            <li>
+                                <a href="/about" >About Us</a>
+
+                            </li>
+                            <li>
+                                <a href="/contact" >Contact Us</a>
+
+                            </li>
+                            <li>
+                                <a href="/blog" >Blog</a>
+
+                            </li>
+                        </ul><!-- End .menu -->
+                    </nav><!-- End .main-nav -->
+                </div><!-- End .header-left -->
+
+                <div class="header-right">
+                    <div class="header-search">
+                        <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                        <form action="#" method="get">
+                            <div class="header-search-wrapper">
+                                <label for="q" class="sr-only">Search</label>
+                                <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                            </div><!-- End .header-search-wrapper -->
+                        </form>
+                    </div><!-- End .header-search -->
+
+                    <a href="/wishlist" class="wishlist-link">
+                        <i class="icon-heart-o"></i>
+                        <span class="wishlist-count">0</span>
+                    </a>
+
+                    <div class="dropdown cart-dropdown">
+                        <a href="/cart" class="dropdown-toggle" >
+                            <i class="icon-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+
+                        <!-- dropdown -->
+
+                    
+                </div><!-- End .header-right -->
+            </div><!-- End .container -->
+        </div><!-- End .header-bottom -->
+    </header><!-- End .header -->
+    <main class="main">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Login</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style="background-image: url('assets/images/backgrounds/login-bg.jpg') ;">
+            <div class="container">
+                <div class="form-box" style="border-radius: 20px;">
+                    <div class="form-tab">
+                        <ul class="nav nav-pills nav-fill" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/signIn" >Sign In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="register-tab-2" data-toggle="tab" href="#register-2" role="tab" aria-controls="register-2" aria-selected="true">Register</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <label for="singin-email-2">Username or email address *</label>
+                                        <input type="text" class="form-control" id="singin-email-2" name="singin-email" style="border-radius: 10px;" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="singin-password-2">Password *</label>
+                                        <input type="password" class="form-control" id="singin-password-2" name="singin-password" style="border-radius: 10px;" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2" style="border-radius: 10px;">
+                                            <span>LOG IN</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="signin-remember-2">
+                                            <label class="custom-control-label" for="signin-remember-2">Remember Me</label>
+                                        </div><!-- End .custom-checkbox -->
+
+                                        <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade show active" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
+                                <form action="/register" method="POST" id="form">
+                                    <div class="form-group">
+                                        <p style="color: red;"><%= locals.message %></p>
+                                        <label for="register-email-2">Your Username *</label>
+                                        <input type="text" class="form-control" id="noNumberSpaceInput" name="name" style="border-radius: 10px;" maxlength="21" >
+                                        <span id="noNumberSpaceError" class="error-message" style="color: red; font-size: smaller; "></span>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-email-2">Your email address *</label>
+                                        <input type="email" class="form-control" id="email" name="email" style="border-radius: 10px;" >
+                                        <span id="emailError" class="error-message" style="color: red; font-size: smaller; "></span>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="phone_number">Your phone number *</label>
+                                        <input type="text" class="form-control" id="phone_number" name="phone_number" style="border-radius: 10px;" >
+                                        <span id="phone_number_error" class="error-message" style="color: red; font-size: smaller; "></span>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-password-2">Password *</label>
+                                        <input type="password" class="form-control" id="password_input" name="password" style="border-radius: 10px;" autocomplete="off">
+                                        <span id="password_error" class="error-message" style="color: red; font-size: smaller; "></span>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-password-2">Re-enter Password *</label>
+                                        <input type="password" class="form-control" id="re_password_input" name="register_re_password" style="border-radius: 10px;" autocomplete="off">
+                                        <span id="re_password_error" class="error-message" style="color: red; font-size: smaller; "></span>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2" style="border-radius: 10px;">
+                                            <span>SIGN UP</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="register-policy-2" required>
+                                            <label class="custom-control-label" for="register-policy-2">I agree to the <a href="#">privacy policy</a> *</label>
+                                        </div><!-- End .custom-checkbox -->
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-m-6 mx-auto">
+                                            <a href="/auth/google" class="btn btn-login btn-g" style="border-radius: 10px; background-color: #ffe6e0;" onmouseover="this.style.backgroundColor='#ffc3b4'"
+                                            onmouseout="this.style.backgroundColor='#ffe6e0'">
+                                                <img src="assets/images/icons/search.png" alt="nothing" style="width: 18px; margin-left: 1em; margin-right: 1em;">
+                                                <p style="margin-right: 1em;" >Login With Google</p>
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .container -->
+        </div><!-- End .login-page section-bg -->
+    </main><!-- End .main -->
+
+    <footer class="footer footer-2">
+        <div class="footer-middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="widget widget-about">
+                            <h3 class="footer-logo" width="82" height="25">TUNGSTEN</h3>
+                            <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. </p>
+                            
+                            <div class="widget-about-info">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <span class="widget-about-title">Got Question? Call us 24/7</span>
+                                        <a href="tel:123456789">+0123 456 789</a>
+                                    </div><!-- End .col-sm-6 -->
+                                    <div class="col-sm-6 col-md-8">
+                                        <span class="widget-about-title">Payment Method</span>
+                                        <figure class="footer-payments">
+                                            <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                                        </figure><!-- End .footer-payments -->
+                                    </div><!-- End .col-sm-6 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .widget-about-info -->
+                        </div><!-- End .widget about-widget -->
+                    </div><!-- End .col-sm-12 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">Information</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="about.html">About Molla</a></li>
+                                <li><a href="#">How to shop on Molla</a></li>
+                                <li><a href="faq.html">FAQ</a></li>
+                                <li><a href="contact.html">Contact us</a></li>
+                                <li><a href="login.html">Log in</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-4 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="#">Payment Methods</a></li>
+                                <li><a href="#">Money-back guarantee!</a></li>
+                                <li><a href="#">Returns</a></li>
+                                <li><a href="#">Shipping</a></li>
+                                <li><a href="#">Terms and conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-4 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="#">Sign In</a></li>
+                                <li><a href="cart.html">View Cart</a></li>
+                                <li><a href="#">My Wishlist</a></li>
+                                <li><a href="#">Track My Order</a></li>
+                                <li><a href="#">Help</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-64 col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-middle -->
+    
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="footer-copyright">Copyright © 2019 TUNGSTEN Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+                <ul class="footer-menu">
+                    <li><a href="#">Terms Of Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul><!-- End .footer-menu -->
+    
+                <div class="social-icons social-icons-color">
+                    <span class="social-label">Social Media</span>
+                    <a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                    <a href="#" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                    <a href="#" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                    <a href="#" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+                    <a href="#" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                </div><!-- End .soial-icons -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-bottom -->
+    </footer><!-- End .footer -->
+</div><!-- End .page-wrapper -->
+<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+<%- include('../layouts/mobileView.ejs') %>
+
+<!-- Sign in / Register Modal -->
+<div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="icon-close"></i></span>
+                </button>
+
+                <div class="form-box">
+                    <div class="form-tab">
+                        <ul class="nav nav-pills nav-fill" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="tab-content-5">
+                            <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <label for="singin-email">Username or email address *</label>
+                                        <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="singin-password">Password *</label>
+                                        <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>LOG IN</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="signin-remember">
+                                            <label class="custom-control-label" for="signin-remember">Remember Me</label>
+                                        </div><!-- End .custom-checkbox -->
+
+                                        <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <label for="register-email">Your email address *</label>
+                                        <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-password">Password *</label>
+                                        <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>SIGN UP</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="register-policy" required>
+                                            <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
+                                        </div><!-- End .custom-checkbox -->
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login  btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .modal-body -->
+        </div><!-- End .modal-content -->
+    </div><!-- End .modal-dialog -->
+</div><!-- End .modal -->
+<%- include('../layouts/footer.ejs') %>
+
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      let noNumberSpaceInput = document.getElementById('noNumberSpaceInput');
+      let noNumberSpaceError = document.getElementById('noNumberSpaceError');
+      let phone_number = document.getElementById('phone_number')
+      let phone_number_error = document.getElementById('phone_number_error')
+      let password_input = document.getElementById('password_input')
+      let password_error = document.getElementById('password_error')
+      let re_password_input = document.getElementById('re_password_input')
+      let re_password_error = document.getElementById('re_password_error')
+      const invalidInputRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-\d\s]/;
+
+      noNumberSpaceInput.addEventListener('input', function () {
+        if (invalidInputRegex.test(noNumberSpaceInput.value)) {
+          // If numbers or white spaces are found, prevent input and display an error
+          noNumberSpaceInput.value = noNumberSpaceInput.value.replace(/\d/g, '');
+          noNumberSpaceError.textContent = 'Enter your name, other characters are not allowed.';
+        }else if(noNumberSpaceInput.value.length>20) {
+
+            noNumberSpaceError.textContent = 'Only upto 20 characters allowed';
+        }else {
+            // No numbers or white spaces, clear the error message
+            noNumberSpaceError.textContent = '';
+        }
+      });
+    });
+    form.addEventListener('submit',function(event){
+      if(noNumberSpaceInput.value.trim()==''){
+        event.preventDefault();
+        noNumberSpaceError.textContent="Enter your name"
+      }else if(phone_number.value.length<10) {
+        event.preventDefault();
+        phone_number_error.textContent = 'Phone number should be contain atleast 10 character';
+      }else if(typeof(phone_number.value)!="number"){
+        event.preventDefault();
+        phone_number_error.textContent = 'Phone number should be contain numbers';
+      }else if(password_input.value.length<8) {
+        event.preventDefault();
+        password_error.textContent = 'Password should be contain 8 atleast character';
+      }else if(re_password_input.value.length<8) {
+        event.preventDefault();
+        re_password_error.textContent = 'Password should be contain 8 atleast character';
+      }else if(re_password_input.value != password_input.value) {
+        event.preventDefault();
+        re_password_error.textContent = 'Password is incorrect';
+      }else{
+        noNumberSpaceError.textContent=''
+      }
+    })
+</script> -->
+
+
+<script>
+
+form.addEventListener('submit', function(event) {
+    let usernameInput = document.getElementById('noNumberSpaceInput').value.trim();
+    let emailInput = document.getElementById('email').value.trim();
+    let phoneInput = document.getElementById('phone_number').value.trim();
+    let passwordInput = document.getElementById('password_input').value.trim();
+    let confirmPasswordInput = document.getElementById('re_password_input').value.trim();
+
+    let usernameError = document.getElementById('noNumberSpaceError');
+    if (usernameInput === '') {
+        usernameError.textContent = 'Please enter a username.';
+        event.preventDefault(); // Prevent form submission if validation fails
+        return;
+    } else {
+        usernameError.textContent = '';
+    }
+
+    let emailError = document.getElementById('emailError');
+    if (emailInput === '') {
+        emailError.textContent = 'Please enter an email address.';
+        event.preventDefault(); // Prevent form submission if validation fails
+        return;
+    } else {
+        emailError.textContent = '';
+    }
+
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailInput)) {
+        emailError.textContent = 'Please enter a valid email address.';
+        event.preventDefault(); // Prevent form submission if validation fails
+        return;
+    } else {
+        emailError.textContent = '';
+    }
+
+    let phoneError = document.getElementById('phone_number_error');
+    if (phoneInput === '') {
+        phoneError.textContent = 'Please enter a phone number.';
+        event.preventDefault(); // Prevent form submission if validation fails
+        return;
+    } else if (!/^\d{10}$/.test(phoneInput)) { // Ensure exactly 10 digits
+        phoneError.textContent = 'Please enter a valid 10-digit phone number.';
+        event.preventDefault(); // Prevent form submission if validation fails
+        return;
+    } else {
+        phoneError.textContent = '';
+    }
+
+    let passwordError = document.getElementById('password_error');
+    if (passwordInput === '') {
+        passwordError.textContent = 'Please enter a password.';
+        event.preventDefault(); // Prevent form submission if validation fails
+        return;
+    } else if (passwordInput.length < 8) {
+        passwordError.textContent = 'Password must be at least 8 characters long.';
+        event.preventDefault(); // Prevent form submission if validation fails
+        return;
+    } else {
+        passwordError.textContent = '';
+    }
+
+    let confirmPasswordError = document.getElementById('re_password_error');
+    if (confirmPasswordInput === '') {
+        confirmPasswordError.textContent = 'Please confirm your password.';
+        event.preventDefault(); // Prevent form submission if validation fails
+        return;
+    } else if (confirmPasswordInput !== passwordInput) {
+        confirmPasswordError.textContent = 'Passwords do not match.';
+        event.preventDefault(); // Prevent form submission if validation fails
+        return;
+    } else {
+        confirmPasswordError.textContent = '';
+    }
+});
+
+
+
+
+</script>

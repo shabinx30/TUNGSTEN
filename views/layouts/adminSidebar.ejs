@@ -1,0 +1,198 @@
+<style>
+    @keyframes opening {
+        0% {
+            opacity: 0;
+            height: 0;
+        }
+        30%{
+            opacity: 1;
+        }
+        100% {
+            /* opacity: 1; */
+            height: 130px;
+        }
+    }
+
+    @keyframes hiding {
+        0% {
+            opacity: 1;
+            height: 130px;
+        }
+        100% {
+            opacity: 0;
+            height: 0;
+        }
+    }
+
+    .toop-sidebar {
+        background-color: #9e69ff24;
+        backdrop-filter: blur(5px);
+        border-radius: 15px;
+        width: 12em;
+        height: 130px;
+        z-index: 1001;
+        position: relative;
+        margin-top: 395px;
+        margin-left: 25vh;
+        animation: opening .3s ease forwards;
+        box-shadow: 0 4px 8px #00000080;
+        padding: 1.5em;
+    }
+
+    .toop-sidebar-none {
+        background-color: #9e69ff24;
+        backdrop-filter: blur(5px);
+        border-radius: 15px;
+        width: 12em;
+        height: 130px;
+        z-index: 1001;
+        position: relative;
+        margin-top: 395px;
+        margin-left: 25vh;
+        animation: hiding .3s ease forwards;
+        box-shadow: 0 4px 8px #00000080;
+        padding: 1.5em;
+    }
+</style>
+
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+        data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" data-navbarbg="skin6">
+            <nav class="navbar top-navbar navbar-expand-md" style="background-color: #d4d8ff;">
+                <div class="navbar-header" data-logobg="skin6" style="background-color: #d4d8ff;">
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
+                            class="ti-menu ti-close"></i></a>
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <div class="navbar-brand" style="background-color: #d4d8ff;">
+                        <p class="text-center mt-5" style="color: rgb(123, 86, 255); margin-bottom: 40px; font-size: x-large; font-weight: bold;">Admin Dashboard</p>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Toggle which is visible on mobile only -->
+                    <!-- ============================================================== -->
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
+                        data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
+                            class="ti-more"></i></a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" style="background-color: #E9E7FF;">
+                    <ul class="navbar-nav float-right">
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <!-- <img src="/admin/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
+                                    width="40"> -->
+                                <span class="ml-2 d-none d-lg-inline-block">
+                                    <!-- <span></span> <span class="text-dark"></span> </span> -->
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user"
+                                        class="svg-icon mr-2 ml-1"></i>
+                                    My Profile</a>
+                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="credit-card"
+                                        class="svg-icon mr-2 ml-1"></i>
+                                    My Balance</a>
+                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="mail"
+                                        class="svg-icon mr-2 ml-1"></i>
+                                    Inbox</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings"
+                                        class="svg-icon mr-2 ml-1"></i>
+                                    Account Setting</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="power"
+                                        class="svg-icon mr-2 ml-1"></i>
+                                    Logout</a>
+                                <div class="dropdown-divider"></div>
+                                <div class="pl-4 p-3"><a href="javascript:void(0)" class="btn btn-sm btn-info">View
+                                        Profile</a></div>
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin6" style="background-color: #d4d8ff;" onmouseleave="offerDivHide()">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar" data-sidebarbg="skin6" style="z-index: 1000; position: absolute;">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <!-- <p class="text-center" style="color: rgb(123, 86, 255); margin-bottom: 40px; font-size: x-large; font-weight: bold;">Admin Dashboard</p> -->
+                        <li class="sidebar-item" > <a class="sidebar-link sidebar-link" href="/admin/dashboard" aria-expanded="false"><i data-feather="home" style="color: #484848; width: 20px; " class="feather-icon"></i><span class="hide-menu" style="color: black; margin-left: 5px;">Dashboard</span></a></li>
+                        <li class="sidebar-item" > <a class="sidebar-link sidebar-link" href="/admin/salesReport" aria-expanded="false"><i data-feather="file-plus" style="color: #484848; width: 20px; " class="feather-icon" ></i><span class="hide-menu" style="color: black; margin-left: 5px;">Sales Report</span></a></li>
+                        <li class="sidebar-item" > <a class="sidebar-link sidebar-link" href="/admin/userList" aria-expanded="false"><i data-feather="users" style="color: #484848; width: 20px; " class="feather-icon"></i><span class="hide-menu" style="color: black; margin-left: 5px;">Customers</span></a></li>                     
+                        <li class="sidebar-item" > <a class="sidebar-link sidebar-link" href="/admin/categoryList" aria-expanded="false"><i data-feather="grid" style="color: #484848; width: 20px; " class="feather-icon"></i><span class="hide-menu" style="color: black; margin-left: 5px;">Category</span></a></li>                    
+                        <li class="sidebar-item" > <a class="sidebar-link sidebar-link" href="/admin/productsList" aria-expanded="false"><i data-feather="box" style="color: #484848; width: 20px; " class="feather-icon"></i><span class="hide-menu" style="color: black; margin-left: 5px;">Products</span></a></li>                       
+                        <li class="sidebar-item" > <a class="sidebar-link sidebar-link" href="/admin/orderHistory" aria-expanded="false"><i data-feather="list" style="color: #484848; width: 20px; " class="feather-icon"></i><span class="hide-menu" style="color: black; margin-left: 5px;">Order History</span></a></li>             
+                        <li class="sidebar-item" > <a class="sidebar-link sidebar-link" href="/admin/returns" aria-expanded="false"><i data-feather="list" style="color: #484848; width: 20px; " class="feather-icon"></i><span class="hide-menu" style="color: black; margin-left: 5px;">Returns</span></a></li>          
+                        <li class="sidebar-item" onclick="offerDivShow()" style="cursor: pointer;"> <a class="sidebar-link sidebar-link" aria-expanded="false"><i data-feather="percent" style="color: #484848; width: 20px; " class="feather-icon"></i><span class="hide-menu" style="color: black; margin-left: 5px;">Offers</span></a></li>
+                        <li class="sidebar-item" > <a class="sidebar-link sidebar-link" href="/admin/couponList" aria-expanded="false"><i data-feather="percent" style="color: #484848; width: 20px; " class="feather-icon"></i><span class="hide-menu" style="color: black; margin-left: 5px;">Coupon</span></a></li>
+                    </ul>
+                </nav>
+                <li class="sidebar-item mt-5"> <a class="sidebar-link sidebar-link" href="/admin/logout" aria-expanded="false"><i data-feather="log-out" class="feather-icon"></i><span class="hide-menu">Logout</span></a></li>
+                <!-- End Sidebar navigation -->
+            </div>
+            <div class="toop-sidebar-none" id="offer_hover" onmouseover="offerDivShow()" onmouseleave="offerDivHide()">
+                <a class="sidebar-link sidebar-link" href="/admin/ProductOfferList" aria-expanded="false"><i data-feather="percent" style="color: #484848; width: 20px; " class="feather-icon"></i><span class="hide-menu" style="color: black; margin-left: 5px;">Product Offers</span></a><br><br>
+                <a class="sidebar-link sidebar-link" href="/admin/CategoryOfferList" aria-expanded="false"><i data-feather="percent" style="color: #484848; width: 20px; " class="feather-icon"></i><span class="hide-menu" style="color: black; margin-left: 5px;">Category Offers</span></a>
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+
+<script>
+
+    window.addEventListener('load',function(){
+        document.getElementById('offer_hover').style.display = 'none'
+    });
+
+
+    function offerDivShow(){
+        document.getElementById('offer_hover').className = 'toop-sidebar'
+        document.getElementById('offer_hover').style.display = 'block'
+    }
+    function offerDivHide(){
+        document.getElementById('offer_hover').className = 'toop-sidebar-none'
+        setTimeout(()=>{
+            document.getElementById('offer_hover').style.display = 'none'
+        },300)
+    }
+</script>

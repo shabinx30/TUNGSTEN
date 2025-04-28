@@ -1,0 +1,760 @@
+<%- include('../layouts/header.ejs') %>
+<div id="preLoader" class="centerImage" style="width: 100%; height: 100vh; padding-top: 35vh; background-color: #000000;">
+    <img class="img-fluid" style="width: 20%; display: block; margin-left: auto;margin-right: auto;" src="animation/preloading_animation.gif">
+</div>
+
+
+<script>
+    let loader = document.getElementById("preLoader")
+    window.addEventListener("load", function () {
+        let nav = document.getElementById('head_nav')
+        loader.style.display = "none";
+        nav.className = "header smol"
+    })
+</script>
+
+
+    <div class="page-wrapper">
+        <header class="header" id="head_nav">
+            <div class="header-bottom sticky-header">
+                <style>
+
+
+                    /* for logout */
+              @keyframes slideInFromLeft1 {
+                  0% {
+                    transform: translateY(-100%);
+                    opacity: 0;
+                  }
+                  100% {
+                      transform: translateY(0);
+                      opacity: 1;
+                  }
+                }
+                
+                .smol {  
+                  /* This section calls the slideInFromLeft animation we defined above */
+                  animation: .3s ease 0s 1 slideInFromLeft1;
+                }
+              </style>
+            <div class="container">
+                <div class="header-left">
+                    <button class="mobile-menu-toggler">
+                        <span class="sr-only">Toggle mobile menu</span>
+                        <i class="icon-bars"></i>
+                    </button>
+                    
+                    <a href="/home" class="logo">
+                        <!-- <img src="assets/images/demos/demo-8/logo.png" alt="Molla Logo" width="82" height="20"> -->
+                        <h3 style="margin-top: auto; margin-bottom: auto;">TUNGSTEN</h3>
+                    </a>
+                </div>
+                <div class="header-center mx-auto">
+                    <nav class="main-nav">
+                        <ul class="menu sf-arrows">
+                            <li class="megamenu-container">
+                                <a href="/home" >Home</a>
+
+                            </li>
+                            <li class="active">
+                                <a >Shop</a>
+
+                            </li>
+                            <!-- <li>
+                                <a href="/category">Category</a>
+
+                            </li> -->
+                            <li>
+                                <a href="/about" >About Us</a>
+
+                            </li>
+                            <li>
+                                <a href="/contact" >Contact Us</a>
+
+                            </li>
+                            <li>
+                                <a href="/blog" >Blog</a>
+
+                            </li>
+                        </ul><!-- End .menu -->
+                    </nav><!-- End .main-nav -->
+                </div><!-- End .header-left -->
+
+                <div class="header-right">
+                    <div class="header-search">
+                        <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                        <form action="#" method="get">
+                            <div class="header-search-wrapper">
+                                <label for="q" class="sr-only">Search</label>
+                                <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                            </div><!-- End .header-search-wrapper -->
+                        </form>
+                    </div><!-- End .header-search -->
+
+                    <a href="/wishlist" class="wishlist-link">
+                        <i class="icon-heart-o"></i>
+                        <span class="wishlist-count" id="wishCount"><%= wishlistCount %></span>
+                    </a>
+
+                    <div class="dropdown cart-dropdown">
+                        <a href="/cart" class="dropdown-toggle" >
+                            <i class="icon-shopping-cart"></i>
+                            <span class="cart-count"><%= cartCount %></span>
+                        </a>
+
+                        <!-- dropdown -->
+
+                    </div><!-- End .cart-dropdown -->
+                    <div class="dropdown cart-dropdown">
+                        <a href="/userDashboard" class="dropdown-toggle" >
+                            <i class="fa-regular fa-user" style="font-size: x-large;"></i>
+                        </a>
+
+                        <!-- dropdown -->
+
+                    </div>
+                </div><!-- End .header-right -->
+            </div><!-- End .container -->
+        </div><!-- End .header-bottom -->
+    </header><!-- End .header -->
+    <main class="main">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+            <div class="container d-flex align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/shop">Shop</a></li>
+                    <li class="breadcrumb-item"><a >Products</a></li>
+                </ol>
+
+                <nav class="product-pager ml-auto" aria-label="Product">
+                    <a class="product-pager-link product-pager-prev" href="#" aria-label="Previous" tabindex="-1">
+                        <i class="icon-angle-left"></i>
+                        <span>Prev</span>
+                    </a>
+
+                    <a class="product-pager-link product-pager-next" href="#" aria-label="Next" tabindex="-1">
+                        <span>Next</span>
+                        <i class="icon-angle-right"></i>
+                    </a>
+                </nav><!-- End .pager-nav -->
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <div class="page-content">
+            <div class="container">
+                <div class="product-details-top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="product-gallery product-gallery-vertical">
+                                <div class="row">
+                                    <figure class="product-main-image">
+                                        <img id="product-zoom" src="/productImages/<%= product.images[0] %>" data-zoom-image="/productImages/<%= product.images[0] %>" alt="product image">
+
+                                        <a href="#" id="btn-product-gallery" class="btn-product-gallery">
+                                            <i class="icon-arrows"></i>
+                                        </a>
+                                    </figure><!-- End .product-main-image -->
+
+                                    <div id="product-zoom-gallery" class="product-image-gallery" >
+                                        <% if(product.images.length>1) { %>
+                                            <% for(let i=0;i< product.images.length;i++) { %>
+                                                <a class="product-gallery-item <%=i==0? 'active':''%>" href="#" style="height: 7.6em;" data-image="/productImages/<%= product.images[i] %>" data-zoom-image="/productImages/<%= product.images[i] %>">
+                                                    <img src="/productImages/<%= product.images[i] %>" alt="product side">
+                                                </a>
+                                            <%}%>
+                                        <%}%>
+                                    </div><!--End .product-image-gallery -->
+                                </div><!-- End .row -->
+                            </div><!-- End .product-gallery -->
+                        </div><!-- End .col-md-6 -->
+
+                        <div class="col-md-6">
+                            <div class="product-details">
+                                
+                                <h1 class="product-title"><%= product.name %></h1>
+                                
+                                <!-- <div class="ratings-container">
+                                    <div class="ratings"> -->
+                                        <!-- <div class="ratings-val" style="width: 80%;"></div>End .ratings-val -->
+                                    <!-- </div>End .ratings -->
+                                    <!-- <a class="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews )</a> -->
+                                <!-- </div>End .rating-container -->
+
+                                <div class="product-price">
+                                    <% if(product.quantity==0){ %>
+                                        <span style="background-color: #eb4c4c; border-radius: 10px; color: white; padding: .3em; margin-right: .5em; font-size: small;">OUT OF STOCK</span>
+                                        ₹<%= product.price %>
+                                    <%} else if(product.offer>0) {%>
+                                        <span style="background-color: #67b12e; border-radius: 10px; color: white; padding: .25em; margin-right: .5em; font-size: medium;"><%= product.offer %>%</span>
+                                        <span class="old-price" style="margin-right: .5em;">₹<%= product.price %></span>
+                                        <span class="new-price">₹<%= product.finalPrice %></span>
+                                    <%}else{%>
+                                        ₹<%= product.price %>
+                                    <%}%>
+                                </div><!-- End .product-price -->
+
+                                <div class="product-content">
+                                    <p><%= product.description %></p>
+                                </div><!-- End .product-content -->
+
+                                <!-- <div class="details-filter-row details-row-size">
+                                    <label>Color:</label>
+
+                                    <div class="product-nav product-nav-thumbs">
+                                        <select name="size" id="color">
+                                            <% product.color %>
+                                        </select>
+                                    </div>
+                                </div> -->
+
+                                <% if (typeof(product.quantity) == 'object') { %>
+                                    <div class="details-filter-row details-row-size">
+                                        <label for="size">Size:</label>
+                                        <div class="select-custom" >
+                                            <select name="size" id="size" class="form-control" style="border-radius: 10px; cursor: pointer;">
+                                                <option value="#" selected>Select a size</option>
+                                                    <% Object.keys(product.quantity).forEach(function(q) { %>
+                                                        <option value="<%= q %>"><%= q %></option>
+                                                    <% }); %>
+                                            </select>
+                                        </div>
+                                            <!-- <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a> -->
+                                    </div>
+                                <% } %>
+
+                                <!-- <div class="details-filter-row details-row-size">
+                                    <label for="qty">Qty:</label> -->
+                                    <!-- <div class="product-details-quantity">
+                                        <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
+                                    </div>End .product-details-quantity -->
+                                <!-- </div>End .details-filter-row -->
+                                <br><br>
+                                <div class="product-details-action">
+                                    <% if(product.quantity == 0) {%>
+                                        <button class="btn btn-block btn-outline-primary-2 disabled" style="border-radius: 10px; border: 1px solid #bcbcbc; background-color: #dfdfdf; color: #aaaaaa; width: 15em;" onclick="addToCart('<%= product._id %>')"><i class="icon-cart-plus"></i>Add to Cart</button>
+                                    <% }else{ %>
+                                        <button class="btn btn-block btn-outline-primary-2" style="border-radius: 10px; width: 15em;" onclick="addToCart('<%= product._id %>')"><i class="icon-cart-plus"></i>Add to Cart</button>
+                                    <% } %>
+
+                                    <div class="details-action-wrapper">
+                                        <a onclick="addToWishlist('<%= product._id %>')" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
+                                        <!-- <a class="btn-product btn-compare" title="Wishlist" onclick="addToWishlist('<%= product._id %>')"><span>Add to Wishlist</span></a> -->
+                                    </div><!-- End .details-action-wrapper -->
+                                </div><!-- End .product-details-action -->
+
+                                <div class="product-details-footer">
+                                    <div class="product-cat">
+                                        <span>Category:</span>
+                                        <a href="/shop"><%= product.categoryName.name %></a>
+                                    </div><!-- End .product-cat -->
+
+                                    <div class="social-icons social-icons-sm">
+                                        <button class="btn btn-block btn-outline-primary-2" style="border-radius: 10px; width: 15em;" onclick="share('tungstenz.online/product?productDetails=<%= product._id %>')">Share</button>
+                                    </div>
+                                </div><!-- End .product-details-footer -->
+                            </div><!-- End .product-details -->
+                        </div><!-- End .col-md-6 -->
+                    </div><!-- End .row -->
+                </div><!-- End .product-details-top -->
+
+                <div class="product-details-tab">
+                    <ul class="nav nav-pills justify-content-center" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="true">Description</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="product-info-link" data-toggle="tab" href="#product-info-tab" role="tab" aria-controls="product-info-tab" aria-selected="false">Additional information</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="product-shipping-link" data-toggle="tab" href="#product-shipping-tab" role="tab" aria-controls="product-shipping-tab" aria-selected="false">Shipping & Returns</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
+                            <div class="product-desc-content">
+                                <h3>Product Information</h3>
+                                <p><%= product.description %></p>
+                            </div><!-- End .product-desc-content -->
+                        </div><!-- .End .tab-pane -->
+                        <div class="tab-pane fade" id="product-info-tab" role="tabpanel" aria-labelledby="product-info-link">
+                            <div class="product-desc-content">
+                                <h3>Information</h3>
+                                <p><%= product.description %></p>
+
+                                <h3>Size</h3>
+                                <p>Small</p>
+                                <p>Medium</p>
+                                <p>Large</p>
+                            </div><!-- End .product-desc-content -->
+                        </div><!-- .End .tab-pane -->
+                        <div class="tab-pane fade" id="product-shipping-tab" role="tabpanel" aria-labelledby="product-shipping-link">
+                            <div class="product-desc-content">
+                                <h3>Delivery & returns</h3>
+                                <p>We deliver to over 100 countries around the world. For full details of the delivery options we offer, please view our <a href="#">Delivery information</a><br>
+                                We hope you’ll love every purchase, but if you ever need to return an item you can do so within a month of receipt. For full details of how to make a return, please view our <a href="#">Returns information</a></p>
+                            </div><!-- End .product-desc-content -->
+                        </div><!-- .End .tab-pane -->
+                        
+                        <!-- was review  -->
+
+                    </div><!-- End .tab-content -->
+                </div><!-- End .product-details-tab -->
+
+                
+                <% if(related.length>0){ %>
+                    <h2 class="title text-center mb-4">You May Also Like</h2><!-- End .title text-center -->
+                    
+
+                <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
+                    data-owl-options='{
+                        "nav": false, 
+                        "dots": true,
+                        "margin": 20,
+                        "loop": false,
+                        "responsive": {
+                            "0": {
+                                "items":1
+                            },
+                            "480": {
+                                "items":2
+                            },
+                            "768": {
+                                "items":3
+                            },
+                            "992": {
+                                "items":4
+                            },
+                            "1200": {
+                                "items":4,
+                                "nav": true,
+                                "dots": false
+                            }
+                        }
+                    }'>
+                    <% related.forEach((value)=>{ %>
+                        <div class="product product-2 text-center">
+                            <figure class="product-media">
+                                <% let quantity = 0 %>
+                                    <% Object.values(value.quantity).forEach(function(q) { %>
+                                        <% if(q!=0) {%>
+                                            <% quantity++ %>
+                                        <% } %>
+                                    <% }); %>
+
+                                    <% if(quantity==0){ %>
+                                        <span class="product-label label-sale" style="border-radius: 7px;">Out of stock</span>
+                                    <% }else if(value.offer>0){ %>
+                                        <span class="product-label label-new" style="border-radius: 7px;"><%= value.offer %>% off</span>
+                                    <% } %>
+
+                                    <a href="/product?productDetails=<%= value._id %>">
+                                        <% if(quantity == 0) {%>
+                                            <img src="/productImages/<%= value.images[0] %>" alt="Product image" class="product-image" style="filter: saturate(0); object-fit: cover;max-height:280px;">
+                                            <img src="/productImages/<%= value.images[1]?value.images[1]:value.images[0] %>" alt="Product image" class="product-image-hover" style="filter: saturate(0); object-fit: cover;max-height:280px;">
+                                        <% }else{ %>
+                                            <img src="/productImages/<%= value.images[0] %>" alt="Product image" class="product-image" style="object-fit: cover;max-height:280px;">
+                                            <img src="/productImages/<%= value.images[1]?value.images[1]:value.images[0] %>" alt="Product image" class="product-image-hover" style="object-fit: cover;max-height:280px;">
+                                        <% } %>
+                                    </a>
+
+                                <div class="product-action-vertical" onclick="addToWishlist('<%= product._id %>')">
+                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                </div><!-- End .product-action-vertical -->
+
+                                <div class="product-action" onclick="addToCart('<%= value._id %>')">
+                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                </div><!-- End .product-action -->
+                            </figure><!-- End .product-media -->
+
+                            <div class="product-body">
+                                <div class="product-cat">
+                                    <a href="#"><%= value.categoryName.name %></a>
+                                </div><!-- End .product-cat -->
+                                <h3 class="product-title"><a href="/product?productDetails=<%= value._id %>"><%= value.name %></a></h3><!-- End .product-title -->
+                                <div class="product-price">
+                                    <% if(value.offer>0) {%>
+                                        <span class="new-price">₹<%= value.finalPrice %></span>
+                                        <span class="old-price">₹<%= value.price %></span>
+                                    <%}else{%>
+                                        ₹<%= value.price %>
+                                    <%}%>
+                                </div><!-- End .product-price -->
+                            </div><!-- End .product-body -->
+                        </div><!-- End .product -->
+                    <% }) %>
+                <% } %>
+                </div><!-- End .owl-carousel -->
+                    
+
+            </div><!-- End .container -->
+        </div><!-- End .page-content -->
+    </main><!-- End .main -->
+
+    <footer class="footer footer-2">
+        <div class="footer-middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="widget widget-about">
+                            <h3 class="footer-logo" width="82" height="25">TUNGSTEN</h3>
+                            <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. </p>
+                            
+                            <div class="widget-about-info">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <span class="widget-about-title">Got Question? Call us 24/7</span>
+                                        <a href="tel:123456789">+0123 456 789</a>
+                                    </div><!-- End .col-sm-6 -->
+                                    <div class="col-sm-6 col-md-8">
+                                        <span class="widget-about-title">Payment Method</span>
+                                        <figure class="footer-payments">
+                                            <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                                        </figure><!-- End .footer-payments -->
+                                    </div><!-- End .col-sm-6 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .widget-about-info -->
+                        </div><!-- End .widget about-widget -->
+                    </div><!-- End .col-sm-12 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">Information</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="about.html">About Molla</a></li>
+                                <li><a href="#">How to shop on Molla</a></li>
+                                <li><a href="faq.html">FAQ</a></li>
+                                <li><a href="contact.html">Contact us</a></li>
+                                <li><a href="login.html">Log in</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-4 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="#">Payment Methods</a></li>
+                                <li><a href="#">Money-back guarantee!</a></li>
+                                <li><a href="#">Returns</a></li>
+                                <li><a href="#">Shipping</a></li>
+                                <li><a href="#">Terms and conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-4 col-lg-3 -->
+    
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="widget">
+                            <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+    
+                            <ul class="widget-list">
+                                <li><a href="#">Sign In</a></li>
+                                <li><a href="cart.html">View Cart</a></li>
+                                <li><a href="#">My Wishlist</a></li>
+                                <li><a href="#">Track My Order</a></li>
+                                <li><a href="#">Help</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-64 col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-middle -->
+    
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="footer-copyright">Copyright © 2019 TUNGSTEN Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+                <ul class="footer-menu">
+                    <li><a href="#">Terms Of Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul><!-- End .footer-menu -->
+    
+                <div class="social-icons social-icons-color">
+                    <span class="social-label">Social Media</span>
+                    <a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                    <a href="#" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                    <a href="#" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                    <a href="#" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+                    <a href="#" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                </div><!-- End .soial-icons -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-bottom -->
+    </footer><!-- End .footer -->
+</div><!-- End .page-wrapper -->
+<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+<!-- Sticky Bar -->
+<div class="sticky-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <figure class="product-media">
+                    <a >
+                        <img src="/productImages/<%= product.images[0] %>" alt="Product image">
+                    </a>
+                </figure><!-- End .product-media -->
+                <h4 class="product-title"><a ><%=product.name%></a></h4><!-- End .product-title -->
+            </div><!-- End .col-6 -->
+
+            <div class="col-6 justify-content-end">
+                <div class="product-price">
+                    <% if(product.quantity==0){ %>
+                        <span style="background-color: #eb4c4c; border-radius: 10px; color: white; padding: .3em; margin-right: .5em; font-size: small;">OUT OF STOCK</span>
+                        ₹<%= product.price %>
+                    <%} else if(product.offer>0) {%>
+                        <span style="background-color: #67b12e; border-radius: 10px; color: white; padding: .25em; margin-right: .5em; font-size: medium;"><%= product.offer %>%</span>
+                        <span class="old-price" style="margin-right: .5em;">₹<%= product.price %></span>
+                        <span class="new-price">₹<%= product.finalPrice %></span>
+                    <%}else{%>
+                        ₹<%= product.price %>
+                    <%}%>
+                </div><!-- End .product-price -->
+                <!-- <div class="product-details-quantity">
+                   < <input type="number" id="sticky-cart-qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
+                </div>End .product-details-quantity -->
+
+                <!-- <div class="product-details-action"> -->
+                <div class="d-flex">
+                    <% if(product.quantity == 0) {%>
+                        <button class="btn btn-block btn-outline-primary-2 disabled mt-1" style="border-radius: 10px; border: 1px solid #bcbcbc; background-color: #dfdfdf; color: #aaaaaa; height: 3em;" onclick="addToCart('<%= product._id %>')"><i class="icon-cart-plus"></i>Add to Cart</button>
+                    <% }else{ %>
+                        <button class="btn btn-block btn-outline-primary-2 mt-1" style="border-radius: 10px; height: 3em;" onclick="addToCart('<%= product._id %>')"><i class="icon-cart-plus"></i>Add to Cart</button>
+                    <% } %>
+                    <a onclick="addToWishlist('<%= product._id %>')" class="ml-4 btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
+                </div>
+                <!-- </div>End .product-details-action -->
+
+            </div><!-- End .col-6 -->
+        </div><!-- End .row -->
+    </div><!-- End .container -->
+</div><!-- End .sticky-bar -->
+
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+<%- include('../layouts/mobileView.ejs') %>
+
+<!-- Sign in / Register Modal -->
+<div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="icon-close"></i></span>
+                </button>
+
+                <div class="form-box">
+                    <div class="form-tab">
+                        <ul class="nav nav-pills nav-fill" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="tab-content-5">
+                            <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <label for="singin-email">Username or email address *</label>
+                                        <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="singin-password">Password *</label>
+                                        <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>LOG IN</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="signin-remember">
+                                            <label class="custom-control-label" for="signin-remember">Remember Me</label>
+                                        </div><!-- End .custom-checkbox -->
+
+                                        <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <label for="register-email">Your email address *</label>
+                                        <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-password">Password *</label>
+                                        <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>SIGN UP</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="register-policy" required>
+                                            <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
+                                        </div><!-- End .custom-checkbox -->
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login  btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .modal-body -->
+        </div><!-- End .modal-content -->
+    </div><!-- End .modal-dialog -->
+</div><!-- End .modal -->
+<%- include('../layouts/footer.ejs') %>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<!-- add to cart fucntionality -->
+<script>
+    function addToCart(productId){
+        const size = document.getElementById('size').value
+        if(size == '#'){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Please select a size',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }else{
+            const quantity = 1
+        fetch('/addCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productId, quantity,size })
+        })
+        .then(response => response.json())
+        .then(data=>{
+            if(data.success){
+                Swal.fire({
+                    icon : 'success',
+                    title : 'Success',
+                    text : 'Product added successfully',
+                    showConfirmButton :false,
+                    timer : 1500
+                })
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: data.error || 'Product is already existing.',
+                    showConfirmButton: true,
+                    timer: 3000
+                });
+            }
+        })
+        }
+    }
+</script>
+<script>
+    function addToWishlist(productId) {
+        console.log(productId);
+        axios.post('/addToWishlist', {
+            productId: productId
+        })
+        .then(response => {
+            if (response.data.success) {
+
+                let wishCount = document.getElementById('wishCount')
+                wishCount.textContent = parseInt(wishCount.textContent)+1
+
+                console.log('success');
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Added to wishlist successfully!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: response.data.error || 'Product already existing...',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'An error occurred',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        });
+    }
+</script>
+
+<script>
+    function share(productId) {
+        console.log('coming');
+        if (navigator.share) {
+            try {
+                navigator.share({
+                    title: 'Check this out!',
+                    text: 'I found this interesting link for you.',
+                    url: 'http://'+productId
+                });
+                console.log('Link shared successfully');
+            } catch (error) {
+                console.error('Error sharing the link:', error);
+            }
+        } else {
+            console.log('Web Share API is not supported in this browser.');
+            alert('Sharing is not supported in this browser.');
+        }
+    }
+</script>
