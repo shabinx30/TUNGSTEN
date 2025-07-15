@@ -31,11 +31,8 @@ app.get("*", (_, res) => {
   res.render('404page')
 });
 
-const os = require('os')
-
 let PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
   console.log(`Server is running on http://localhost:${PORT}/admin`);
-  console.log(os.networkInterfaces())
 });
