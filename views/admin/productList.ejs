@@ -125,8 +125,7 @@
                                             <tr>
                                                 <td><%= product.name %></td>
                                                 <td>
-                                                   <% console.log( product)%>
-                                                    <img style="height: 50px; width: 50px; border: 2px solid #000; border-radius: 10px; cursor: pointer;" src="/productImages/<%= product.images[0] %>" alt="<%= product.name %> main image" class="img-fluid" data-toggle="modal" data-target="#modal-<%= index %>">
+                                                    <img style="height: 50px; width: 50px; border: 2px solid #000; border-radius: 10px; cursor: pointer;" src="<%= product.images[0] %>" alt="<%= product.name %> main image" class="img-fluid" data-toggle="modal" data-target="#modal-<%= index %>">
                                                     
                                                 </td>
                                                 <td>₹<%= product.price %></td>
@@ -158,7 +157,7 @@
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                   <div class="modal-content p-4" style="border-radius: 20px;">
     
-                                                    <img style="width: 100%;" src="/productImages/<%= product.images[0] %>" alt="<%= product.name %> main image" class="img-fluid" >
+                                                    <img style="width: 100%;" src="<%= product.images[0] %>" alt="<%= product.name %> main image" class="img-fluid" >
     
                                                     <div class="modal-footer mx-auto">
                                                       <button type="button" class="btn btn-primary" data-dismiss="modal" style="border-radius: 10px;">

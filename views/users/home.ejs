@@ -421,11 +421,11 @@
         
                                             <a href="/product?productDetails=<%= product._id %>">
                                                 <% if(quantity == 0) {%>
-                                                    <img src="/productImages/<%= product.images[0] %>" alt="Product image" class="product-image" style="filter: saturate(0); object-fit: cover;max-height:280px;">
-                                                    <img src="/productImages/<%= product.images[1]?product.images[1]:product.images[0] %>" alt="Product image" class="product-image-hover" style="filter: saturate(0); object-fit: cover;max-height:280px;">
+                                                    <img src="<%= product.images[0] %>" alt="Product image" class="product-image" style="filter: saturate(0); object-fit: cover;max-height:280px;">
+                                                    <img src="<%= product.images[1]?product.images[1]:product.images[0] %>" alt="Product image" class="product-image-hover" style="filter: saturate(0); object-fit: cover;max-height:280px;">
                                                 <% }else{ %>
-                                                    <img src="/productImages/<%= product.images[0] %>" alt="Product image" class="product-image" style="object-fit: cover;max-height:280px;">
-                                                    <img src="/productImages/<%= product.images[1]?product.images[1]:product.images[0] %>" alt="Product image" class="product-image-hover" style="object-fit: cover;max-height:280px;">
+                                                    <img src="<%= product.images[0] %>" alt="Product image" class="product-image" style="object-fit: cover;max-height:280px;">
+                                                    <img src="<%= product.images[1]?product.images[1]:product.images[0] %>" alt="Product image" class="product-image-hover" style="object-fit: cover;max-height:280px;">
                                                 <% } %>
                                             </a>
     
@@ -946,13 +946,13 @@
 </script>
 <script>
     function addToWishlist(productId) {
-        console.log(productId);
+        // console.log(productId);
         axios.post('/addToWishlist', {
             productId: productId
         })
         .then(response => {
             if (response.data.success) {
-                console.log('success');
+                // console.log('success');
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

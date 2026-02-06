@@ -199,9 +199,9 @@
                                             <% order.orderedProducts.forEach((product,index)=>{ %>
                                                 <div class="d-flex w-100 <%=product.status=='cancelled'?'product-media':''%>" style="margin-bottom: 10px; border: 1px solid #c2c2c2; padding: 1em; border-radius: 10px;">
                                                     <% if(product.status!='cancelled'){ %>
-                                                        <img class="text-left" src="/productImages/<%= product.productId.images[0] %>" alt="image" style="width: 50px; height: 50px;">
+                                                        <img class="text-left" src="<%= product.productId.images[0] %>" alt="image" style="width: 50px; height: 50px;">
                                                     <%}else{%>
-                                                        <img class="text-left" src="/productImages/<%= product.productId.images[0] %>" alt="image" style="width: 50px; height: 50px; filter: saturate(0);">
+                                                        <img class="text-left" src="<%= product.productId.images[0] %>" alt="image" style="width: 50px; height: 50px; filter: saturate(0);">
                                                     <%}%>
                                                     <p class="pl-3 mx-auto" id="order_name_<%= product.productId._id %>" style="margin-top: auto; margin-bottom: auto;"><%=product.productId.name%></p>
                                                     <% if(product.status!='cancelled'){ %>
@@ -291,7 +291,7 @@
                                                       <p class="mb-3"><strong style="color: black;">Order Id: </strong><%= order.orderId %> </p>
                                                       <% order.orderedProducts.forEach(product => { %>
                                                         <div class="row">
-                                                          <img class="mb-2" src="/productImages/<%= product.productId.images[0] %>" alt="no image" style="width: 50px; height: 50px; border-radius: 5px; border: 1px solid black;">
+                                                          <img class="mb-2" src="<%= product.productId.images[0] %>" alt="no image" style="width: 50px; height: 50px; border-radius: 5px; border: 1px solid black;">
                                                           <div class="d-block ml-3">
                                                             <p><strong style="color: black;">Name: </strong><%= product.productId.name %> <br>
                                                               <strong style="color: black;">Price: </strong><%= product.productId.price %>
