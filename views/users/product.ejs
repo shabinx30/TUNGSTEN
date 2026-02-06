@@ -157,7 +157,7 @@
                             <div class="product-gallery product-gallery-vertical">
                                 <div class="row">
                                     <figure class="product-main-image">
-                                        <img id="product-zoom" src="/productImages/<%= product.images[0] %>" data-zoom-image="/productImages/<%= product.images[0] %>" alt="product image">
+                                        <img id="product-zoom" src="<%= product.images[0] %>" data-zoom-image="<%= product.images[0] %>" alt="product image">
 
                                         <a href="#" id="btn-product-gallery" class="btn-product-gallery">
                                             <i class="icon-arrows"></i>
@@ -167,8 +167,8 @@
                                     <div id="product-zoom-gallery" class="product-image-gallery" >
                                         <% if(product.images.length>1) { %>
                                             <% for(let i=0;i< product.images.length;i++) { %>
-                                                <a class="product-gallery-item <%=i==0? 'active':''%>" href="#" style="height: 7.6em;" data-image="/productImages/<%= product.images[i] %>" data-zoom-image="/productImages/<%= product.images[i] %>">
-                                                    <img src="/productImages/<%= product.images[i] %>" alt="product side">
+                                                <a class="product-gallery-item <%=i==0? 'active':''%>" href="#" style="height: 7.6em;" data-image="<%= product.images[i] %>" data-zoom-image="<%= product.images[i] %>">
+                                                    <img src="<%= product.images[i] %>" alt="product side">
                                                 </a>
                                             <%}%>
                                         <%}%>
@@ -358,11 +358,11 @@
 
                                     <a href="/product?productDetails=<%= value._id %>">
                                         <% if(quantity == 0) {%>
-                                            <img src="/productImages/<%= value.images[0] %>" alt="Product image" class="product-image" style="filter: saturate(0); object-fit: cover;max-height:280px;">
-                                            <img src="/productImages/<%= value.images[1]?value.images[1]:value.images[0] %>" alt="Product image" class="product-image-hover" style="filter: saturate(0); object-fit: cover;max-height:280px;">
+                                            <img src="<%= value.images[0] %>" alt="Product image" class="product-image" style="filter: saturate(0); object-fit: cover;max-height:280px;">
+                                            <img src="<%= value.images[1]?value.images[1]:value.images[0] %>" alt="Product image" class="product-image-hover" style="filter: saturate(0); object-fit: cover;max-height:280px;">
                                         <% }else{ %>
-                                            <img src="/productImages/<%= value.images[0] %>" alt="Product image" class="product-image" style="object-fit: cover;max-height:280px;">
-                                            <img src="/productImages/<%= value.images[1]?value.images[1]:value.images[0] %>" alt="Product image" class="product-image-hover" style="object-fit: cover;max-height:280px;">
+                                            <img src="<%= value.images[0] %>" alt="Product image" class="product-image" style="object-fit: cover;max-height:280px;">
+                                            <img src="<%= value.images[1]?value.images[1]:value.images[0] %>" alt="Product image" class="product-image-hover" style="object-fit: cover;max-height:280px;">
                                         <% } %>
                                     </a>
 
@@ -500,7 +500,7 @@
             <div class="col-6">
                 <figure class="product-media">
                     <a >
-                        <img src="/productImages/<%= product.images[0] %>" alt="Product image">
+                        <img src="<%= product.images[0] %>" alt="Product image">
                     </a>
                 </figure><!-- End .product-media -->
                 <h4 class="product-title"><a ><%=product.name%></a></h4><!-- End .product-title -->
