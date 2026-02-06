@@ -1,7 +1,6 @@
 const isLogin = async (req,res,next)=>{
     try {
         if(req.session.admin){
-            console.log("req from middle ware", req.body)
             next();
         }else{
             res.redirect('/admin/')
